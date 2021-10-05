@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Ourdoctors=({our_doctors})=>{
     return(
-        <Container className="mt-5">
+        <Container id="OurDoctors" className="mt-5">
             <h1 className="text-center text-danger">Our Doctors</h1>
             <Row className="mt-3 d-flex justify-content-center">
                 {our_doctors.map((item,id_name)=>{

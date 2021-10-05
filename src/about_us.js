@@ -5,7 +5,7 @@ import { Col, Container, Row } from "reactstrap";
 
 const Aboutus=({aboutus})=>{
     return(
-        <Container className="py-5">
+        <Container id="AboutUs" className="py-5">
             <Row>
                 <Col xs={12}  md={6} >
                     <h2 id="aboutus">About Us</h2>

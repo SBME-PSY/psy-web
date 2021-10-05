@@ -5,7 +5,7 @@ import { Container, Row , Col } from "reactstrap";
 
 const Feedback=({clients_feedback})=>{
     return(
-        <Container className="py-5 my-5">
+        <Container id="Feedback" className="py-5 my-5">
             <h1 className="text-danger text-center mb-5">Users feedback</h1>
             <Row className="mt-3 d-flex justify-content-center">
             {clients_feedback.map((item)=>{

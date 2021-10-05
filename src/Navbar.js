@@ -26,22 +26,19 @@ const Navigation = (props) => {
             <Collapse isOpen={isOpen} navbar>
             <Nav id='nav' className="px-2" navbar>
                 <NavItem>
-                <NavLink className=" fs-6" href="/">About the app</NavLink>
+                 <NavLink className="fs-6" onClick={()=> window.location.replace("/#Features")}>About the app</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink className="fs-6" href="https://github.com/reactstrap/reactstrap">About Us</NavLink>
+                  <NavLink className="fs-6" onClick={()=>window.location.replace("/#AboutUs")} >About Us</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink className="fs-6" href="https://github.com/reactstrap/reactstrap">Our Doctors</NavLink>
+                  <NavLink className="fs-6" onClick={()=>window.location.replace("/#Download")}>Download</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink className="fs-6" href="https://github.com/reactstrap/reactstrap">FeedBack</NavLink>
+                  <NavLink className="fs-6" onClick={()=>window.location.replace("/#OurDoctors")}>Our Doctors</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink className="fs-6" href="https://github.com/reactstrap/reactstrap">Download</NavLink>
-                </NavItem>
-                <NavItem>
-                <NavLink className="fs-6" href="https://github.com/reactstrap/reactstrap">Contact Us</NavLink>
+                  <NavLink className="fs-6" onClick={()=>window.location.replace("/#Feedback")}>FeedBack</NavLink>
                 </NavItem>
             </Nav>
             </Collapse>

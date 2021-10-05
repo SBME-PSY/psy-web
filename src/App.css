@@ -8,8 +8,13 @@
   font-family: 'Rancho', cursive;
   font-size: 10vmin;
 }
-#brand,#aboutus{
+#aboutus{
   font-size: 2.5rem;
+  margin-left: 0.5rem;
+  font-family: 'Rancho', cursive;
+}
+#brand{
+  font-size: x-large;
   margin-left: 0.5rem;
   font-family: 'Rancho', cursive;
 }
@@ -54,9 +59,9 @@ header{
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: center;
   border-radius: 50px;
-  height: 700px;
+  height: 600px;
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
   -ms-border-radius: 50px;
@@ -106,4 +111,15 @@ header{
 }
 #doctors-odd{
   background-color: #61D095;
+}
+#client-feedback{
+  background-color: #FED776;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  width: 400px;
+  border-bottom-right-radius: 50px;
+  border-top-left-radius: 50px;
 }

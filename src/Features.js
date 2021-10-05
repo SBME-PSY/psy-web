@@ -7,7 +7,7 @@ import { Col, Container, Row } from "reactstrap";
 
 const Features=({features})=>{
     return(
-        <Container className="py-5">
+        <Container className="my-5">
             <h1 id="feature-header" className="text-center mb-5">Through Psy-Awareness You can do the following:</h1>
             <Row className="mt-5 d-flex justify-content-center">
             {features.map((item,id_name,color_class)=> {

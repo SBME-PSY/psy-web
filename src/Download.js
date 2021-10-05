@@ -5,7 +5,7 @@ import { Container , Col, Row} from "reactstrap";
 
 const Download = ({mobile_app,google_play,app_store})=>{
     return(
-        <Container className="mt-5">
+        <Container className="py-5">
             <Row>
                 <Col xs={12} className="my-5" md={6} >
                     <img width="100%" src={mobile_app} alt="a person looking at a giant phone"></img>

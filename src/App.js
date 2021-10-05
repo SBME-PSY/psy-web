@@ -15,6 +15,7 @@ import Download from './Download';
 import google_play from './assets/Img/google-play-badge.png';
 import app_store from './assets/Img/Download-on-the-App-Store-01.png';
 import Ourdoctors from './Our_Doctors';
+import Feedback from './Feedback';
 
 
 const our_doctors = [
@@ -47,8 +48,8 @@ const features = [
       "id":1,
   },
   {
-      "imagesrc":online_test,
-      "caption": "Take 2 types of tests, One made by AI, the other by our doctors. Which will give you an Initial diagnosis.",
+      "imagesrc":doctors,
+      "caption": "Doctors follow up and medicine prescribtions",
       "id":2,
   },
   {
@@ -57,21 +58,44 @@ const features = [
       "id":3
   },
   {
-      "imagesrc":doctors,
-      "caption":"Doctors follow up and medicine prescribtions",
+      "imagesrc":online_test,
+      "caption":"Take 2 types of tests, One made by AI, the other by our doctors. Which will give you an Initial diagnosis.",
       "id":4
-  },
-  {
-      "imagesrc":online_article,
-      "caption":"Read Articles Made by our Doctors to help you understand more about yourself",
-      "id":5
   },
   {
       "imagesrc":todo,
       "caption":"Add your all of  your monthly routines and track them",
+      "id":5
+  },
+  {
+      "imagesrc":online_article ,
+      "caption":"Read Articles Made by our Doctors to help you understand more about yourself",
       "id":6
   },
 ];
+
+const clients_feedback = [
+  {
+    "feedback":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, ",
+    "name":"user 1",
+    "id":1
+  },
+  {
+    "feedback":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, ",
+    "name":"user 2",
+    "id":2
+  },
+  {
+    "feedback":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, ",
+    "name":"user 3",
+    "id":3
+  },
+  {
+    "feedback":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, ",
+    "name":"user 4",
+    "id":4
+  }
+]
 
 function App() {
   return (
@@ -82,6 +106,7 @@ function App() {
       <Aboutus aboutus={aboutus}/>
       <Download mobile_app={mobile_app} google_play={google_play} app_store={app_store} />
       <Ourdoctors our_doctors={our_doctors}/>
+      <Feedback clients_feedback={clients_feedback}/>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Container, Row } from "reactstrap";
 import { faInstagram , faTwitter , faFacebook , faLinkedin} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 
 const Footer=({google_play,app_store})=>{
@@ -11,11 +12,12 @@ const Footer=({google_play,app_store})=>{
         <footer className="mt-5">
             <Container>
             <Row className="py-5">
+
                 <Col xs={12} md={6} className="py-3 px-5"  lg={4}>
                     <ul>
-                        <li className='fs-3 my-3'><a href="/" className="text-decoration-none text-white" >Terms and Conditions</a></li>
-                        <li  className='fs-3 my-3'><a href="/" className="text-decoration-none text-white">Privecy and Policy</a></li>
-                        <li  className='fs-3 my-3'><a href="/"className="text-decoration-none text-white" >Contact Us</a></li>
+                        <li className='fs-3 my-3'><Link className="text-decoration-none text-white" to="/Termsandconditions">Terms and Conditions</Link></li>
+                        <li  className='fs-3 my-3'><Link className="text-decoration-none text-white" to='/Privacyandpolicy'>Privecy and Policy</Link></li>
+                        <li  className='fs-3 my-3'><Link className="text-decoration-none text-white" to="/Contact">Contact Us</Link></li>
                     </ul>
                 </Col>
                 <Col xs={12} md={6} className="px-5 py-3"  lg={4}>

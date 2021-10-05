@@ -1,11 +1,11 @@
 import React from "react"
-import './App.css';
+import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
 import { Link } from "react-router-dom";
 import { faArrowLeft , faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import contactus from './assets/Img/undraw_contact_us_15o2.svg';
+import contactus from '../assets/Img/undraw_contact_us_15o2.svg';
 import emailjs from 'emailjs-com';
 
 const sendEmail = (e) => {

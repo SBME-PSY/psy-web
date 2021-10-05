@@ -9,7 +9,7 @@ import {
   NavLink,
   Container,
 } from 'reactstrap';
-import './App.css';
+import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Navigation = (props) => {

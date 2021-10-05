@@ -2,9 +2,9 @@ import React from "react"
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from "./Home";
-import Contact from "./Contactus";
-import Administrator from "./Admin";
+import Contact from "./Screens/Contactus"
+import Administrator from "./Screens/Admin";
+import Home from "./Screens/Home";
 
 function App(){
   return(

@@ -1,22 +1,22 @@
-import Aboutus from './about_us';
-import './App.css';
-import Features from './Features';
-import Header from './Header';
-import Navigation from './Navbar';
-import therapy from './assets/Img/undraw_Group_chat_re_frmo.svg';
-import online_test from './assets/Img/undraw_online_test_gba7.svg';
-import meeting from './assets/Img/undraw_schedule_meeting_52nu.svg';
-import doctors from './assets/Img/undraw_doctors_hwty.svg';
-import online_article from './assets/Img/undraw_Online_article_re_daq5.svg';
-import todo from './assets/Img/undraw_To_do_list_re_9nt7.svg';
-import aboutus from './assets/Img/undraw_About_us_page_re_2jfm.svg';
-import mobile_app from './assets/Img/undraw_Mobile_app_re_catg.svg';
-import Download from './Download';
-import google_play from './assets/Img/google-play-badge.png';
-import app_store from './assets/Img/Download-on-the-App-Store-01.png';
-import Ourdoctors from './Our_Doctors';
-import Feedback from './Feedback';
-import Footer from './Footer';
+import Aboutus from '../Components&sections/about_us';
+import '../App.css';
+import Features from '../Components&sections/Features';
+import Header from '../Components&sections/Header';
+import Navigation from '../Components&sections/Navbar';
+import therapy from '../assets/Img/undraw_Group_chat_re_frmo.svg';
+import online_test from '../assets/Img/undraw_online_test_gba7.svg';
+import meeting from '../assets/Img/undraw_schedule_meeting_52nu.svg';
+import doctors from '../assets/Img/undraw_doctors_hwty.svg';
+import online_article from '../assets/Img/undraw_Online_article_re_daq5.svg';
+import todo from '../assets/Img/undraw_To_do_list_re_9nt7.svg';
+import aboutus from '../assets/Img/undraw_About_us_page_re_2jfm.svg';
+import mobile_app from '../assets/Img/undraw_Mobile_app_re_catg.svg';
+import Download from '../Components&sections/Download';
+import google_play from '../assets/Img/google-play-badge.png';
+import app_store from '../assets/Img/Download-on-the-App-Store-01.png';
+import Ourdoctors from '../Components&sections/Our_Doctors';
+import Feedback from '../Components&sections/Feedback';
+import Footer from '../Components&sections/Footer';
 
 
 const our_doctors = [

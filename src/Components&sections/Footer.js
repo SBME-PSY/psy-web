@@ -1,5 +1,5 @@
 import React from "react"
-import './App.css';
+import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Container, Row } from "reactstrap";
 import { faInstagram , faTwitter , faFacebook , faLinkedin} from "@fortawesome/free-brands-svg-icons";

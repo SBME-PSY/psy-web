@@ -16,6 +16,30 @@ import google_play from './assets/Img/google-play-badge.png';
 import app_store from './assets/Img/Download-on-the-App-Store-01.png';
 import Ourdoctors from './Our_Doctors';
 
+
+const our_doctors = [
+  {
+      "name": "John Doe",
+      "specialization": "Specialized in Depression",
+      "id":1
+  },
+  {
+      "name": "Jane Doe",
+      "specialization": "Specialized in Communication Disorders",
+      "id":2
+  },
+  {
+      "name": "Ahmed Galal",
+      "specialization": "Specialized in Eating Disorders",
+      "id":3
+  },
+  {
+      "name": "Ahmed Essam Amir",
+      "specialization": "Specialized in Personality Disorders",
+      "id":4
+  },
+];
+
 const features = [
   {
       "imagesrc":  therapy,
@@ -57,7 +81,7 @@ function App() {
       <Features features={features}/>
       <Aboutus aboutus={aboutus}/>
       <Download mobile_app={mobile_app} google_play={google_play} app_store={app_store} />
-      <Ourdoctors/>
+      <Ourdoctors our_doctors={our_doctors}/>
     </div>
   );
 }

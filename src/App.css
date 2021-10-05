@@ -96,23 +96,14 @@ header{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 50px;
-  height: 100px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
-  -ms-border-radius: 50px;
-  -o-border-radius: 50px;
+  height: 300px;
   width: 400px;
+  border-bottom-right-radius: 50px;
+  border-top-left-radius: 50px;
 }
-#doctor-odd{
+#doctors-even{
   background-color: #385898;
-
 }
-#doctor-even{
+#doctors-odd{
   background-color: #61D095;
-}
-#fontawsome{
-  margin-left: 40%;
-  margin-top: 5%;
-  margin-bottom: 2%;
 }

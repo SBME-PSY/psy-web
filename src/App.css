@@ -30,6 +30,7 @@
   background-color: rgba(0, 0, 0, 0.3);
   border-bottom-right-radius: 50px;
   display: flex;
+  height: 85vmin;
   padding-top: 30%;
   padding-bottom: 5%;
   flex-direction: column;
@@ -50,6 +51,7 @@ ul{
 }
 header{
   width: 100%;
+  height: 85vmin;
   background: url('./assets/Img/Therapy_Session.jpeg'); 
   background-repeat: no-repeat;
   background-position: center center;

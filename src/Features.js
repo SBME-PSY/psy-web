@@ -12,7 +12,7 @@ const Features=({features})=>{
     return(
         
         <Container id="Features" className="my-5">
-            <Button className="btn btn-primary rounded-pill m-5 position-fixed bottom-0 end-0"><Link className="text-decoration-none text-white" to="/src/Contactus.js" target="_blank" rel="noopener noreferrer">Contact Us <FontAwesomeIcon icon={faMailBulk}/></Link></Button>
+            <Button className="btn px-3 btn-success rounded-pill m-5 position-fixed bottom-0 end-0"><Link className="fs-5 text-decoration-none text-white" to="/Contact" target="_blank" rel="noopener noreferrer">Contact Us <FontAwesomeIcon icon={faMailBulk}/></Link></Button>
             <h1 id="feature-header" className="text-center mb-5">Through Psy-Awareness You can do the following:</h1>
             <Row className="mt-5 d-flex justify-content-center">
             {features.map((item,id_name,color_class)=> {

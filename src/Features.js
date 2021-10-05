@@ -20,7 +20,7 @@ const Features=({features})=>{
                     id_name = "feature-odd";
                 };
                 return(
-                <Col xs={12} md={6} lg={4} key={item.id} id={id_name} className="mt-4 mx-3">
+                <Col xs={12} md={6} lg={4} key={item.id} id={id_name} className="mt-4 mx-1">
                     <img width="250px" height="200px" className="mt-5" src={item.imagesrc} alt='group text chat'></img>
                     <p width="40%" className={color_class.concat(" text-center pt-5 mt-5")} >{item.caption}</p>
                 </Col>

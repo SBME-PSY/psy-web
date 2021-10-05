@@ -14,7 +14,7 @@ const Aboutus=({aboutus})=>{
                     </p>
                 </Col>
                 <Col xs={12}  md={6}>
-                    <img width="100%" src={aboutus} alt="list of fictional employees"></img>
+                    <img width="100%" height="100%" src={aboutus} alt="list of fictional employees"></img>
                 </Col>
             </Row>
         </Container>

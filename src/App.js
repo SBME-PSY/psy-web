@@ -16,6 +16,7 @@ import google_play from './assets/Img/google-play-badge.png';
 import app_store from './assets/Img/Download-on-the-App-Store-01.png';
 import Ourdoctors from './Our_Doctors';
 import Feedback from './Feedback';
+import Footer from './Footer';
 
 
 const our_doctors = [
@@ -107,6 +108,7 @@ function App() {
       <Download mobile_app={mobile_app} google_play={google_play} app_store={app_store} />
       <Ourdoctors our_doctors={our_doctors}/>
       <Feedback clients_feedback={clients_feedback}/>
+      <Footer google_play={google_play} app_store={app_store}/>
     </div>
   );
 }

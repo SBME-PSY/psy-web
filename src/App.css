@@ -18,6 +18,11 @@
   margin-left: 0.5rem;
   font-family: 'Rancho', cursive;
 }
+#company-name-footer{
+  font-size: x-large;
+  margin-left: 2.5rem;
+  font-family: 'Rancho', cursive;
+}
 #aboutus,#download-app{
   color:#D62828;
 }
@@ -30,6 +35,9 @@
   flex-direction: column;
   align-items: center;
   justify-items: center ;
+}
+ul{
+  list-style: none;
 }
 #nav{
   margin-left: auto;
@@ -120,6 +128,17 @@ header{
   justify-content: center;
   height: 300px;
   width: 400px;
-  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
+footer{
+  background-color: #385898;
   border-top-left-radius: 50px;
+  width: 100%;
+}
+footer a{
+  opacity: 0.8;
+}
+footer a:hover{
+  opacity: 1;
 }

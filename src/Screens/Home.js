@@ -49,13 +49,13 @@ const features = [
       "id":1,
   },
   {
-      "imagesrc":doctors,
-      "caption": "Doctors follow up and medicine prescribtions",
+      "imagesrc":meeting,
+      "caption": "Book a Doctor Appointment",
       "id":2,
   },
   {
-      "imagesrc":meeting,
-      "caption":"Book a Doctor Appointment",
+      "imagesrc":doctors,
+      "caption":"Doctors follow up and medicine prescribtions",
       "id":3
   },
   {

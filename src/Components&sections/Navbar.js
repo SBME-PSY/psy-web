@@ -14,9 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Navigation = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
-
   return (
     <div>
       <Navbar id="navbar"  color="light" className="fixed-top shadow-lg" light expand="md">

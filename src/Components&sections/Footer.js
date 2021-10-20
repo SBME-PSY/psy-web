@@ -12,7 +12,6 @@ const Footer=({google_play,app_store})=>{
         <footer className="mt-5">
             <Container>
             <Row className="py-5">
-
                 <Col xs={12} md={6} className="py-3 px-5"  lg={4}>
                     <ul>
                         <li className='fs-3 my-3'><Link className="text-decoration-none text-white" to="/Termsandconditions">Terms and Conditions</Link></li>

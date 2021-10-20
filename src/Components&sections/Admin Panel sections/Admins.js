@@ -1,12 +1,11 @@
-import React from 'react';
+import React  from 'react';
 import { Container } from 'reactstrap';
-
-const Viewadmins = () => {
+const Admins = (props) => {
     return (
         <Container className="mt-5">
-            <h1>View Admins</h1>
+            <h1>Admins</h1>
         </Container>
     )
 }
 
-export default Viewadmins;
+export default Admins;

@@ -1,15 +1,14 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faArrowUp, faUserMd, faUserPlus, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faArrowUp, faUserMd, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 export const SidebarData = [
+
     {
-      title: 'View & Edit Admins',
-      path: '/Admin/viewadmins',
-      icon: <FontAwesomeIcon icon={faUserPlus} />,
-      iconClosed: <FontAwesomeIcon icon={faArrowDown} />,
-      iconOpened: <FontAwesomeIcon icon={faArrowUp} />,
+      title: 'View & Edit Professionals',
+      path: '/Admin/professionals',
+      icon: <FontAwesomeIcon icon={faUserMd} />
     },
     {
       title: 'View & Edit Users',
@@ -17,11 +16,6 @@ export const SidebarData = [
       icon: <FontAwesomeIcon icon={faUsers} />,
       iconClosed: <FontAwesomeIcon icon={faArrowDown} />,
       iconOpened: <FontAwesomeIcon icon={faArrowUp} />,
-    },
-    {
-      title: 'View & Edit Professionals',
-      path: '/Admin/professionals',
-      icon: <FontAwesomeIcon icon={faUserMd} />
     },
     // {
     //   title: 'Team',

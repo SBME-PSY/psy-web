@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes, faUserAlt} from '@fortawesome/free-solid-svg-icons';
+import { faBars, faSignOutAlt, faTimes, faUserAlt} from '@fortawesome/free-solid-svg-icons';
 import Submenu from './SubMenu';
 import {SidebarData} from './SidebarData';
 
@@ -41,6 +41,7 @@ const SidebarWrap = styled.div`
 `;
 
 const Adminsidebar = () => {
+
     const [sidebar, setSidebar] = useState(false);
     function showSidebar (){
         setSidebar(!sidebar);
@@ -51,7 +52,8 @@ const Adminsidebar = () => {
                 <NavIcon to="#">
                     <FontAwesomeIcon icon={faBars} onClick={showSidebar} />
                 </NavIcon>
-                <Link  className=" text-decoration-none text-white mx-auto mt-2" to='/Admin'><h1 style={{fontFamily:"Rancho,cursive"}}>Psy-Awareness</h1></Link>
+                <Link  className=" text-decoration-none text-white mx-5 mt-2" to='/AdminPanel'><h1 style={{fontFamily:"Rancho,cursive"}}>Psy-Awareness</h1></Link>
+                <Link className='link text-decoration-none text-white mt-2' to='/Admin'>Log-out <FontAwesomeIcon icon={faSignOutAlt} /></Link>
             </Nav>
             <SidebarNav sidebar={sidebar}>
                 <SidebarWrap>

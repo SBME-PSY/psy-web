@@ -3,11 +3,10 @@ import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Adminsidebar from "../Components&sections/Admin Components/sidebar";
 import { BrowserRouter as Router ,Switch,Route} from "react-router-dom";
+import AdminWelcomepage from "../Components&sections/Admin Panel sections/Admin Welcome page";
+import Users from "../Components&sections/Admin Panel sections/Users";
+import Professionals from "../Components&sections/Admin Panel sections/Professionals";
 
-import AdminWelcomepage from "../Components&sections/Admin Pages/Admin Welcome page";
-import Viewadmins from "../Components&sections/Admin Pages/Admins";
-import Users from "../Components&sections/Admin Pages/Users";
-import Professionals from "../Components&sections/Admin Pages/Professionals";
 
 const Administrator=()=>{
     return(
@@ -15,17 +14,14 @@ const Administrator=()=>{
             <Router>
                 <Adminsidebar/>
                 <Switch>
-                    <Route path="/Admin/viewadmins">
-                        <Viewadmins/>
+                    <Route exact path="/AdminPanel">
+                        <AdminWelcomepage/>
                     </Route>
                     <Route path="/Admin/users">
                         <Users/>
                     </Route>
                     <Route path="/Admin/professionals">
                         <Professionals/>
-                    </Route>
-                    <Route path="/Admin">
-                        <AdminWelcomepage/>
                     </Route>
                     {/* <Route path='/reports' exact component={Reports} />
                     <Route path='/reports/reports1' exact component={ReportsOne} />

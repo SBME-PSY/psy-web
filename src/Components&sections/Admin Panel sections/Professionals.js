@@ -63,7 +63,7 @@ const Professionals=()=>{
                           <Col xs="auto">
                               <Button color="primary" onClick={toggle}>View Applications</Button>
                           </Col>
-                          <Modal key={Professional.id} isOpen={modal=== Professional} className='modal-lg'  toggle={toggle}>
+                          <Modal key={Professional.id} isOpen={modal} className='modal-lg'  toggle={toggle}>
                               <ModalHeader toggle={toggle}>Application Info</ModalHeader>
                               <ModalBody >
                                   <Row  ><div className='d-flex flex-row justify-content-center'>{Professional.profile_picture}</div></Row>

@@ -43,27 +43,14 @@ const ProfessionalsData = [{
     certificate_picture: certificate
 }];
 
+
 const Professionals=()=>{
-        
+    const [Professional,setmodal_opject] = useState(null);   
     const [modal, setModal] = useState(false);
-    const toggle = (id) =>setModal(!modal);
+    const toggle = () =>setModal(!modal);
   return (
       <Container className="mt-5">
-          <h1  className=" border-bottom border-2 pb-2 border-dark">Professionals Applications</h1>
-          {ProfessionalsData.map((Professional)=>{
-                  return(
-                      <Row id="application-row" className="my-5 mx-auto justify-content-around align-items-center  py-4 ">
-                          <Col xs={1}>
-                              {Professional.profile_picture}
-                          </Col>
-                          <Col xs={3} >
-                              <h6 className="mt-3">{Professional.name}</h6>
-                              <span className='mt-3'>{Professional.Specialization}</span>
-                          </Col>
-                          <Col xs="auto">
-                              <Button color="primary" onClick={toggle}>View Applications</Button>
-                          </Col>
-                          <Modal key={Professional.id} isOpen={modal} className='modal-lg'  toggle={toggle}>
+         {Professional&& <Modal key={Professional.id} isOpen={modal} className='modal-lg'  toggle={toggle}>
                               <ModalHeader toggle={toggle}>Application Info</ModalHeader>
                               <ModalBody >
                                   <Row  ><div className='d-flex flex-row justify-content-center'>{Professional.profile_picture}</div></Row>
@@ -116,7 +103,25 @@ const Professionals=()=>{
                                   <Button color="success" onClick={toggle}>Accept Application</Button>
                                   <Button color="danger" onClick={toggle}>Reject Application</Button>
                               </ModalFooter>
-                          </Modal>
+                          </Modal>}
+          <h1  className=" border-bottom border-2 pb-2 border-dark">Professionals Applications</h1>
+          {ProfessionalsData.map((Professional)=>{
+                  return(
+                      <Row id="application-row" className="my-5 mx-auto justify-content-around align-items-center  py-4 ">
+                          <Col xs={1}>
+                              {Professional.profile_picture}
+                          </Col>
+                          <Col xs={3} >
+                              <h6 className="mt-3">{Professional.name}</h6>
+                              <span className='mt-3'>{Professional.Specialization}</span>
+                          </Col>
+                          <Col xs="auto">
+                              <Button color="primary" onClick={()=>{
+                                  toggle()
+                                  setmodal_opject(Professional)
+                              }}>View Applications</Button>
+                          </Col>
+                          
                       </Row>
                   )
               })}

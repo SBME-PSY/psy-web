@@ -4,10 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SimpleReactLightbox from 'simple-react-lightbox';
+import axios from "axios";
+
+axios.defaults.baseURL= 'http://127.0.0.1:8000';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SimpleReactLightbox>
+      <App />
+    </SimpleReactLightbox>
   </React.StrictMode>,
   document.getElementById('root')
 );

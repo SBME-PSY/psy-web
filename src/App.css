@@ -195,3 +195,16 @@ footer a:hover{
 .link:hover{
   opacity: 1;
 }
+.shake{
+  animation: shake-animation 4.72s ease infinite;
+  transform-origin: 50% 50%;
+}
+@keyframes shake-animation {
+  0% { transform:translate(0,0) ; -webkit-transform:translate(0,0) ; -moz-transform:translate(0,0) ; -ms-transform:translate(0,0) ; -o-transform:translate(0,0) ; }
+ 1.78571% { transform:translate(0,15px) ; -webkit-transform:translate(0,15px) ; -moz-transform:translate(0,15px) ; -ms-transform:translate(0,15px) ; -o-transform:translate(0,15px) ; }
+ 3.57143% { transform:translate(0,-15px) ; -webkit-transform:translate(0,-15px) ; -moz-transform:translate(0,-15px) ; -ms-transform:translate(0,-15px) ; -o-transform:translate(0,-15px) ; }
+ 5.35714% { transform:translate(15px,0) ; -webkit-transform:translate(15px,0) ; -moz-transform:translate(15px,0) ; -ms-transform:translate(15px,0) ; -o-transform:translate(15px,0) ; }
+ 7.14286% { transform:translate(-15px,0) ; -webkit-transform:translate(-15px,0) ; -moz-transform:translate(-15px,0) ; -ms-transform:translate(-15px,0) ; -o-transform:translate(-15px,0) ; }
+ 10.71429% { transform:translate(0,0) ; -webkit-transform:translate(0,0) ; -moz-transform:translate(0,0) ; -ms-transform:translate(0,0) ; -o-transform:translate(0,0) ; }
+ 100% { transform:translate(0,0) ; -webkit-transform:translate(0,0) ; -moz-transform:translate(0,0) ; -ms-transform:translate(0,0) ; -o-transform:translate(0,0) ; }
+}

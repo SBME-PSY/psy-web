@@ -30,7 +30,7 @@ const SidebarNav = styled.nav`
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 0;
+  top: 10;
   left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
   transition: 350ms;
   z-index: 10;
@@ -46,14 +46,18 @@ const Adminsidebar = () => {
     function showSidebar (){
         setSidebar(!sidebar);
     }
+    const LogOut=()=>{
+        localStorage.clear();
+        window.location.replace('/Admin')
+    }
     return (
         <>
-            <Nav className="py-1">
+            <Nav className="py-1 sticky-lg-top">
                 <NavIcon to="#">
                     <FontAwesomeIcon icon={faBars} onClick={showSidebar} />
                 </NavIcon>
-                <Link  className=" text-decoration-none text-white mx-5 mt-2" to='/AdminPanel'><h1 style={{fontFamily:"Rancho,cursive"}}>Psy-Awareness</h1></Link>
-                <Link className='link text-decoration-none text-white mt-2' to='/Admin'>Log-out <FontAwesomeIcon icon={faSignOutAlt} /></Link>
+                <Link  className=" text-decoration-none text-white me-auto mx-3 mt-2" to='/AdminPanel'><h1 style={{fontFamily:"Rancho,cursive"}}>Psy-Awareness</h1></Link>
+                <button type='button' className='btn btn-danger rounded-pill mx-5' onClick={LogOut}><span>Log-out <FontAwesomeIcon icon={faSignOutAlt}/></span></button>
             </Nav>
             <SidebarNav sidebar={sidebar}>
                 <SidebarWrap>

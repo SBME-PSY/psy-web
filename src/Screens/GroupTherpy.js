@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function GroupTherpy(props) {
   const dispatch = useDispatch();
-  const { socket, peer, stream } = useSelector((store) => store);
+  const { socket, peer } = useSelector((store) => store);
   const [roomId, setRoomId] = useState('');
   const navigate = useNavigate();
   const handelChange = (e) => {
@@ -18,23 +18,19 @@ function GroupTherpy(props) {
   };
   const handelJoinRoom = (e) => {
     e.preventDefault();
+    socket.emit('join-room', roomId, peer.id);
     navigate(`${roomId}`);
   };
 
-  const getLocalVideoStream = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({
         audio: true,
         video: true,
+      })
+      .then((stream) => {
+        dispatch({ type: 'UPDATE_STREAM', pyload: stream });
       });
-      dispatch({ type: 'UPDATE_STREAM', pyload: stream });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    getLocalVideoStream();
-    console.log(socket.id, peer.id, stream);
   }, []);
   //connect to socket
   return (

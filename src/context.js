@@ -12,6 +12,10 @@ export function AppProvider({ children }) {
     peer: {},
     stream: {},
     peers: {},
+    alert: {
+      isNew: false,
+      message: '',
+    },
   };
   const store = createStore(reducer, initialStore);
   const addvideoStream = (remoteStream, remoteVideo) => {
@@ -35,6 +39,7 @@ export function AppProvider({ children }) {
     });
     peer.on('call', (call) => {
       const { stream } = store.getState();
+      console.log(stream);
       const remoteVideo = document.createElement('video');
 
       call.on('stream', function (remoteStream) {
@@ -51,20 +56,20 @@ export function AppProvider({ children }) {
     });
     peer.on('connection', function (conn) {
       conn.on('data', function (data) {
-        console.log(data);
         conn.send('i recieved' + data);
       });
     });
     socket.on('connect', () => {
       store.dispatch({ type: 'UPDATE_SOCKET', pyload: socket });
     });
-    socket.on('user-disconnect', (peerId) => {
-      const { peers } = store.getState();
-      console.log(peers);
-      if (peers[peerId]) {
-        peers[peerId].close();
-      }
-    });
+    // socket.on('user-disconnect', (peerId) => {
+    //   console.log(peerId);
+    //   const { peers } = store.getState();
+    //   if (peers[peerId]) {
+    //     peers[peerId].close();
+    //   }
+    // });
+
     socket.on('user-connected', (userId) => {
       const { stream } = store.getState();
       let call = peer.call(userId, stream);
@@ -83,22 +88,25 @@ export function AppProvider({ children }) {
       conn.on('open', () => {
         conn.send('hi!');
       });
-      conn.on('data', function (data) {
-        console.log(data);
-      });
+      conn.on('data', function (data) {});
     });
-
+    // socket.on('no-room', (roomId) => {
+    //   console.log('no room id = ' + roomId);
+    //   store.dispatch({
+    //     type: 'UPDATE_ALERT',
+    //     pyload: { isNew: true, message: `not valid Id ${roomId}` },
+    //   });
+    // });
     return () => {
       socket.close();
     };
-  }, []);
+  }, [store]);
   function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
   }
   useEffect(() => {
-    console.log(getCookie('jwt'));
     axios.defaults.headers.common['Authorization'] =
       'Bearer ' + getCookie('jwt');
   });

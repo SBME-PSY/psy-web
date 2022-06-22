@@ -34,9 +34,6 @@ const Adminsignin = () => {
           },
         })
         .then((res) => {
-          console.log(res);
-          localStorage.setItem('AdminTokin', res.data.token);
-          console.log(localStorage.getItem('AdminTokin'));
           navigate('/AdminPanel');
         })
         .catch((err) => {

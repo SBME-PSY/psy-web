@@ -37,9 +37,7 @@ const Professionals = () => {
           },
         }
       )
-      .then((res) => {
-        console.log(res.data);
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -67,7 +65,6 @@ const Professionals = () => {
       })
       .then((res) => {
         setData(res.data.data);
-        console.log(data);
         isLoading(false);
       })
       .catch((err) => {

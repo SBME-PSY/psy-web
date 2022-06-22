@@ -9,6 +9,7 @@ import {
   NavLink,
   Container,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -70,6 +71,11 @@ const Navigation = (props) => {
                 >
                   FeedBack
                 </NavLink>
+              </NavItem>
+              <NavItem>
+                <Link to="/VdieoChat">
+                  <NavLink className="fs-6">Group Therapy </NavLink>
+                </Link>
               </NavItem>
             </Nav>
           </Collapse>

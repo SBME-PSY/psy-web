@@ -6,13 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SimpleReactLightbox from 'simple-react-lightbox';
 import axios from 'axios';
-
+import { AppProvider } from './context';
 axios.defaults.baseURL = 'http://127.0.0.1:8000';
 
 ReactDOM.render(
-  <SimpleReactLightbox>
-    <App />
-  </SimpleReactLightbox>,
+  <AppProvider>
+    <SimpleReactLightbox>
+      <App />
+    </SimpleReactLightbox>
+  </AppProvider>,
   document.getElementById('root')
 );
 

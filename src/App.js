@@ -13,6 +13,7 @@ import Administrator from './Screens/Adminstration';
 import Adminsignin from './Components&sections/Admin Panel sections/Admin Sign-in';
 import Room from './Screens/Room';
 import GroupTherpy from './Screens/GroupTherpy';
+import Register from './Screens/Register';
 function App() {
   return (
     <Router>
@@ -25,6 +26,7 @@ function App() {
           <Route index element={<GroupTherpy />} />
           <Route path=":id" element={<Room />} />
         </Route>
+        <Route path="/Register" element={<Register />} />
       </Routes>
     </Router>
   );

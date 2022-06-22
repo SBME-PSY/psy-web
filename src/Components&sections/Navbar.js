@@ -74,7 +74,12 @@ const Navigation = (props) => {
               </NavItem>
               <NavItem>
                 <Link to="/VdieoChat">
-                  <NavLink className="fs-6">Group Therapy </NavLink>
+                  <NavLink className="fs-6"> Group Therapy </NavLink>
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/Register">
+                  <NavLink className="fs-6"> Register </NavLink>
                 </Link>
               </NavItem>
             </Nav>

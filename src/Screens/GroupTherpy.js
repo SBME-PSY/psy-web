@@ -13,6 +13,7 @@ function GroupTherpy(props) {
   };
   const handelCreateRoom = () => {
     const roomId = uuidv4();
+    socket.emit('create-room', roomId, peer.id);
     navigate(`${roomId}`);
   };
   const handelJoinRoom = (e) => {

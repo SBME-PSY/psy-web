@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import reducer from './reducer';
 import { Peer } from 'peerjs';
 import { io } from 'socket.io-client';
+import axios from 'axios';
+
 export function AppProvider({ children }) {
   const initialStore = {
     socket: {},
@@ -90,5 +92,15 @@ export function AppProvider({ children }) {
       socket.close();
     };
   }, []);
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+  useEffect(() => {
+    console.log(getCookie('jwt'));
+    axios.defaults.headers.common['Authorization'] =
+      'Bearer ' + getCookie('jwt');
+  });
   return <Provider store={store}>{children}</Provider>;
 }

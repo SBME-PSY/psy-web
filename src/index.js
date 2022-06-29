@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SimpleReactLightbox from 'simple-react-lightbox';
 import axios from 'axios';
 import { AppProvider } from './context';
-axios.defaults.baseURL = 'http://127.0.0.1:8000';
+axios.defaults.baseURL = 'http://127.0.0.1:3001';
 
 ReactDOM.render(
   <AppProvider>

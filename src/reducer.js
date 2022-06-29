@@ -12,6 +12,8 @@ const reducer = (state, action) => {
       const newPeers = { ...state.peers };
       newPeers[action.pyload.peerId] = action.pyload.call;
       return { ...state, peers: newPeers };
+    case 'UPDATE_USER':
+      return { ...state, user: action.pyload };
     default:
       return state;
   }

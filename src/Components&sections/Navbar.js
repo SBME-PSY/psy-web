@@ -12,10 +12,24 @@ import {
 import { Link } from 'react-router-dom';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Navigation = (props) => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const state = useSelector((state) => state);
+  function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+    let expires = 'expires=' + d.toUTCString();
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+  }
+  const hendelLogout = () => {
+    dispatch({ type: 'UPDATE_USER', pyload: '' });
+    setCookie('jwt', '', new Date(Date.now + 3 * 1000));
+    setCookie('user', '', new Date(Date.now + 3 * 1000));
+  };
   return (
     <div>
       <Navbar
@@ -73,15 +87,30 @@ const Navigation = (props) => {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <Link to="/VdieoChat">
-                  <NavLink className="fs-6"> Group Therapy </NavLink>
+                <Link className="fs-6 nav-item fs-6 nav-link" to="/VdieoChat">
+                  Group Therapy
                 </Link>
               </NavItem>
-              <NavItem>
-                <Link to="/Register">
-                  <NavLink className="fs-6"> Register </NavLink>
-                </Link>
-              </NavItem>
+              <section></section>
+              {!state.user ? (
+                <NavItem>
+                  <Link className="fs-6 nav-item fs-6 nav-link" to="/Register">
+                    Register
+                  </Link>
+                </NavItem>
+              ) : (
+                <>
+                  <NavItem>
+                    <Link
+                      onClick={hendelLogout}
+                      className="fs-6 nav-item fs-6 nav-link"
+                      to="/"
+                    >
+                      LogOut
+                    </Link>
+                  </NavItem>
+                </>
+              )}
             </Nav>
           </Collapse>
         </Container>

@@ -14,6 +14,9 @@ import Adminsignin from './Components&sections/Admin Panel sections/Admin Sign-i
 import Room from './Screens/Room';
 import GroupTherpy from './Screens/GroupTherpy';
 import Register from './Screens/Register';
+import AdminWelcomepage from './Components&sections/Admin Panel sections/Admin Welcome page';
+import Users from './Components&sections/Admin Panel sections/Users';
+import Professionals from './Components&sections/Admin Panel sections/Professionals';
 function App() {
   return (
     <Router>
@@ -21,7 +24,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Admin" element={<Adminsignin />} />
-        <Route path="/AdminPanel" element={<Administrator />} />
+        <Route path="/AdminPanel" element={<Administrator />}>
+          <Route path="AdminPanel" element={<AdminWelcomepage />} />
+          <Route path="users" element={<Users />} />
+          <Route path="professionals" element={<Professionals />} />
+        </Route>
         <Route path="/VdieoChat" element={<Outlet />}>
           <Route index element={<GroupTherpy />} />
           <Route path=":id" element={<Room />} />

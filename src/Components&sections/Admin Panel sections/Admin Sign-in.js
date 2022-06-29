@@ -26,6 +26,7 @@ const Adminsignin = () => {
       role: 'admin',
     },
     onSubmit: (values) => {
+      console.log(values);
       axios
         .post('/psy/admins/logIn', values, {
           headers: {

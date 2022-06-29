@@ -16,7 +16,13 @@ export function AppProvider({ children }) {
       isNew: false,
       message: '',
     },
+    user: '',
   };
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
   const store = createStore(reducer, initialStore);
   const addvideoStream = (remoteStream, remoteVideo) => {
     remoteVideo.muted = true;
@@ -101,14 +107,15 @@ export function AppProvider({ children }) {
       socket.close();
     };
   }, [store]);
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
+
   useEffect(() => {
-    axios.defaults.headers.common['Authorization'] =
-      'Bearer ' + getCookie('jwt');
+    const jwt = getCookie('jwt');
+    const user = JSON.parse(getCookie('user'));
+    if (jwt && user) {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + getCookie('jwt');
+      store.dispatch({ type: 'UPDATE_USER', pyload: user });
+    }
   });
   return <Provider store={store}>{children}</Provider>;
 }

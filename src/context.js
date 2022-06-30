@@ -17,6 +17,7 @@ export function AppProvider({ children }) {
       message: '',
     },
     user: '',
+    logedin: false,
   };
   function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -110,11 +111,14 @@ export function AppProvider({ children }) {
 
   useEffect(() => {
     const jwt = getCookie('jwt');
-    const user = JSON.parse(getCookie('user'));
+    const user = getCookie('user');
     if (jwt && user) {
       axios.defaults.headers.common['Authorization'] =
         'Bearer ' + getCookie('jwt');
-      store.dispatch({ type: 'UPDATE_USER', pyload: user });
+      store.dispatch({
+        type: 'UPDATE_USER',
+        pyload: JSON.parse(getCookie('user')),
+      });
     }
   });
   return <Provider store={store}>{children}</Provider>;

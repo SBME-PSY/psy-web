@@ -14,6 +14,9 @@ const reducer = (state, action) => {
       return { ...state, peers: newPeers };
     case 'UPDATE_USER':
       return { ...state, user: action.pyload };
+    case 'UPDATE_LOGGED_IN':
+      return { ...state, logedin: action.pyload };
+
     default:
       return state;
   }

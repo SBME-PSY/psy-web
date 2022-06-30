@@ -31,7 +31,7 @@ const Navigation = (props) => {
     setCookie('user', '', new Date(Date.now + 3 * 1000));
   };
   return (
-    <div>
+    <div className="container">
       <Navbar
         id="navbar"
         color="light"
@@ -40,13 +40,13 @@ const Navigation = (props) => {
         expand="md"
       >
         <Container fluid>
-          <NavbarBrand id="brand" href="/">
-            Psy-Awareness
-          </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
+            <NavbarBrand id="brand" href="/">
+              Psy-Awareness
+            </NavbarBrand>
             <Nav id="nav" className="px-2" navbar>
-              <NavItem>
+              <NavItem className="hvr-grow">
                 <NavLink
                   className="fs-6"
                   onClick={() => window.location.replace('/#Features')}
@@ -54,7 +54,7 @@ const Navigation = (props) => {
                   About the app
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem className="hvr-grow">
                 <NavLink
                   className="fs-6"
                   onClick={() => window.location.replace('/#AboutUs')}
@@ -62,7 +62,7 @@ const Navigation = (props) => {
                   About Us
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem className="hvr-grow">
                 <NavLink
                   className="fs-6"
                   onClick={() => window.location.replace('/#Download')}
@@ -70,7 +70,7 @@ const Navigation = (props) => {
                   Download
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem className="hvr-grow">
                 <NavLink
                   className="fs-6"
                   onClick={() => window.location.replace('/#OurDoctors')}
@@ -78,7 +78,7 @@ const Navigation = (props) => {
                   Our Doctors
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem className="hvr-grow">
                 <NavLink
                   className="fs-6"
                   onClick={() => window.location.replace('/#Feedback')}
@@ -86,32 +86,29 @@ const Navigation = (props) => {
                   FeedBack
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem className="hvr-grow">
                 <Link className="fs-6 nav-item fs-6 nav-link" to="/VdieoChat">
                   Group Therapy
                 </Link>
               </NavItem>
-              <section></section>
-              {!state.user ? (
-                <NavItem>
-                  <Link className="fs-6 nav-item fs-6 nav-link" to="/Register">
-                    Register
-                  </Link>
-                </NavItem>
-              ) : (
-                <>
-                  <NavItem>
-                    <Link
-                      onClick={hendelLogout}
-                      className="fs-6 nav-item fs-6 nav-link"
-                      to="/"
-                    >
-                      LogOut
-                    </Link>
-                  </NavItem>
-                </>
-              )}
             </Nav>
+            {!state.user ? (
+              <>
+                <Link className="regstiration hvr-grow" to="/Register">
+                  Register
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  onClick={hendelLogout}
+                  className="regstiration hvr-grow"
+                  to="/"
+                >
+                  LogOut
+                </Link>
+              </>
+            )}{' '}
           </Collapse>
         </Container>
       </Navbar>

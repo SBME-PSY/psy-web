@@ -1,37 +1,42 @@
 import React from 'react';
 import { FormGroup, Label, Form, Col, Input, Button } from 'reactstrap';
 import axios from 'axios';
-function setCookie(cname, cvalue, exdays) {
-  const d = new Date();
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  let expires = 'expires=' + d.toUTCString();
-  document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-}
-const handelSubmit = (e) => {
-  e.preventDefault();
-  const form = document.getElementById('login-form');
-  const formData = new FormData(form);
-  axios({
-    method: 'POST',
-    url: '/psy/users/logIn',
-    data: {
-      email: formData.get('email'),
-      password: formData.get('password'),
-      role: formData.get('role'),
-    },
-  })
-    .then((res) => {
-      const token = res.data.token;
-      const user = JSON.stringify(res.data.data);
-      setCookie('jwt', token, 90);
-
-      setCookie('user', user, 90);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 function LogIn(props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+    let expires = 'expires=' + d.toUTCString();
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+  }
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    const form = document.getElementById('login-form');
+    const formData = new FormData(form);
+    axios({
+      method: 'POST',
+      url: '/psy/users/logIn',
+      data: {
+        email: formData.get('email'),
+        password: formData.get('password'),
+        role: formData.get('role'),
+      },
+    })
+      .then((res) => {
+        const token = res.data.token;
+        const user = JSON.stringify(res.data.data);
+        setCookie('jwt', token, 90);
+        setCookie('user', user, 90);
+        dispatch({ type: 'UPDATE_LOGGED_IN', pyload: true });
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <Form onSubmit={handelSubmit} id="login-form">
       <FormGroup row>
@@ -73,7 +78,7 @@ function LogIn(props) {
       </FormGroup>
       <FormGroup check row>
         <Col>
-          <Button>Submit</Button>
+          <Button>Log in</Button>
         </Col>
       </FormGroup>
     </Form>

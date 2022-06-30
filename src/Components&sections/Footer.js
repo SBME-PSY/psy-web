@@ -42,7 +42,7 @@ const Footer = ({ google_play, app_store }) => {
             </ul>
           </Col>
           <Col xs={12} md={6} className="px-5 py-3" lg={4}>
-            <h3 className="pb-3 border-bottom border-2 text-white border-white">
+            <h3 className="pb-3 border-bottom  text-white border-white">
               Follow Us
             </h3>
             <ul className="d-flex  align-content-start flex-column">
@@ -81,7 +81,7 @@ const Footer = ({ google_play, app_store }) => {
             </ul>
           </Col>
           <Col xs={12} md={6} lg={4} className="px-5 py-3">
-            <h3 className="pb-3 border-bottom border-2 text-white border-white">
+            <h3 className="pb-3 border-bottom text-white border-white">
               Download the App
             </h3>
             <div className="d-flex flex-column justify-content-start align-content-start">

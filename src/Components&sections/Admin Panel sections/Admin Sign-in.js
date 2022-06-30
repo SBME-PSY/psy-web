@@ -26,6 +26,7 @@ const Adminsignin = () => {
       role: 'admin',
     },
     onSubmit: (values) => {
+      console.log(values);
       axios
         .post('/psy/admins/logIn', values, {
           headers: {
@@ -34,9 +35,6 @@ const Adminsignin = () => {
           },
         })
         .then((res) => {
-          console.log(res);
-          localStorage.setItem('AdminTokin', res.data.token);
-          console.log(localStorage.getItem('AdminTokin'));
           navigate('/AdminPanel');
         })
         .catch((err) => {

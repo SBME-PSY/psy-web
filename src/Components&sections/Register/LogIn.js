@@ -24,25 +24,29 @@ function LogIn(props) {
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
   }
   const handelSubmit = (e) => {
-    console.log(url);
     e.preventDefault();
     const form = document.getElementById('login-form');
     const formData = new FormData(form);
+    let data = {};
+    for (var el of formData.entries()) {
+      data[el[0]] = el[1];
+      console.log(el[0], el[1]);
+    }
+
     axios({
       method: 'POST',
       url: url,
-      data: {
-        email: formData.get('email'),
-        password: formData.get('password'),
-        role: formData.get('role'),
-      },
+      data: data,
     })
       .then((res) => {
         const token = res.data.token;
         const user = JSON.stringify(res.data.data);
         setCookie('jwt', token, 90);
         setCookie('user', user, 90);
-        dispatch({ type: 'UPDATE_LOGGED_IN', pyload: true });
+        dispatch({
+          type: 'UPDATE_USER',
+          pyload: JSON.parse(user),
+        });
         navigate('/');
       })
       .catch((err) => {

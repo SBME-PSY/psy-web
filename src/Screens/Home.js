@@ -12,7 +12,10 @@ import Ourdoctors from '../Components&sections/Our_Doctors';
 import Feedback from '../Components&sections/Feedback';
 import Footer from '../Components&sections/Footer';
 import { features, our_doctors, clients_feedback } from '../assets/data';
+import { useSelector } from 'react-redux';
 function Home() {
+  const state = useSelector((state) => state);
+  console.log(state);
   return (
     <div>
       <Navigation />

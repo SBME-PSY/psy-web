@@ -10,7 +10,7 @@ function SignUp(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Role, setRole] = useState();
-  const [url, setUrl] = useState();
+  const [url, setUrl] = useState('/psy/users/signup');
   const [CV, setCV] = useState('');
   function setCookie(cname, cvalue, exdays) {
     const d = new Date();
@@ -27,35 +27,32 @@ function SignUp(props) {
       setUrl('/psy/users/signup');
     }
   };
-
   const handelSubmit = (e) => {
     e.preventDefault();
     const form = document.getElementById('singup-form');
     const formData = new FormData(form);
+    let data = {};
+    for (var el of formData.entries()) {
+      data[el[0]] = el[1];
+    }
+    if (Role === 'doctor') {
+      data['cvFile'] = CV;
+    }
     axios({
-      url: { url },
+      url: url,
       method: 'post',
-      data: {
-        email: formData.get('email'),
-        name: formData.get('name'),
-        password: formData.get('password'),
-        confirmPassword: formData.get('confirmPassword'),
-        role: formData.get('role'),
-        sex: formData.get('sex'),
-        phone: formData.get('phone'),
-        age: formData.get('age'),
-        maritalStatus: formData.get('maritalstatus'),
-        governorate: formData.get('governorate'),
-        cvFile: CV,
-      },
+      data: data,
     })
       .then((res) => {
-        console.log(res);
+        console.log(url);
         const token = res.data.token;
         const user = JSON.stringify(res.data.data);
         setCookie('jwt', token, 90);
         setCookie('user', user, 90);
-        dispatch({ type: 'UPDATE_LOGGED_IN', pyload: true });
+        dispatch({
+          type: 'UPDATE_USER',
+          pyload: JSON.parse(user),
+        });
         navigate('/');
       })
       .catch((err) => {
@@ -155,7 +152,7 @@ function SignUp(props) {
               <Label for="role-login" sm={2}>
                 Maritalstatus
               </Label>
-              <Input id="role-login" name="maritalstatus" type="select">
+              <Input id="role-login" name="maritalStatus" type="select">
                 <option>Single</option>
                 <option>Married</option>
                 <option>Divorced</option>

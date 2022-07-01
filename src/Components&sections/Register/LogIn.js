@@ -3,6 +3,7 @@ import { FormGroup, Label, Form, Col, Input, Button } from 'reactstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { setCookie } from '../../assets/cookie';
 
 function LogIn(props) {
   const [url, setUrl] = useState('/psy/users/login');
@@ -17,12 +18,6 @@ function LogIn(props) {
       setUrl('/psy/users/login');
     }
   };
-  function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-    let expires = 'expires=' + d.toUTCString();
-    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-  }
   const handelSubmit = (e) => {
     e.preventDefault();
     const form = document.getElementById('login-form');

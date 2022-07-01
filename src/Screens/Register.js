@@ -12,10 +12,16 @@ import Psychologist from '../assets/Img/Psychologist.jpg';
 import LogIn from '../Components&sections/Register/LogIn';
 import SignUp from '../Components&sections/Register/SignUp';
 import styled from 'styled-components';
+import ErrorPage from '../Components&sections/ErrorPage';
+import { useSelector } from 'react-redux';
+
 function Register(props) {
+  const err = useSelector((state) => state.err);
   const [regState, setRegState] = useState('login');
+
   return (
     <Wrapper>
+      {err ? <ErrorPage /> : ''}
       <main>
         <h1>Psy-Awareness</h1>
         <section>
@@ -60,7 +66,7 @@ const Wrapper = styled.div`
   background: url(${Psychologist});
   background-repeat: no-repeat;
   background-size: cover;
-  height: 120vh;
+  height: 140vh;
   .row .form-group {
     padding: 10px 0;
   }

@@ -18,6 +18,7 @@ export function AppProvider({ children }) {
     },
     user: '',
     logedin: false,
+    err: '',
   };
   function getCookie(name) {
     const value = `; ${document.cookie}`;

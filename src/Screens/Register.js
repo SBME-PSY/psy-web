@@ -12,7 +12,7 @@ import Psychologist from '../assets/Img/Psychologist.jpg';
 import LogIn from '../Components&sections/Register/LogIn';
 import SignUp from '../Components&sections/Register/SignUp';
 import styled from 'styled-components';
-import ErrorPage from '../Components&sections/ErrorPage';
+import ErrorPage from '../Components&sections/HomeSections/ErrorPage';
 import { useSelector } from 'react-redux';
 
 function Register(props) {

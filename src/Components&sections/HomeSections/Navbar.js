@@ -1,3 +1,4 @@
+import '../../App.css';
 import React, { useState } from 'react';
 import {
   Collapse,
@@ -12,10 +13,8 @@ import {
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-  NavbarText,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDispatch, useSelector } from 'react-redux';
 

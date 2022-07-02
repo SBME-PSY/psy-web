@@ -6,18 +6,13 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import FileBase64 from 'react-file-base64';
 import { governorate } from '../../assets/data';
+import { setCookie } from '../../assets/cookie';
 function SignUp(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Role, setRole] = useState();
   const [url, setUrl] = useState('/psy/users/signup');
   const [CV, setCV] = useState('');
-  function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-    let expires = 'expires=' + d.toUTCString();
-    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-  }
 
   const handleChange = (e) => {
     setRole(e.target.value);

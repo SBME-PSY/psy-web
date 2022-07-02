@@ -17,6 +17,7 @@ import Register from './Screens/Register';
 import AdminWelcomepage from './Components&sections/Admin Panel sections/Admin Welcome page';
 import Users from './Components&sections/Admin Panel sections/Users';
 import Professionals from './Components&sections/Admin Panel sections/Professionals';
+import Article from './Screens/Article';
 function App() {
   return (
     <Router>
@@ -34,6 +35,7 @@ function App() {
           <Route path=":id" element={<Room />} />
         </Route>
         <Route path="/Register" element={<Register />} />
+        <Route path="/Articles" element={<Article />} />
       </Routes>
     </Router>
   );

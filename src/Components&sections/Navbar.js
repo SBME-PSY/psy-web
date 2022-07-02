@@ -8,6 +8,11 @@ import {
   NavItem,
   NavLink,
   Container,
+  UncontrolledDropdown,
+  DropdownItem,
+  DropdownToggle,
+  DropdownMenu,
+  NavbarText,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import '../App.css';
@@ -86,29 +91,58 @@ const Navigation = (props) => {
                   FeedBack
                 </NavLink>
               </NavItem>
-              <NavItem className="hvr-grow">
-                <Link className="fs-6 nav-item fs-6 nav-link" to="/VdieoChat">
-                  Group Therapy
-                </Link>
-              </NavItem>
+
+              <UncontrolledDropdown inNavbar nav>
+                <DropdownToggle caret nav>
+                  Options
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem className="margin-left-anim">
+                    <Link
+                      className="fs-6 nav-item fs-6 nav-link "
+                      to="/VdieoChat"
+                    >
+                      Group Therapy
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem className="margin-left-anim">
+                    <Link
+                      className="fs-6 nav-item fs-6 nav-link "
+                      to="/Articles"
+                    >
+                      Articles
+                    </Link>
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </Nav>
-            {!state.user ? (
-              <>
-                <Link className="regstiration hvr-grow" to="/Register">
-                  Register
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  onClick={hendelLogout}
-                  className="regstiration hvr-grow"
-                  to="/"
-                >
-                  LogOut
-                </Link>
-              </>
-            )}{' '}
+            <div className="float-left">
+              {!state.user ? (
+                <>
+                  <Link
+                    className="fs-6 nav-item fs-6  hvr-grow regstiration"
+                    to="/Register"
+                  >
+                    Register
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    className="fs-6 nav-item fs-6  hvr-grow regstiration "
+                    onClick={hendelLogout}
+                    to="/"
+                  >
+                    LogOut
+                  </Link>{' '}
+                  <img
+                    src={state.user.picture}
+                    alt="phot"
+                    className="profile-pic"
+                  />
+                </>
+              )}{' '}
+            </div>
           </Collapse>
         </Container>
       </Navbar>

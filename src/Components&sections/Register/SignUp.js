@@ -212,6 +212,7 @@ function SignUp(props) {
           )}
         </Row>
         <Button>Sign Up</Button>
+        <Row></Row>
       </Form>
     </Wrapper>
   );

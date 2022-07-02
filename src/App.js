@@ -18,24 +18,32 @@ import AdminWelcomepage from './Components&sections/Admin Panel sections/Admin W
 import Users from './Components&sections/Admin Panel sections/Users';
 import Professionals from './Components&sections/Admin Panel sections/Professionals';
 import Article from './Screens/Article';
+import AdminPrivateRoute from './Components&sections/PrivateRoute/AdminPrivateRoute';
+import UserPrivateRoute from './Components&sections/PrivateRoute/UserPrivateRoute';
+import NotFound from './Screens/NotFound';
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Contact" element={<Contact />} />
-        <Route path="/Admin" element={<Adminsignin />} />
-        <Route path="/AdminPanel" element={<Administrator />}>
-          <Route path="AdminPanel" element={<AdminWelcomepage />} />
-          <Route path="users" element={<Users />} />
-          <Route path="professionals" element={<Professionals />} />
+        <Route path="/AdminLogin" element={<Adminsignin />} />
+        <Route path="/Admin" element={<AdminPrivateRoute />}>
+          <Route path="/Admin" element={<Administrator />}>
+            <Route index element={<AdminWelcomepage />} />
+            <Route path="users" element={<Users />} />
+            <Route path="professionals" element={<Professionals />} />
+          </Route>
         </Route>
-        <Route path="/VdieoChat" element={<Outlet />}>
-          <Route index element={<GroupTherpy />} />
-          <Route path=":id" element={<Room />} />
+        <Route element={<UserPrivateRoute />}>
+          <Route path="/VdieoChat" element={<Outlet />}>
+            <Route index element={<GroupTherpy />} />
+            <Route path=":id" element={<Room />} />
+          </Route>
+          <Route path="/Articles" element={<Article />} />
         </Route>
         <Route path="/Register" element={<Register />} />
-        <Route path="/Articles" element={<Article />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

@@ -14,8 +14,11 @@ import SignUp from '../Components&sections/Register/SignUp';
 import styled from 'styled-components';
 import ErrorPage from '../Components&sections/HomeSections/ErrorPage';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 
 function Register(props) {
+  const navigate = useNavigate();
   const err = useSelector((state) => state.err);
   const [regState, setRegState] = useState('login');
 
@@ -23,8 +26,23 @@ function Register(props) {
     <Wrapper>
       {err ? <ErrorPage /> : ''}
       <main>
-        <h1>Psy-Awareness</h1>
         <section>
+          <div className="header-sign">
+            <button
+              onClick={() => {
+                navigate('/', { replace: true });
+              }}
+            >
+              <BsFillArrowLeftCircleFill />
+            </button>
+            <h2
+              onClick={() => {
+                navigate('/', { replace: true });
+              }}
+            >
+              Psy-Awareness
+            </h2>
+          </div>
           <Nav tabs>
             <NavItem>
               <NavLink
@@ -67,17 +85,31 @@ const Wrapper = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   height: 140vh;
+  .header-sign {
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    button {
+      background: none;
+      border: none;
+      color: #6c757d;
+      font-size: 25px;
+      :hover {
+        color: var(--gray500);
+      }
+    }
+  }
   .row .form-group {
     padding: 10px 0;
   }
   main {
-    h1 {
+    h2 {
       font-family: 'Rancho', cursive;
-
-      text-align: center;
-      position: relative;
-      top: 50px;
+      cursor: pointer;
       color: rgb(0 0 0 / 0.5);
+      text-align: center;
+      margin-bottom: 0px;
     }
   }
   .nav-item a {

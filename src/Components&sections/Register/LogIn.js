@@ -1,40 +1,52 @@
-import React from 'react';
+import React, { useState, memo } from 'react';
 import { FormGroup, Label, Form, Col, Input, Button } from 'reactstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { setCookie } from '../../assets/cookie';
+
 function LogIn(props) {
+  const [url, setUrl] = useState('/psy/users/login');
+  const [Role, setRole] = useState('user');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-    let expires = 'expires=' + d.toUTCString();
-    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-  }
+  const handleChange = (e) => {
+    setRole(e.target.value);
+    if (e.target.value === 'doctor') {
+      setUrl('/psy/doctors/login');
+    } else {
+      setUrl('/psy/users/login');
+    }
+  };
   const handelSubmit = (e) => {
     e.preventDefault();
     const form = document.getElementById('login-form');
     const formData = new FormData(form);
+    let data = {};
+    for (var el of formData.entries()) {
+      data[el[0]] = el[1];
+      console.log(el[0], el[1]);
+    }
+
     axios({
       method: 'POST',
-      url: '/psy/users/logIn',
-      data: {
-        email: formData.get('email'),
-        password: formData.get('password'),
-        role: formData.get('role'),
-      },
+      url: url,
+      data: data,
     })
       .then((res) => {
         const token = res.data.token;
         const user = JSON.stringify(res.data.data);
         setCookie('jwt', token, 90);
         setCookie('user', user, 90);
-        dispatch({ type: 'UPDATE_LOGGED_IN', pyload: true });
+        dispatch({
+          type: 'UPDATE_USER',
+          pyload: JSON.parse(user),
+        });
         navigate('/');
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.message);
+        dispatch({ type: 'UPDATE_ERR', pyload: err.response.data.message });
       });
   };
   return (
@@ -70,7 +82,13 @@ function LogIn(props) {
           Role
         </Label>
         <Col sm={10}>
-          <Input id="role-login" name="role" type="select">
+          <Input
+            id="role-login"
+            name="role"
+            type="select"
+            value={Role}
+            onChange={handleChange}
+          >
             <option>user</option>
             <option>doctor</option>
           </Input>
@@ -85,4 +103,4 @@ function LogIn(props) {
   );
 }
 
-export default LogIn;
+export default memo(LogIn);

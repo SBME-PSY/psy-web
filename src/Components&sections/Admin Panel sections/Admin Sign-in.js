@@ -9,13 +9,16 @@ import {
   Label,
   Row,
 } from 'reactstrap';
+import { setCookie } from '../../assets/cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const Adminsignin = () => {
+  const dispatch = useDispatch();
   const [passwordShowen, setPasswordShown] = useState('password');
   const [wrongCredintials, setWrongCredintials] = useState(false);
   const navigate = useNavigate();
@@ -26,7 +29,6 @@ const Adminsignin = () => {
       role: 'admin',
     },
     onSubmit: (values) => {
-      console.log(values);
       axios
         .post('/psy/admins/logIn', values, {
           headers: {
@@ -35,7 +37,11 @@ const Adminsignin = () => {
           },
         })
         .then((res) => {
-          navigate('/AdminPanel');
+          const user = JSON.stringify(res.data.data);
+          setCookie('jwt', res.data.token, 90);
+          setCookie('user', user);
+          dispatch({ type: 'UPDATE_USER', pyload: res.data.data });
+          navigate('/Admin');
         })
         .catch((err) => {
           console.log(err);

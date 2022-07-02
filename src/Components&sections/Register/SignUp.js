@@ -1,48 +1,58 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState, memo } from 'react';
 import { FormGroup, Label, Form, Row, Col, Input, Button } from 'reactstrap';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import FileBase64 from 'react-file-base64';
+import { governorate } from '../../assets/data';
+import { setCookie } from '../../assets/cookie';
 function SignUp(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-    let expires = 'expires=' + d.toUTCString();
-    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-  }
+  const [Role, setRole] = useState();
+  const [url, setUrl] = useState('/psy/users/signup');
+  const [CV, setCV] = useState('');
+
+  const handleChange = (e) => {
+    setRole(e.target.value);
+    if (e.target.value === 'doctor') {
+      setUrl('/psy/doctors/signup');
+    } else {
+      setUrl('/psy/users/signup');
+    }
+  };
   const handelSubmit = (e) => {
     e.preventDefault();
     const form = document.getElementById('singup-form');
     const formData = new FormData(form);
-    console.log();
+    let data = {};
+    for (var el of formData.entries()) {
+      data[el[0]] = el[1];
+    }
+    if (Role === 'doctor') {
+      data['cvFile'] = CV;
+    }
     axios({
-      url: '/psy/users/signup',
+      url: url,
       method: 'post',
-      data: {
-        email: formData.get('email'),
-        name: formData.get('name'),
-        password: formData.get('password'),
-        confirmPassword: formData.get('confirmPassword'),
-        role: formData.get('role'),
-        sex: formData.get('sex'),
-        phone: formData.get('phone'),
-        age: formData.get('age'),
-        maritalStatus: formData.get('maritalstatus'),
-      },
+      data: data,
     })
       .then((res) => {
+        console.log(url);
         const token = res.data.token;
         const user = JSON.stringify(res.data.data);
         setCookie('jwt', token, 90);
         setCookie('user', user, 90);
-        dispatch({ type: 'UPDATE_LOGGED_IN', pyload: true });
+        dispatch({
+          type: 'UPDATE_USER',
+          pyload: JSON.parse(user),
+        });
         navigate('/');
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.message);
+        dispatch({ type: 'UPDATE_ERR', pyload: err.response.data.message });
       });
   };
   return (
@@ -121,7 +131,7 @@ function SignUp(props) {
           </Col>
         </Row>
         <Row>
-          <Col md={4}>
+          <Col md={6}>
             <FormGroup>
               <Label for="role-login" sm={2}>
                 Sex
@@ -132,12 +142,12 @@ function SignUp(props) {
               </Input>
             </FormGroup>
           </Col>
-          <Col md={4}>
+          <Col md={6}>
             <FormGroup>
               <Label for="role-login" sm={2}>
                 Maritalstatus
               </Label>
-              <Input id="role-login" name="maritalstatus" type="select">
+              <Input id="role-login" name="maritalStatus" type="select">
                 <option>Single</option>
                 <option>Married</option>
                 <option>Divorced</option>
@@ -147,23 +157,66 @@ function SignUp(props) {
               </Input>
             </FormGroup>
           </Col>
-          <Col md={4}>
+        </Row>
+        <Row>
+          <Col md={6}>
             <FormGroup>
               <Label for="role-login" sm={2}>
                 Role
               </Label>
-              <Input id="role-login" name="role" type="select">
+              <Input
+                id="role-login"
+                name="role"
+                type="select"
+                value={Role}
+                onChange={handleChange}
+              >
                 <option>user</option>
                 <option>doctor</option>
               </Input>
             </FormGroup>
           </Col>
+          {Role === 'doctor' ? (
+            <Col md={6}>
+              <FormGroup>
+                <Label for="role-login" sm={2}>
+                  Governorate
+                </Label>
+                <Input id="role-login" name="governorate" type="select">
+                  {governorate.map((city) => {
+                    return <option>{city}</option>;
+                  })}
+                </Input>
+              </FormGroup>
+            </Col>
+          ) : (
+            ''
+          )}
+        </Row>
+        <Row>
+          {Role === 'doctor' ? (
+            <Col md={6}>
+              <FormGroup>
+                <Label for="role-login" sm={2}>
+                  CV
+                </Label>
+                <FileBase64
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) => setCV(base64)}
+                />
+              </FormGroup>
+            </Col>
+          ) : (
+            ''
+          )}
         </Row>
         <Button>Sign Up</Button>
+        <Row></Row>
       </Form>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div``;
-export default SignUp;
+export default memo(SignUp);

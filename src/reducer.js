@@ -16,6 +16,8 @@ const reducer = (state, action) => {
       return { ...state, user: action.pyload };
     case 'UPDATE_LOGGED_IN':
       return { ...state, logedin: action.pyload };
+    case 'UPDATE_ERR':
+      return { ...state, err: action.pyload };
 
     default:
       return state;

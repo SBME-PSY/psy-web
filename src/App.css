@@ -341,8 +341,6 @@ a {
   margin-left: auto !important;
 }
 @media (min-width: 768px) {
-  .navbar-expand-md .navbar-collapse {
-  }
 }
 @media (max-width: 768px) {
   .regstiration {

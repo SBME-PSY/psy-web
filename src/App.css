@@ -349,3 +349,9 @@ a {
     padding: 0px;
   }
 }
+
+.modal-header button {
+  background-color: white;
+  font-size: 25px;
+  border: none;
+}

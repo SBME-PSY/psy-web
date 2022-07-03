@@ -1,5 +1,6 @@
 import '../../App.css';
 import React, { useState } from 'react';
+import adminImage from '../../assets/Img/admin.png';
 import {
   Collapse,
   Navbar,
@@ -134,11 +135,15 @@ const Navigation = (props) => {
                   >
                     LogOut
                   </Link>{' '}
-                  <img
-                    src={state.user.picture}
-                    alt="phot"
-                    className="profile-pic"
-                  />
+                  {state.user.role === 'admin' ? (
+                    <img src={adminImage} alt="phot" className="profile-pic" />
+                  ) : (
+                    <img
+                      src={state.user.picture}
+                      alt="phot"
+                      className="profile-pic"
+                    />
+                  )}
                 </>
               )}{' '}
             </div>

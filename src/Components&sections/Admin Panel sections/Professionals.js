@@ -23,10 +23,10 @@ const Professionals = () => {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
-  const manageApplication = (status) => {
+  const manageApplication = (status, id) => {
     axios
       .patch(
-        '/psy/admins/app-response/6197a1a02f1ff1ea1c2e1841',
+        `/psy/admins/app-response/${id}`,
         {
           status: status,
         },
@@ -37,21 +37,23 @@ const Professionals = () => {
           },
         }
       )
-      .then((res) => {})
+      .then((res) => {
+        console.log();
+      })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const ApproveApplication = () => {
-    manageApplication('approved');
+  const ApproveApplication = (id) => {
+    manageApplication('approved', id);
     setPatchResult('Application has been approved');
     isPatchDone(true);
     getProfessionalsApplications();
   };
 
-  const rejectApplication = () => {
-    manageApplication('refused');
+  const rejectApplication = (id) => {
+    manageApplication('refused', id);
     setPatchResult('Application has been refused');
     isPatchDone(true);
     getProfessionalsApplications();
@@ -64,6 +66,7 @@ const Professionals = () => {
         Authorization: `Bearer ${localStorage.getItem('AdminToken')}`,
       })
       .then((res) => {
+        console.log(res.data.data);
         setData(res.data.data);
         isLoading(false);
       })
@@ -179,12 +182,6 @@ const Professionals = () => {
                 <h4 className="mt-4 pb-3 border-bottom border-1 border-dark">
                   Certificate Information
                 </h4>
-                <div className=" my-3 d-flex flex-row justify-content-center">
-                  <h5 className="d-inline-block">Certificate name :</h5>
-                  <h5 className="d-inline-block mx-3">
-                    {Professional.certificate}
-                  </h5>
-                </div>
               </Col>
             </Row>
             <Row>
@@ -194,11 +191,16 @@ const Professionals = () => {
                 </h5>
               </Row>
               <div className="d-flex flex-row justify-content-center">
-                <SRLWrapper elements={Professional.certificate_picture}>
+                <SRLWrapper
+                  elements={
+                    process.env.REACT_APP_REMOTE_SERVER_DOMAIN + Professional.cv
+                  }
+                >
                   <img
-                    width="100%"
-                    height="70%"
-                    src={Professional.cv}
+                    src={
+                      process.env.REACT_APP_REMOTE_SERVER_DOMAIN +
+                      Professional.cv
+                    }
                     alt="college certificate"
                   />
                 </SRLWrapper>
@@ -206,10 +208,16 @@ const Professionals = () => {
             </Row>
           </ModalBody>
           <ModalFooter>
-            <Button color="success" onClick={ApproveApplication}>
+            <Button
+              color="success"
+              onClick={() => ApproveApplication(Professional._id)}
+            >
               Accept Application
             </Button>
-            <Button color="danger" onClick={rejectApplication}>
+            <Button
+              color="danger"
+              onClick={() => rejectApplication(Professional._id)}
+            >
               Reject Application
             </Button>
           </ModalFooter>
@@ -217,9 +225,10 @@ const Professionals = () => {
       )}
 
       {data &&
-        data.map((Professional) => {
+        data.map((Professional, index) => {
           return (
             <Row
+              key={index}
               id="application-row"
               className="my-5 mx-auto justify-content-around align-items-center  py-4 "
             >

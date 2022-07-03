@@ -341,8 +341,6 @@ a {
   margin-left: auto !important;
 }
 @media (min-width: 768px) {
-  .navbar-expand-md .navbar-collapse {
-  }
 }
 @media (max-width: 768px) {
   .regstiration {
@@ -350,6 +348,10 @@ a {
   }
 }
 
+.modal-header button {
+  background-color: white;
+  font-size: 25px;
+  border: none;
 #my-article{
   width: 100%;
   height: vh;

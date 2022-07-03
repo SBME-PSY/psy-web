@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/css/hover.css';
 import {
   BrowserRouter as Router,
   Outlet,

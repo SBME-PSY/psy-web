@@ -31,80 +31,80 @@ export function AppProvider({ children }) {
     const videoGrid = document.getElementById('video-grid');
     videoGrid.appendChild(remoteVideo);
   };
-  useEffect(() => {
-    const socket = io('ws://localhost:3001');
-    const peer = new Peer(undefined, {
-      host: '/',
-      port: '9000',
-      path: '/myapp',
-    });
-    peer.on('open', function (id) {
-      store.dispatch({ type: 'UPDATE_PEER', pyload: peer });
-    });
-    peer.on('call', (call) => {
-      const { stream } = store.getState();
-      console.log(stream);
-      const remoteVideo = document.createElement('video');
+  // useEffect(() => {
+  //   const socket = io('ws://localhost:3001');
+  //   const peer = new Peer(undefined, {
+  //     host: '/',
+  //     port: '9000',
+  //     path: '/myapp',
+  //   });
+  //   peer.on('open', function (id) {
+  //     store.dispatch({ type: 'UPDATE_PEER', pyload: peer });
+  //   });
+  //   peer.on('call', (call) => {
+  //     const { stream } = store.getState();
+  //     console.log(stream);
+  //     const remoteVideo = document.createElement('video');
 
-      call.on('stream', function (remoteStream) {
-        addvideoStream(remoteStream, remoteVideo);
-      });
-      call.answer(stream);
-      store.dispatch({
-        type: 'UPDATE_PEERS',
-        pyload: { peerId: call.peer, call },
-      });
-      call.on('close', () => {
-        remoteVideo.remove();
-      });
-    });
-    peer.on('connection', function (conn) {
-      conn.on('data', function (data) {
-        conn.send('i recieved' + data);
-      });
-    });
-    socket.on('connect', () => {
-      store.dispatch({ type: 'UPDATE_SOCKET', pyload: socket });
-    });
-    // socket.on('user-disconnect', (peerId) => {
-    //   console.log(peerId);
-    //   const { peers } = store.getState();
-    //   if (peers[peerId]) {
-    //     peers[peerId].close();
-    //   }
-    // });
+  //     call.on('stream', function (remoteStream) {
+  //       addvideoStream(remoteStream, remoteVideo);
+  //     });
+  //     call.answer(stream);
+  //     store.dispatch({
+  //       type: 'UPDATE_PEERS',
+  //       pyload: { peerId: call.peer, call },
+  //     });
+  //     call.on('close', () => {
+  //       remoteVideo.remove();
+  //     });
+  //   });
+  //   peer.on('connection', function (conn) {
+  //     conn.on('data', function (data) {
+  //       conn.send('i recieved' + data);
+  //     });
+  //   });
+  //   socket.on('connect', () => {
+  //     store.dispatch({ type: 'UPDATE_SOCKET', pyload: socket });
+  //   });
+  //   // socket.on('user-disconnect', (peerId) => {
+  //   //   console.log(peerId);
+  //   //   const { peers } = store.getState();
+  //   //   if (peers[peerId]) {
+  //   //     peers[peerId].close();
+  //   //   }
+  //   // });
 
-    socket.on('user-connected', (userId) => {
-      const { stream } = store.getState();
-      let call = peer.call(userId, stream);
-      const remoteVideo = document.createElement('video');
-      call.on('stream', function (remoteStream) {
-        addvideoStream(remoteStream, remoteVideo);
-      });
-      store.dispatch({
-        type: 'UPDATE_PEERS',
-        pyload: { peerId: call.peer, call },
-      });
-      call.on('close', () => {
-        remoteVideo.remove();
-      });
-      const conn = peer.connect(userId);
-      conn.on('open', () => {
-        conn.send('hi!');
-      });
-      conn.on('data', function (data) {});
-    });
-    // socket.on('no-room', (roomId) => {
-    //   console.log('no room id = ' + roomId);
-    //   store.dispatch({
-    //     type: 'UPDATE_ALERT',
-    //     pyload: { isNew: true, message: `not valid Id ${roomId}` },
-    //   });
-    // });
-    return () => {
-      socket.close();
-    };
-  }, [store]);
+  //   socket.on('user-connected', (userId) => {
+  //     const { stream } = store.getState();
+  //     let call = peer.call(userId, stream);
+  //     const remoteVideo = document.createElement('video');
+  //     call.on('stream', function (remoteStream) {
+  //       addvideoStream(remoteStream, remoteVideo);
+  //     });
+  //     store.dispatch({
+  //       type: 'UPDATE_PEERS',
+  //       pyload: { peerId: call.peer, call },
+  //     });
+  //     call.on('close', () => {
+  //       remoteVideo.remove();
+  //     });
+  //     const conn = peer.connect(userId);
+  //     conn.on('open', () => {
+  //       conn.send('hi!');
+  //     });
+  //     conn.on('data', function (data) {});
+  //   });
+  //   // socket.on('no-room', (roomId) => {
+  //   //   console.log('no room id = ' + roomId);
+  //   //   store.dispatch({
+  //   //     type: 'UPDATE_ALERT',
+  //   //     pyload: { isNew: true, message: `not valid Id ${roomId}` },
+  //   //   });
+  //   // });
+  //   return () => {
+  //     socket.close();
+  //   };
+  // }, [store]);
 
   useEffect(() => {
     const jwt = getCookie('jwt');

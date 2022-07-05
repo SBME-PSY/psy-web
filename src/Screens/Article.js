@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -16,6 +16,21 @@ function Article() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const getData = () => {
+    axios({
+      method: 'GET',
+      url: '/psy/articles',
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   const handleclick = () => {
     axios({
       method: 'POST',

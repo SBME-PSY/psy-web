@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import styled from 'styled-components';
+import axios from 'axios';
 function Post(props) {
   return (
     <Wrapper>
@@ -16,6 +17,7 @@ function Post(props) {
           <b>name</b>
           <span>• 12hr</span>
           <p>jobTitle</p>
+          <div>body</div>
         </Col>
       </Row>
     </Wrapper>

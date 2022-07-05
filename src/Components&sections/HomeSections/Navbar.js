@@ -42,14 +42,14 @@ const Navigation = (props) => {
         color="light"
         className="fixed-top shadow-lg"
         light
-        expand="md"
+        expand="lg"
       >
         <Container fluid>
+          <NavbarBrand id="brand" href="/">
+            Psy-Awareness
+          </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <NavbarBrand id="brand" href="/">
-              Psy-Awareness
-            </NavbarBrand>
             <Nav id="nav" className="px-2" navbar>
               <NavItem className="hvr-grow">
                 <NavLink

@@ -55,9 +55,7 @@
   align-items: center;
   justify-items: center;
 }
-ul {
-  list-style: none;
-}
+
 #nav {
   margin-right: 0.5%;
 }
@@ -394,4 +392,14 @@ a {
 
 .ck-editor__editable_inline {
   min-height: 300px;
+}
+span img {
+  width: 500px;
+  height: 350px;
+  object-fit: cover;
+}
+figure img {
+  width: 500px;
+  height: 350px;
+  object-fit: cover;
 }

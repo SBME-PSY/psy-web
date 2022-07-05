@@ -113,6 +113,11 @@ const Navigation = (props) => {
                       Articles
                     </Link>
                   </DropdownItem>
+                  <DropdownItem className="margin-left-anim">
+                    <Link className="fs-6 nav-item fs-6 nav-link " to="/test">
+                      Test
+                    </Link>
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>

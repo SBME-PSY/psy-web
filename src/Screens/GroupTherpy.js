@@ -39,11 +39,16 @@ function GroupTherpy(props) {
       <Navigation />
       <section className="header-video">
         <article className="video-container">
-          <h1>psy awareness</h1>
-          <h4>video chating for eavery one</h4>
+          <h2>psy awareness Group therapy</h2>
+          <h5>video chating for eavery one</h5>
           <form onSubmit={handelJoinRoom} className="form">
             <button> join room </button>
-            <input type="text" value={roomId} onChange={handelChange}></input>
+            <input
+              placeholder="put your room id"
+              type="text"
+              value={roomId}
+              onChange={handelChange}
+            ></input>
           </form>
           <button onClick={handelCreateRoom} className="create-room">
             create Room
@@ -54,6 +59,7 @@ function GroupTherpy(props) {
             src="https://www.gstatic.com/meet/user_edu_get_a_link_light_90698cd7b4ca04d3005c962a3756c42d.svg"
             alt="d"
           />
+          <h6>put your room id to join room</h6>
         </article>
       </section>
     </Wrapper>
@@ -62,10 +68,17 @@ function GroupTherpy(props) {
 const Wrapper = styled.div`
   position: relative;
   top: 70px;
+  @media screen and (min-width: 992px) {
+    top: 40px;
+  }
   .header-video {
     text-align: center;
     h1,
-    h4 {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       text-align: center;
       color: #a8a29e;
     }
@@ -73,6 +86,10 @@ const Wrapper = styled.div`
       text-align: center;
       margin-top: 20px;
       input {
+        :placeholder {
+          color: #a8a29e;
+        }
+        color: #a8a29e;
         outline: none;
 
         padding: 8px;

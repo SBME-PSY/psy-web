@@ -23,6 +23,7 @@ import AdminPrivateRoute from './Components&sections/PrivateRoute/AdminPrivateRo
 import UserPrivateRoute from './Components&sections/PrivateRoute/UserPrivateRoute';
 import NotFound from './Screens/NotFound';
 import Test from './Screens/Test';
+import Video from './Screens/Video';
 function App() {
   return (
     <Router>
@@ -40,10 +41,11 @@ function App() {
         <Route element={<UserPrivateRoute />}>
           <Route path="/VdieoChat" element={<Outlet />}>
             <Route index element={<GroupTherpy />} />
-            <Route path=":id" element={<Room />} />
+            <Route path=":id" element={<Video />} />
           </Route>
           <Route path="/Articles" element={<Article />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/video" element={<Video />} />
         </Route>
         <Route path="/Register" element={<Register />} />
         <Route path="*" element={<NotFound />} />

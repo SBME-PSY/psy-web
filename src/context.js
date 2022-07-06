@@ -19,6 +19,7 @@ export function AppProvider({ children }) {
     user: '',
     logedin: false,
     err: '',
+    messages: [],
   };
 
   const store = createStore(reducer, initialStore);
@@ -43,7 +44,6 @@ export function AppProvider({ children }) {
     });
     peer.on('call', (call) => {
       const { stream } = store.getState();
-      console.log(stream);
       const remoteVideo = document.createElement('video');
 
       call.on('stream', function (remoteStream) {
@@ -60,14 +60,14 @@ export function AppProvider({ children }) {
     });
     peer.on('connection', function (conn) {
       conn.on('data', function (data) {
-        conn.send('i recieved' + data);
+        console.log('irecievd ' + data);
+        conn.send('you send me' + data);
       });
     });
     socket.on('connect', () => {
       store.dispatch({ type: 'UPDATE_SOCKET', pyload: socket });
     });
     socket.on('user-disconnect', (peerId) => {
-      console.log(peerId);
       const { peers } = store.getState();
       if (peers[peerId]) {
         peers[peerId].close();
@@ -92,7 +92,9 @@ export function AppProvider({ children }) {
       conn.on('open', () => {
         conn.send('hi!');
       });
-      conn.on('data', function (data) {});
+      conn.on('data', function (data) {
+        console.log('data');
+      });
     });
     // socket.on('no-room', (roomId) => {
     //   console.log('no room id = ' + roomId);

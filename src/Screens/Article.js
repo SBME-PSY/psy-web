@@ -21,9 +21,7 @@ function Article() {
       method: 'GET',
       url: '/psy/articles',
     })
-      .then((res) => {
-        console.log(res.data);
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -31,6 +29,7 @@ function Article() {
   useEffect(() => {
     getData();
   }, []);
+
   const handleclick = () => {
     axios({
       method: 'POST',
@@ -42,7 +41,6 @@ function Article() {
       },
     })
       .then((res) => {
-        console.log(res.data);
         navigate('/');
       })
       .catch((err) => {
@@ -68,7 +66,6 @@ function Article() {
             value={title}
             onChange={(e) => {
               setTitle(e.target.value);
-              console.log(title);
             }}
           />
         </div>

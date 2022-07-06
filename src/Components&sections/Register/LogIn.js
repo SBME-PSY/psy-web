@@ -25,7 +25,6 @@ function LogIn(props) {
     let data = {};
     for (var el of formData.entries()) {
       data[el[0]] = el[1];
-      console.log(el[0], el[1]);
     }
 
     axios({

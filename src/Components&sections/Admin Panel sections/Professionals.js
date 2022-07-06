@@ -66,7 +66,6 @@ const Professionals = () => {
         Authorization: `Bearer ${localStorage.getItem('AdminToken')}`,
       })
       .then((res) => {
-        console.log(res.data.data);
         setData(res.data.data);
         isLoading(false);
       })

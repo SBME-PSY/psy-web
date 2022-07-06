@@ -16,14 +16,15 @@ import {
   Container,
 } from 'reactstrap';
 import Post from '../Components&sections/Articles/Post';
+import Navigation from '../Components&sections/HomeSections/Navbar';
 export default function Test() {
   const [isOpen, setIsOpen] = useState(false);
-  const handleChange = (data) => {
-    console.log(data);
-  };
+  const handleChange = (data) => {};
 
   return (
     <Wrapper>
+      <Navigation />
+
       <Container className="container-article">
         <Row className="header align-items-center">
           <Col xs="auto" className="">

@@ -1168,13 +1168,3 @@ a {
 }
 
 /*  temporary class for video chating  */
-
-#video-grid {
-  display: grid;
-  grid-template-columns: 300px 300px;
-}
-
-#video-grid video {
-  width: 100%;
-  object-fit: cover;
-}

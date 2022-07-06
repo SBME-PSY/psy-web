@@ -18,6 +18,8 @@ const reducer = (state, action) => {
       return { ...state, logedin: action.pyload };
     case 'UPDATE_ERR':
       return { ...state, err: action.pyload };
+    case 'UPDATE_MESSAGES':
+      return { ...state, messages: [...state.messages, action.pyload] };
 
     default:
       return state;

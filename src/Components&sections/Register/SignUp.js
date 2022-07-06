@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useState, memo } from 'react';
 import { FormGroup, Label, Form, Row, Col, Input, Button } from 'reactstrap';
-import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import FileBase64 from 'react-file-base64';
@@ -56,8 +55,7 @@ function SignUp(props) {
       });
   };
   return (
-    <Wrapper>
-      <Form onSubmit={handelSubmit} id="singup-form">
+      <Form onSubmit={handelSubmit} className='py-3' id="singup-form">
         <Row>
           <Col md={6}>
             <FormGroup>
@@ -197,26 +195,31 @@ function SignUp(props) {
           {Role === 'doctor' ? (
             <Col md={6}>
               <FormGroup>
-                <Label for="role-login" sm={2}>
-                  CV
-                </Label>
-                <FileBase64
-                  type="file"
-                  multiple={false}
-                  onDone={({ base64 }) => setCV(base64)}
-                />
+                <Row>
+                  <Col md={2}>
+                    <Label for="role-login">CV</Label>
+                  </Col>
+                  <Col md={10}>
+                    <FileBase64
+                      type="file"
+                      multiple={false}
+                      onDone={({ base64 }) => setCV(base64)}
+                    />
+                  </Col>
+                </Row>
+
               </FormGroup>
             </Col>
           ) : (
             ''
           )}
         </Row>
-        <Button>Sign Up</Button>
-        <Row></Row>
+        <Row className='justify-content-center '>
+          <Button className='my-5 w-50 r btn-success rounded-pill'>Sign Up</Button>
+        </Row>
       </Form>
-    </Wrapper>
   );
 }
 
-const Wrapper = styled.div``;
+// const Wrapper = styled.div``;
 export default memo(SignUp);

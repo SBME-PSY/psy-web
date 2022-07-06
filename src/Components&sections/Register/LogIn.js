@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react';
-import { FormGroup, Label, Form, Col, Input, Button } from 'reactstrap';
+import { FormGroup, Label, Form, Col, Input, Button,Row } from 'reactstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -51,53 +51,56 @@ function LogIn(props) {
   };
   return (
     <Form onSubmit={handelSubmit} id="login-form">
-      <FormGroup row>
-        <Label for="email-login" sm={2}>
-          Email
-        </Label>
-        <Col sm={10}>
+      <FormGroup>
+        <Row className='w-100 '>
+          <Label for="email-login" sm={2}>Email</Label>
+        </Row>
+        <Row className='w-100 px-2'>
           <Input
+            
             id="email-login"
             name="email"
             placeholder="Enter your email"
             type="email"
           />
-        </Col>
+        </Row>
       </FormGroup>
-      <FormGroup row>
-        <Label for="password-login" sm={2}>
-          Password
-        </Label>
-        <Col sm={10}>
+      <FormGroup className='my-2'>
+        <Row className='w-100'>
+          <Label for="password-login">Password</Label>
+        </Row>
+        <Row className='w-100 px-2'>
           <Input
             id="password-login"
             name="password"
             placeholder="Enter your password"
             type="password"
           />
-        </Col>
+        </Row>
       </FormGroup>
-      <FormGroup row>
-        <Label for="role-login" sm={2}>
-          Role
-        </Label>
-        <Col sm={10}>
-          <Input
-            id="role-login"
-            name="role"
-            type="select"
-            value={Role}
-            onChange={handleChange}
-          >
-            <option>user</option>
-            <option>doctor</option>
-          </Input>
-        </Col>
+      <FormGroup className='mt-2'>
+        <Row className='w-100'>
+          <Col sm='12' md='1'>
+            <Label for="role-login">Role</Label>
+          </Col>
+          <Col sm='12' md='11'>
+            <Input
+              id="role-login"
+              name="role"
+              type="select"
+              value={Role}
+              onChange={handleChange}
+            >
+              <option>user</option>
+              <option>doctor</option>
+            </Input>
+          </Col>
+        </Row>
       </FormGroup>
-      <FormGroup check row>
-        <Col>
-          <Button>Log in</Button>
-        </Col>
+      <FormGroup check>
+        <Row className='justify-content-center '>
+          <Button className='my-5 w-50 btn-success rounded-pill'>Log in</Button>
+        </Row>
       </FormGroup>
     </Form>
   );

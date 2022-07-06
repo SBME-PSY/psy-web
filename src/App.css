@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rancho&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 :root {
   --green600: rgb(5 150 105);
@@ -17,7 +14,35 @@
   padding: 0;
   scroll-behavior: smooth;
 }
-
+.back-btn{
+  background: none;
+  border: none;
+  color: #6c757d;
+  font-size: 25px;
+}
+.back-btn  :hover {
+  color: var(--gray500);
+}
+.back-btn :focus {
+  outline: none;
+}
+.title{
+  font-family: 'Rancho', sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+}
+#reg-container{
+  border-radius: 35px;
+  background: #ffffff;
+  box-shadow:  -24px 24px 48px #787878,               24px -24px 48px #ffffff;
+  -webkit-border-radius: 35px;
+  -moz-border-radius: 35px;
+  -ms-border-radius: 35px;
+  -o-border-radius: 35px;
+}
+.title:hover{
+  cursor: pointer !important;
+}
 #contact-btn {
   z-index: 10;
 }
@@ -290,7 +315,6 @@ a {
   border-radius: 15px;
   object-fit: cover;
 }
-
 .regstiration {
   color: rgba(0, 0, 0, 0.55) !important;
   margin-left: 10px;
@@ -338,10 +362,7 @@ a {
 .float-left {
   margin-left: auto !important;
 }
-@media (min-width: 768px) {
-  .navbar-expand-md .navbar-collapse {
-  }
-}
+
 @media (max-width: 768px) {
   .regstiration {
     padding: 0px;

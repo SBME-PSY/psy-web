@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   TabContent,
   Nav,
+  Container,
   NavItem,
   NavLink,
   Col,
@@ -25,117 +26,69 @@ function Register(props) {
   return (
     <Wrapper>
       {err ? <ErrorPage /> : ''}
-      <main>
-        <section>
-          <div className="header-sign">
-            <button
-              onClick={() => {
-                navigate('/', { replace: true });
-              }}
-            >
-              <BsFillArrowLeftCircleFill />
-            </button>
-            <h2
-              onClick={() => {
-                navigate('/', { replace: true });
-              }}
-            >
-              Psy-Awareness
-            </h2>
-          </div>
-          <Nav tabs>
-            <NavItem>
-              <NavLink
-                className={regState === 'login' ? 'active' : ''}
-                onClick={() => setRegState('login')}
+      <Container id='reg-container'>
+        <Container  className='px-2 w-100 '>
+          <Row className='py-3'>
+            <Col  sm='2' md='5'>
+              <div className='back-btn'>
+                <BsFillArrowLeftCircleFill style={{cursor:'pointer'}}  onClick={() => {
+                  navigate('/', { replace: true });
+                }} />
+              </div>  
+            </Col>
+            <Col  sm='10' md='7' >
+              <h2 className='title'
+                onClick={() => {
+                  navigate('/', { replace: true });
+                }}
               >
-                Login
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={regState !== 'login' ? 'active' : ''}
-                onClick={() => setRegState('signup')}
-              >
-                Singup
-              </NavLink>
-            </NavItem>
+                Psy-Awareness
+              </h2>
+            </Col>
+          </Row>
+          <Nav tabs className=' pt-4 justify-content-center'>
+            <Row>
+              <Col>
+                <NavItem>
+                  <NavLink
+                    className={regState === 'login' ? 'active' : ''}
+                    onClick={() => setRegState('login')}
+                  >
+                    Login
+                  </NavLink>
+                </NavItem>
+              </Col>
+              <Col>
+              <NavItem>
+                <NavLink
+                  className={regState !== 'login' ? 'active' : ''}
+                  onClick={() => setRegState('signup')}
+                >
+                    Singup
+                  </NavLink>
+                </NavItem>
+              </Col>
+            </Row>
           </Nav>
           <TabContent activeTab={regState}>
             <TabPane tabId="login">
-              <Row>
-                <Col sm="12">
-                  <LogIn />
-                </Col>
-              </Row>
+              <LogIn />
             </TabPane>
             <TabPane tabId="signup">
-              <Col sm="12">
-                <SignUp />
-              </Col>
+              <SignUp />
             </TabPane>
           </TabContent>
-        </section>
-      </main>
+        </Container>
+      </Container>
     </Wrapper>
   );
 }
 const Wrapper = styled.div`
+  padding: 20vh 2% 0 2%;
   background: url(${Psychologist});
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-  height: 140vh;
-  .header-sign {
-    margin-bottom: 20px;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    button {
-      background: none;
-      border: none;
-      color: #6c757d;
-      font-size: 25px;
-      :hover {
-        color: var(--gray500);
-      }
-    }
-  }
-  .row .form-group {
-    padding: 10px 0;
-  }
-  main {
-    h2 {
-      font-family: 'Rancho', cursive;
-      cursor: pointer;
-      color: rgb(0 0 0 / 0.5);
-      text-align: center;
-      margin-bottom: 0px;
-    }
-  }
-  .nav-item a {
-    color: black;
-  }
-  section {
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    width: 50%;
-    min-width: 400px;
-    margin: auto;
-    position: relative;
-    top: 60px;
-    padding: 10px;
-  }
-  @media (max-width: 760px) {
-    .row .form-group {
-      padding: 0px;
-    }
-    section {
-      top: 10px;
-    }
-    main {
-      h1 {
-        top: 5px;
-      }
-    }
-  }
+  background-size: cover ;
+  height: 100vh;
 `;
 export default Register;

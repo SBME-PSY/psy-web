@@ -15,7 +15,7 @@ import Adminsignin from './Components&sections/Admin Panel sections/Admin Sign-i
 import Room from './Screens/Room';
 import GroupTherpy from './Screens/GroupTherpy';
 import Register from './Screens/Register';
-import AdminWelcomepage from './Components&sections/Admin Panel sections/Admin Welcome page';
+import Statistics from './Components&sections/Admin Panel sections/Admin Welcome page';
 import Users from './Components&sections/Admin Panel sections/Users';
 import Professionals from './Components&sections/Admin Panel sections/Professionals';
 import Article from './Screens/Article';
@@ -33,7 +33,7 @@ function App() {
         <Route path="/AdminLogin" element={<Adminsignin />} />
         <Route path="/Admin" element={<AdminPrivateRoute />}>
           <Route path="/Admin" element={<Administrator />}>
-            <Route index element={<AdminWelcomepage />} />
+            <Route index element={<Statistics />} />
             <Route path="users" element={<Users />} />
             <Route path="professionals" element={<Professionals />} />
           </Route>

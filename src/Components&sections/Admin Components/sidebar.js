@@ -10,7 +10,10 @@ import {
   faUserAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import Submenu from './SubMenu';
-import { SidebarData } from './SidebarData';
+import { SidebarData } from '../../assets/data';
+import { useDispatch } from 'react-redux';
+import { setCookie } from '../../assets/cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Nav = styled.div`
   background: #161925;
@@ -45,13 +48,17 @@ const SidebarWrap = styled.div`
 `;
 
 const Adminsidebar = () => {
+  const dispatch = useDispatch();
+  const nagigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
   function showSidebar() {
     setSidebar(!sidebar);
   }
   const LogOut = () => {
-    localStorage.clear();
-    window.location.replace('/Admin');
+    dispatch({ type: 'UPDATE_USER', pyload: '' });
+    setCookie('jwt', '', new Date(Date.now + 3 * 1000));
+    setCookie('user', '', new Date(Date.now + 3 * 1000));
+    nagigate('/AdminLogin');
   };
   return (
     <>

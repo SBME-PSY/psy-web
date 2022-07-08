@@ -37,9 +37,7 @@ const Professionals = () => {
           },
         }
       )
-      .then((res) => {
-        console.log();
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -71,6 +69,7 @@ const Professionals = () => {
       })
       .catch((err) => {
         console.log(err);
+        isLoading(false);
         loadError(true);
       });
   };
@@ -83,7 +82,7 @@ const Professionals = () => {
 
   return (
     <Container className="mt-5">
-      <h1 className=" border-bottom border-2 pb-2 mt-5 border-dark">
+      <h1 className=" border-bottom border-2 pb-2 mt-5 border-dark text-center">
         Professionals Applications
       </h1>
       {loading && (
@@ -91,7 +90,11 @@ const Professionals = () => {
           <Spinner></Spinner>
         </div>
       )}
-      {error && <h1>Sorry!! There was a problem fetching your data</h1>}
+      {error && (
+        <h1 className="text-center">
+          Sorry!! There was a problem fetching your data
+        </h1>
+      )}
 
       {Professional && (
         <Modal

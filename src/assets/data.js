@@ -4,6 +4,8 @@ import meeting from './Img/undraw_schedule_meeting_52nu.svg';
 import doctors from './Img/undraw_doctors_hwty.svg';
 import online_article from './Img/undraw_Online_article_re_daq5.svg';
 import todo from './Img/undraw_To_do_list_re_9nt7.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserMd, faChartLine } from '@fortawesome/free-solid-svg-icons';
 const our_doctors = [
   {
     name: 'John Doe',
@@ -119,4 +121,17 @@ const governorate = [
   'Suez',
 ];
 
-export { clients_feedback, features, our_doctors, governorate };
+const SidebarData = [
+  {
+    title: 'Statistics',
+    path: '/Admin',
+    icon: <FontAwesomeIcon icon={faChartLine} />,
+  },
+  {
+    title: 'View & Edit Professionals',
+    path: '/Admin/professionals',
+    icon: <FontAwesomeIcon icon={faUserMd} />,
+  },
+];
+
+export { clients_feedback, features, our_doctors, governorate, SidebarData };

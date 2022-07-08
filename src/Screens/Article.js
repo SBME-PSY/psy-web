@@ -44,7 +44,6 @@ function Article() {
         navigate('/');
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         dispatch({ type: 'UPDATE_ERR', pyload: err.response.data.message });
       });
   };

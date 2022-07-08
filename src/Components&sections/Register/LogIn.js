@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react';
-import { FormGroup, Label, Form, Col, Input, Button,Row } from 'reactstrap';
+import { FormGroup, Label, Form, Col, Input, Button, Row } from 'reactstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -51,12 +51,13 @@ function LogIn(props) {
   return (
     <Form onSubmit={handelSubmit} id="login-form">
       <FormGroup>
-        <Row className='w-100 '>
-          <Label for="email-login" sm={2}>Email</Label>
+        <Row className="w-100 ">
+          <Label for="email-login" sm={2}>
+            Email
+          </Label>
         </Row>
-        <Row className='w-100 px-2'>
+        <Row className="w-100 px-2">
           <Input
-            
             id="email-login"
             name="email"
             placeholder="Enter your email"
@@ -64,11 +65,11 @@ function LogIn(props) {
           />
         </Row>
       </FormGroup>
-      <FormGroup className='my-2'>
-        <Row className='w-100'>
+      <FormGroup className="my-2">
+        <Row className="w-100">
           <Label for="password-login">Password</Label>
         </Row>
-        <Row className='w-100 px-2'>
+        <Row className="w-100 px-2">
           <Input
             id="password-login"
             name="password"
@@ -77,12 +78,12 @@ function LogIn(props) {
           />
         </Row>
       </FormGroup>
-      <FormGroup className='mt-2'>
-        <Row className='w-100'>
-          <Col sm='12' md='1'>
+      <FormGroup className="mt-2">
+        <Row className="w-100">
+          <Col sm="12" md="1">
             <Label for="role-login">Role</Label>
           </Col>
-          <Col sm='12' md='11'>
+          <Col sm="12" md="11">
             <Input
               id="role-login"
               name="role"
@@ -97,8 +98,13 @@ function LogIn(props) {
         </Row>
       </FormGroup>
       <FormGroup check>
-        <Row className='justify-content-center '>
-          <Button className='my-5 w-50 btn-success rounded-pill'>Log in</Button>
+        <Row className="justify-content-center ">
+          <Button
+            className="my-5 w-50 btn-success rounded-pill"
+            onClick={handelSubmit}
+          >
+            Log in
+          </Button>
         </Row>
       </FormGroup>
     </Form>

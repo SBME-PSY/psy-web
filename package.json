@@ -17,6 +17,8 @@
     "axios": "^0.25.0",
     "bootstrap": "^5.1.1",
     "components": "^0.1.0",
+    "echarts": "^5.3.3",
+    "echarts-for-react": "^3.0.2",
     "emailjs-com": "^3.2.0",
     "formik": "^2.2.9",
     "i": "^0.3.7",

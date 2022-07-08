@@ -8,7 +8,6 @@ function Room(props) {
   let { stream } = useSelector((store) => store);
   useEffect(() => {
     const localVideo = document.createElement('video');
-    console.log(stream);
     localVideo.srcObject = stream;
     localVideo.muted = true;
     localVideo.addEventListener('loadedmetadata', () => {

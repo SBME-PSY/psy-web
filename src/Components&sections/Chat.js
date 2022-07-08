@@ -22,9 +22,7 @@ function Chat() {
   };
   useEffect(() => {
     socket.on('messageCame', (mess) => {
-      console.log(mess);
       dispatch({ type: 'UPDATE_MESSAGES', pyload: mess });
-      console.log(mess);
     });
   }, []);
   return (

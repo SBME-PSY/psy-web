@@ -27,6 +27,7 @@ function Post(props) {
 const Wrapper = styled.div`
   background-color: white;
   margin-top: 20px;
+  padding: 20px;
   .container-post {
     .author-post {
       width: 40px;

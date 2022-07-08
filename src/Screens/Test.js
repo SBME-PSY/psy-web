@@ -3,6 +3,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
 import { uploadPlugin } from '../assets/uploadAdapter';
+import { AiOutlineSearch } from 'react-icons/ai';
 import {
   Button,
   Modal,
@@ -24,24 +25,21 @@ export default function Test() {
   return (
     <Wrapper>
       <Navigation />
-
       <Container className="container-article">
-        <Row className="header align-items-center">
-          <Col xs="auto" className="">
-            <img
-              src="https://social.webestica.com/assets/images/avatar/03.jpg"
-              alt="phot"
-            />
-          </Col>
-          <Col>
+        <Row className="header align-items-center justify-center">
+          <Col xs="auto">
+            <Button
+              onClick={() => setIsOpen(true)}
+              color="success"
+              style={{ marginRight: '10px' }}
+            >
+              Write Article
+            </Button>
             <Input
-              placeholder="Write your Artical"
-              className="write-articel-input"
-              onFocus={() => {
-                document.activeElement.blur();
-                setIsOpen(true);
-              }}
+              style={{ display: 'inline', width: 'auto' }}
+              placeholder="search"
             />
+            <AiOutlineSearch style={{ fontSize: '20px', cursor: 'pointer' }} />
           </Col>
         </Row>
         {/* here posts */}
@@ -132,6 +130,8 @@ export default function Test() {
 
 const Wrapper = styled.div`
   background-color: #eff2f6;
+  position: relative;
+  top: 50px;
   padding: 20px;
   .header {
     img {

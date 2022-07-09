@@ -28,7 +28,17 @@ export default function Test() {
       })
       .catch((err) => {
         console.log(err);
-        dispatch({ type: 'UPDATE_ERR', pyload: err.response.data.message });
+        if (err.response) {
+          dispatch({
+            type: 'UPDATE_ERR',
+            pyload: err.response.data.message,
+          });
+        } else {
+          dispatch({
+            type: 'UPDATE_ERR',
+            pyload: 'sorry there are problem in server try again later',
+          });
+        }
         setLoading(false);
       });
   };
@@ -51,45 +61,52 @@ export default function Test() {
   }
   return (
     <Wrapper>
-      {err ? <ErrorPage /> : ''}
       <Navigation />
-      <Container className="container-article">
-        <Row className="header align-items-center justify-content-center">
-          <Col xs="auto">
-            <Button
-              onClick={() => setIsOpen(true)}
-              color="success"
-              style={{ marginRight: '10px' }}
-            >
-              Write Article
-            </Button>
-            <Input
-              style={{ display: 'inline', width: 'auto', maxWidth: '228px' }}
-              className="search-box"
-              placeholder="search"
-            />
-            <AiOutlineSearch
-              style={{
-                fontSize: '20px',
-                cursor: 'pointer',
-                marginLeft: '10px',
-              }}
-            />
-          </Col>
-        </Row>
-        {/* here posts */}
-        {posts.map((post, index) => {
-          return <Post key={index} data={post} />;
-        })}
-        {/* end posts */}
-        <WriteArticles isOpen={isOpen} setIsOpen={setIsOpen} />
-      </Container>
+
+      {err ? (
+        <h1 className="text-center  pt-5">
+          Sorry! There while was a problem fetching your data
+        </h1>
+      ) : (
+        <Container className="container-article">
+          <Row className="header align-items-center justify-content-center">
+            <Col xs="auto">
+              <Button
+                onClick={() => setIsOpen(true)}
+                color="success"
+                style={{ marginRight: '10px' }}
+              >
+                Write Article
+              </Button>
+              <Input
+                style={{ display: 'inline', width: 'auto', maxWidth: '228px' }}
+                className="search-box"
+                placeholder="search"
+              />
+              <AiOutlineSearch
+                style={{
+                  fontSize: '20px',
+                  cursor: 'pointer',
+                  marginLeft: '10px',
+                }}
+              />
+            </Col>
+          </Row>
+          {/* here posts */}
+          {posts.map((post, index) => {
+            return <Post key={index} data={post} />;
+          })}
+          {/* end posts */}
+          <WriteArticles isOpen={isOpen} setIsOpen={setIsOpen} />
+        </Container>
+      )}
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   background-color: #eff2f6;
+  min-height: 100vh;
   position: relative;
   top: 50px;
   padding: 20px;

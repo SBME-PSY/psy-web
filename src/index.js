@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import reportWebVitals from './reportWebVitals';
+import App from './App';
 import SimpleReactLightbox from 'simple-react-lightbox';
 import axios from 'axios';
 import { AppProvider } from './context';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en.json';
+import ru from 'javascript-time-ago/locale/ru.json';
+
+TimeAgo.addDefaultLocale(en);
+TimeAgo.addLocale(ru);
 axios.defaults.baseURL = process.env.REACT_APP_REMOTE_SERVER_DOMAIN;
 
 ReactDOM.render(

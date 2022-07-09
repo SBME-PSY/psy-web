@@ -38,43 +38,44 @@ const Statistics = () => {
       </div>
     );
   }
-  if (error) {
-    <h1 className="d-flex flex-row align-content-center justify-content-center pt-5 bg-white">
-      Sorry! There was a problem fetching your data
-    </h1>;
-  }
   return (
     <Wrapper>
-      <Container className="mt-5">
-        <h1 className="pb-2 mt-5 text-center">
-          <span className="stat-header">Statistics</span>
+      {error ? (
+        <h1 className="d-flex flex-row align-content-center justify-content-center pt-5 bg-white">
+          Sorry! There was a problem fetching your data
         </h1>
-        <Row>
-          <Col xs={12} className="statistics-col">
-            <NumerStat
-              numUsers={data.userStatsGender[0].numUsers}
-              numDoctors={data.doctorStatsGender[0].numDoctors}
-              numTestToken={data.resultsStats[0].numResults}
-              numTestTokenUnique={data.resultsUniqueStats[0].numUniqueResults}
-            />
-          </Col>
-          <Col xs={12} md={6} className="mt-5">
-            <UserStatsGender userStat={data.userStatsGender} />
-          </Col>
-          <Col xs={12} md={6} className="mt-5">
-            <UserStatsGovernates data={data.userStatsGovernates} />
-          </Col>
-          <Col xs={12} md={6} className="mt-5">
-            <ResultsTestsStats data={data.resultsTestsStats} />
-          </Col>
-          <Col xs={12} md={6} className="mt-5">
-            <ResultsGovernateStats data={data.resultsGovernateStats} />
-          </Col>
-          <Col xs={12} md={6} className="mt-5">
-            <DoctorStatsGender doctorStat={data.doctorStatsGender} />
-          </Col>
-        </Row>
-      </Container>
+      ) : (
+        <Container className="mt-5">
+          <h1 className="pb-2 mt-5 text-center">
+            <span className="stat-header">Statistics</span>
+          </h1>
+          <Row>
+            <Col xs={12} className="statistics-col">
+              <NumerStat
+                numUsers={data.userStatsGender[0].numUsers}
+                numDoctors={data.doctorStatsGender[0].numDoctors}
+                numTestToken={data.resultsStats[0].numResults}
+                numTestTokenUnique={data.resultsUniqueStats[0].numUniqueResults}
+              />
+            </Col>
+            <Col xs={12} md={6} className="mt-5">
+              <UserStatsGender userStat={data.userStatsGender} />
+            </Col>
+            <Col xs={12} md={6} className="mt-5">
+              <UserStatsGovernates data={data.userStatsGovernates} />
+            </Col>
+            <Col xs={12} md={6} className="mt-5">
+              <ResultsTestsStats data={data.resultsTestsStats} />
+            </Col>
+            <Col xs={12} md={6} className="mt-5">
+              <ResultsGovernateStats data={data.resultsGovernateStats} />
+            </Col>
+            <Col xs={12} md={6} className="mt-5">
+              <DoctorStatsGender doctorStat={data.doctorStatsGender} />
+            </Col>
+          </Row>
+        </Container>
+      )}
     </Wrapper>
   );
 };

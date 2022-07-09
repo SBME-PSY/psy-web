@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Col, Row } from 'reactstrap';
 import styled from 'styled-components';
+import ReactTimeAgo from 'react-time-ago';
 function Post({ data }) {
   console.log(data);
   //   "data": [
@@ -21,6 +22,7 @@ function Post({ data }) {
   //         "updatedAt": "2022-07-08T23:28:57.133Z"
   //     }
   // ],
+
   return (
     <Wrapper>
       <Row className="container-post">
@@ -29,7 +31,9 @@ function Post({ data }) {
         </Col>
         <Col className="autor-info">
           <b>{data.author.name}</b>
-          <span>• 12hr</span>
+          <span>
+            • <ReactTimeAgo date={data.createdAt} locale="en-US" />
+          </span>
           <p>{data.author.specialization}</p>
           <div dangerouslySetInnerHTML={{ __html: data.body }} />
         </Col>

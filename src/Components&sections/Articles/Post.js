@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import React, { memo } from 'react';
+import { Col, Row } from 'reactstrap';
 import styled from 'styled-components';
-import axios from 'axios';
 function Post({ data }) {
   console.log(data);
   //   "data": [
@@ -26,17 +25,13 @@ function Post({ data }) {
     <Wrapper>
       <Row className="container-post">
         <Col xs="auto">
-          <img
-            src="https://social.webestica.com/assets/images/avatar/04.jpg"
-            alt="k"
-            className="author-post"
-          />
+          <img src={data.author.picture} alt="k" className="author-post" />
         </Col>
         <Col className="autor-info">
-          <b>name</b>
+          <b>{data.author.name}</b>
           <span>• 12hr</span>
-          <p>jobTitle</p>
-          <div>body</div>
+          <p>{data.author.specialization}</p>
+          <div dangerouslySetInnerHTML={{ __html: data.body }} />
         </Col>
       </Row>
     </Wrapper>
@@ -45,8 +40,9 @@ function Post({ data }) {
 
 const Wrapper = styled.div`
   background-color: white;
-  margin-top: 20px;
   padding: 20px;
+  max-width: 700px;
+  margin: 20px auto;
   .container-post {
     .author-post {
       width: 40px;
@@ -71,4 +67,4 @@ const Wrapper = styled.div`
     }
   }
 `;
-export default Post;
+export default memo(Post);

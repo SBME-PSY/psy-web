@@ -10,10 +10,8 @@ import Post from '../Components&sections/Articles/Post';
 import Navigation from '../Components&sections/HomeSections/Navbar';
 import WriteArticles from '../Components&sections/Articles/WriteArticles';
 export default function Test() {
-  const userId = useSelector((state) => state.user._id);
   const [isOpen, setIsOpen] = useState(false);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const err = useSelector((state) => state.err);
 

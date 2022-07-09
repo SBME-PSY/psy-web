@@ -9,6 +9,7 @@ import {
   Input,
   Button,
 } from 'reactstrap';
+import Editor from './Editor';
 import axios from 'axios';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -80,19 +81,7 @@ function WriteArticles(props) {
           </Col>
         </FormGroup>
         <ModalBody>
-          <div className="App">
-            <CKEditor
-              scrollable
-              config={{
-                extraPlugins: [uploadPlugin],
-              }}
-              editor={ClassicEditor}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                setText(data);
-              }}
-            />
-          </div>
+          <Editor setText={setText} />
         </ModalBody>
         <ModalFooter>
           <Button color="success" onClick={handleclick}>

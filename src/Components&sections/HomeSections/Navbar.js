@@ -108,14 +108,9 @@ const Navigation = (props) => {
                   <DropdownItem className="margin-left-anim">
                     <Link
                       className="fs-6 nav-item fs-6 nav-link "
-                      to="/Articles"
+                      to="/articles"
                     >
                       Articles
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem className="margin-left-anim">
-                    <Link className="fs-6 nav-item fs-6 nav-link " to="/test">
-                      Test
                     </Link>
                   </DropdownItem>
                   <DropdownItem className="margin-left-anim">

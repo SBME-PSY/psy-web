@@ -4,7 +4,7 @@ import { FiVideo, FiVideoOff } from 'react-icons/fi';
 import { AiOutlineAudio, AiOutlineAudioMuted } from 'react-icons/ai';
 import { BsChatDots } from 'react-icons/bs';
 import { TbPhoneX } from 'react-icons/tb';
-import Chat from '../Components&sections/Chat';
+import Chat from '../Components&sections/Chats/Chat';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 function Video(props) {

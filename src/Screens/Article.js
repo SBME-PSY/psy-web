@@ -4,10 +4,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { Button, Container, Input } from 'reactstrap';
 import sky from '../assets/Img/sky.jpg';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Article() {
   const userId = useSelector((state) => state.user._id);

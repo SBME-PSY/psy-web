@@ -118,6 +118,6 @@ export function AppProvider({ children }) {
         pyload: JSON.parse(getCookie('user')),
       });
     }
-  });
+  }, []);
   return <Provider store={store}>{children}</Provider>;
 }

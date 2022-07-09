@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import FileBase64 from 'react-file-base64';
 import { governorate } from '../../assets/data';
 import { setCookie } from '../../assets/cookie';
+import { maritalStatus, sex, role, specialization } from '../../assets/data';
 function SignUp(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -134,8 +135,9 @@ function SignUp(props) {
               Sex
             </Label>
             <Input id="role-login" name="sex" type="select">
-              <option>Male</option>
-              <option>Female</option>
+              {sex.map((el) => {
+                return <option>{el}</option>;
+              })}
             </Input>
           </FormGroup>
         </Col>
@@ -145,12 +147,9 @@ function SignUp(props) {
               Maritalstatus
             </Label>
             <Input id="role-login" name="maritalStatus" type="select">
-              <option>Single</option>
-              <option>Married</option>
-              <option>Divorced</option>
-              <option>Seperated</option>
-              <option>Engaged</option>
-              <option>Widowed</option>
+              {maritalStatus.map((el) => {
+                return <option>{el}</option>;
+              })}
             </Input>
           </FormGroup>
         </Col>
@@ -168,8 +167,9 @@ function SignUp(props) {
               value={Role}
               onChange={handleChange}
             >
-              <option>user</option>
-              <option>doctor</option>
+              {role.map((el) => {
+                return <option>{el}</option>;
+              })}
             </Input>
           </FormGroup>
         </Col>
@@ -192,22 +192,36 @@ function SignUp(props) {
       </Row>
       <Row>
         {Role === 'doctor' ? (
-          <Col md={6}>
-            <FormGroup>
-              <Row>
-                <Col md={2}>
-                  <Label for="role-login">CV</Label>
-                </Col>
-                <Col md={10}>
-                  <FileBase64
-                    type="file"
-                    multiple={false}
-                    onDone={({ base64 }) => setCV(base64)}
-                  />
-                </Col>
-              </Row>
-            </FormGroup>
-          </Col>
+          <>
+            <Col md={6}>
+              <FormGroup>
+                <Label for="role-login" sm={2}>
+                  Specialization
+                </Label>
+                <Input id="role-login" name="specialization" type="select">
+                  {specialization.map((el) => {
+                    return <option>{el}</option>;
+                  })}
+                </Input>
+              </FormGroup>
+            </Col>
+            <Col md={6}>
+              <FormGroup>
+                <Row>
+                  <Col md={2}>
+                    <Label for="role-login">CV</Label>
+                  </Col>
+                  <Col md={10}>
+                    <FileBase64
+                      type="file"
+                      multiple={false}
+                      onDone={({ base64 }) => setCV(base64)}
+                    />
+                  </Col>
+                </Row>
+              </FormGroup>
+            </Col>
+          </>
         ) : (
           ''
         )}

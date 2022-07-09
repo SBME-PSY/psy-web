@@ -134,4 +134,30 @@ const SidebarData = [
   },
 ];
 
-export { clients_feedback, features, our_doctors, governorate, SidebarData };
+const maritalStatus = ['Single', 'Married', 'Divorced', 'Seperated', 'Engaged'];
+const sex = ['Male', 'Female'];
+const role = ['user', 'doctor'];
+const specialization = [
+  'Psychiatrist',
+  'Neuropsychologist',
+  'Psychologist',
+  'Clinical Psychologist',
+  'Counseling Psychologist',
+  'School Psychologist',
+  'Psychotherapist',
+  'Psychology Assistant',
+  'Psychology Technician',
+  'Psychology Teacher',
+];
+
+export {
+  clients_feedback,
+  features,
+  our_doctors,
+  governorate,
+  SidebarData,
+  maritalStatus,
+  sex,
+  role,
+  specialization,
+};

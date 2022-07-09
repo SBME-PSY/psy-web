@@ -2,7 +2,26 @@ import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import styled from 'styled-components';
 import axios from 'axios';
-function Post(props) {
+function Post({ data }) {
+  console.log(data);
+  //   "data": [
+  //     {
+  //         "_id": "62c8bdb9d745d1761afaa467",
+  //         "title": "This is art",
+  //         "body": "And this is the body of the article.",
+  //         "rating": 0,
+  //         "author": {
+  //             "_id": "62c8bc6ecbe19e6cad3b948c",
+  //             "name": "John Doe",
+  //             "specialization": "Psychology Teacher",
+  //             "picture": "https://ui-avatars.com/api/?rounded=true&background=fff&size=512&name=John+Doe",
+  //             "clinics": [],
+  //             "id": "62c8bc6ecbe19e6cad3b948c"
+  //         },
+  //         "createdAt": "2022-07-08T23:28:57.133Z",
+  //         "updatedAt": "2022-07-08T23:28:57.133Z"
+  //     }
+  // ],
   return (
     <Wrapper>
       <Row className="container-post">

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCookie } from '../../assets/cookie';
-
+import { role } from '../../assets/data';
 function LogIn(props) {
   const [url, setUrl] = useState('/psy/users/login');
   const [Role, setRole] = useState('user');
@@ -91,8 +91,9 @@ function LogIn(props) {
               value={Role}
               onChange={handleChange}
             >
-              <option>user</option>
-              <option>doctor</option>
+              {role.map((el) => {
+                return <option>{el}</option>;
+              })}
             </Input>
           </Col>
         </Row>

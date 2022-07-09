@@ -1,32 +1,62 @@
-import React, { useState } from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { uploadPlugin } from '../assets/uploadAdapter';
 import { AiOutlineSearch } from 'react-icons/ai';
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  FormGroup,
-  Col,
-  Row,
-  Input,
-  Container,
-} from 'reactstrap';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import ErrorPage from '../Components&sections/HomeSections/ErrorPage';
+import { Button, Col, Row, Input, Container, Spinner } from 'reactstrap';
 import Post from '../Components&sections/Articles/Post';
 import Navigation from '../Components&sections/HomeSections/Navbar';
+import WriteArticles from '../Components&sections/Articles/WriteArticles';
 export default function Test() {
+  const userId = useSelector((state) => state.user._id);
   const [isOpen, setIsOpen] = useState(false);
-  const handleChange = (data) => {};
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const err = useSelector((state) => state.err);
+
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+  const getData = () => {
+    axios({
+      method: 'GET',
+      url: '/psy/articles',
+    })
+      .then((res) => {
+        setPosts(res.data.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch({ type: 'UPDATE_ERR', pyload: err.response.data.message });
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (loading) {
+    return (
+      <>
+        <Navigation />
+        <div
+          style={{ marginTop: '100px' }}
+          className="d-flex flex-row align-content-center justify-content-center pt-10 bg-white"
+        >
+          <Spinner> </Spinner>
+        </div>
+      </>
+    );
+  }
   return (
     <Wrapper>
+      {err ? <ErrorPage /> : ''}
       <Navigation />
       <Container className="container-article">
-        <Row className="header align-items-center justify-center">
+        <Row className="header align-items-center justify-content-center">
           <Col xs="auto">
             <Button
               onClick={() => setIsOpen(true)}
@@ -36,93 +66,25 @@ export default function Test() {
               Write Article
             </Button>
             <Input
-              style={{ display: 'inline', width: 'auto' }}
+              style={{ display: 'inline', width: 'auto', maxWidth: '228px' }}
+              className="search-box"
               placeholder="search"
             />
-            <AiOutlineSearch style={{ fontSize: '20px', cursor: 'pointer' }} />
+            <AiOutlineSearch
+              style={{
+                fontSize: '20px',
+                cursor: 'pointer',
+                marginLeft: '10px',
+              }}
+            />
           </Col>
         </Row>
         {/* here posts */}
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+        {posts.map((post, index) => {
+          return <Post key={index} data={post} />;
+        })}
         {/* end posts */}
-
-        <Modal
-          size="lg"
-          scrollable
-          isOpen={isOpen}
-          toggle={function noRefCheck() {}}
-        >
-          <ModalHeader
-            close={
-              <button
-                className="close"
-                style={{
-                  background: 'transparent',
-                  fontSize: '30px',
-                  border: 'none',
-                }}
-                onClick={() => setIsOpen(false)}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            }
-            toggle={function noRefCheck() {}}
-          >
-            Write your articles
-          </ModalHeader>{' '}
-          <FormGroup row className="mx-auto my-auto mt-2">
-            <Col sm={12}>
-              <Input
-                id="exampleEmail"
-                name="email"
-                placeholder="key words"
-                type="email"
-              />
-            </Col>
-          </FormGroup>
-          <ModalBody>
-            <Wrapper className="App">
-              <CKEditor
-                scrollable
-                config={{
-                  extraPlugins: [uploadPlugin],
-                }}
-                editor={ClassicEditor}
-                onReady={(editor) => {}}
-                onBlur={(event, editor) => {}}
-                onFocus={(event, editor) => {}}
-                onChange={(event, editor) => {
-                  handleChange(editor.getData());
-                }}
-              />
-            </Wrapper>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="success" onClick={function noRefCheck() {}}>
-              Post
-            </Button>{' '}
-            <Button
-              color="danger"
-              onClick={() => {
-                setIsOpen(false);
-              }}
-            >
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
+        <WriteArticles isOpen={isOpen} setIsOpen={setIsOpen} />
       </Container>
     </Wrapper>
   );
@@ -133,6 +95,12 @@ const Wrapper = styled.div`
   position: relative;
   top: 50px;
   padding: 20px;
+  .search-box {
+    :focus {
+      border-color: #198754;
+      box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+    }
+  }
   .header {
     img {
       width: 40px;

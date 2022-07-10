@@ -1,29 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import ErrorPage from '../Components&sections/HomeSections/ErrorPage';
 import { Button, Col, Row, Input, Container, Spinner } from 'reactstrap';
 import Post from '../Components&sections/Articles/Post';
 import Navigation from '../Components&sections/HomeSections/Navbar';
 import WriteArticles from '../Components&sections/Articles/WriteArticles';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 export default function Test() {
-  const [isOpen, setIsOpen] = useState(false);
-
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
   const err = useSelector((state) => state.err);
-
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
   const getData = () => {
+    setPage(page + 1);
     axios({
       method: 'GET',
-      url: '/psy/articles',
+      url: `/psy/articles?limit=3&page=${page}`,
     })
       .then((res) => {
-        setPosts(res.data.data);
+        if (res.data.data.length === 0) {
+          setHasMore(false);
+        }
+        const newPosts = posts.concat(res.data.data);
+        setPosts(newPosts);
         setLoading(false);
       })
       .catch((err) => {
@@ -64,8 +69,18 @@ export default function Test() {
       <Navigation />
 
       {err ? (
-        <h1 className="text-center  pt-5">
-          Sorry! There while was a problem fetching your data
+        <h1
+          style={{
+            maxWidth: '600px',
+            color: 'rgb(173, 176, 179)',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -80%)',
+            textAlign: 'center',
+          }}
+        >
+          Sorry! There was a problem while fetching your data try again later
         </h1>
       ) : (
         <Container className="container-article">
@@ -93,9 +108,26 @@ export default function Test() {
             </Col>
           </Row>
           {/* here posts */}
-          {posts.map((post, index) => {
-            return <Post key={index} data={post} />;
-          })}
+          <InfiniteScroll
+            dataLength={posts.length}
+            next={getData}
+            hasMore={hasMore}
+            loader={
+              <div style={{ textAlign: 'center' }}>
+                <Spinner> </Spinner>
+              </div>
+            }
+            endMessage={
+              <p style={{ textAlign: 'center' }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            {posts.map((post, index) => {
+              return <Post key={index} data={post} />;
+            })}
+          </InfiniteScroll>
+
           {/* end posts */}
           <WriteArticles isOpen={isOpen} setIsOpen={setIsOpen} />
         </Container>

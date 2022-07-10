@@ -44,8 +44,18 @@ function LogIn(props) {
         navigate('/');
       })
       .catch((err) => {
-        console.log(err.response.data.message);
-        dispatch({ type: 'UPDATE_ERR', pyload: err.response.data.message });
+        console.log(err);
+        if (err.response) {
+          dispatch({
+            type: 'UPDATE_ERR',
+            pyload: err.response.data.message,
+          });
+        } else {
+          dispatch({
+            type: 'UPDATE_ERR',
+            pyload: 'sorry there are problem in server try again later',
+          });
+        }
       });
   };
   return (

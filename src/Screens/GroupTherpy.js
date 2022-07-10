@@ -36,13 +36,13 @@ function GroupTherpy(props) {
           streamRef.current = stream;
         });
     }
-    return () => {
-      if (peer.id && socket.id) {
-        streamRef.current.getTracks().forEach((track) => {
-          track.stop();
-        });
-      }
-    };
+    // return () => {
+    //   if (peer.id && socket.id) {
+    //     streamRef.current.getTracks().forEach((track) => {
+    //       track.stop();
+    //     });
+    //   }
+    // };
   }, []);
   //connect to socket
   return (

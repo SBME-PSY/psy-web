@@ -1,24 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FiVideo, FiVideoOff } from 'react-icons/fi';
 import { AiOutlineAudio, AiOutlineAudioMuted } from 'react-icons/ai';
-import { BsChatDots } from 'react-icons/bs';
+import { BsChatDots, BsMicMute } from 'react-icons/bs';
 import { TbPhoneX } from 'react-icons/tb';
 import Chat from '../Components&sections/Chats/Chat';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 function Video(props) {
+  const [micState, setMicState] = useState(true);
+  const [videoState, setVideoState] = useState(true);
   const { id: roomId } = useParams();
   let { stream } = useSelector((store) => store);
   useEffect(() => {
     const localVideo = document.createElement('video');
     localVideo.srcObject = stream;
-    localVideo.muted = true;
     localVideo.addEventListener('loadedmetadata', () => {
       localVideo.play();
     });
     document.getElementById('video-grid').appendChild(localVideo);
   }, []);
+  const handelMic = () => {
+    const micState = stream.getAudioTracks()[0].enabled;
+    stream.getAudioTracks()[0].enabled = !micState;
+    setMicState(!micState);
+  };
+  const handelVideo = () => {
+    const videoState = stream.getVideoTracks()[0].enabled;
+    stream.getVideoTracks()[0].enabled = !videoState;
+    setVideoState(!videoState);
+  };
   return (
     <Wrapper>
       <Chat />
@@ -28,12 +39,12 @@ function Video(props) {
         </section>
         <section id="video-grid"></section>
         <section className="footer">
-          <article>
-            <FiVideo />
+          <article onClick={handelVideo}>
+            {videoState ? <FiVideo /> : <FiVideoOff />}
             <p>cam</p>
           </article>
-          <article>
-            <AiOutlineAudio />
+          <article onClick={handelMic}>
+            {micState ? <AiOutlineAudio /> : <BsMicMute />}
             <p>mic</p>
           </article>
           <article>

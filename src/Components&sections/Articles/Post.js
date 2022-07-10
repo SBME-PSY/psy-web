@@ -12,9 +12,10 @@ function Post({ data }) {
         <Col className="autor-info">
           <b>{data.author.name}</b>
           <span>
-            • <ReactTimeAgo date={data.createdAt} locale="en-US" />
+            • <ReactTimeAgo date={new Date(data.createdAt)} locale="en-US" />
           </span>
           <p>{data.author.specialization}</p>
+          <h3 className="article-title">{data.title}</h3>
           <div dangerouslySetInnerHTML={{ __html: data.body }} />
         </Col>
       </Row>
@@ -27,6 +28,9 @@ const Wrapper = styled.div`
   padding: 20px;
   max-width: 700px;
   margin: 20px auto;
+  .article-title {
+    text-align: center;
+  }
   .container-post {
     .author-post {
       width: 40px;

@@ -16,12 +16,16 @@ function ErrorPage() {
   };
   return (
     <Wrapper>
-      <main className="animation-on" id="main">
-        <article>{err} !</article>
-        <article>
-          <button onClick={handelClick}>ok</button>
-        </article>
-      </main>
+      {err ? (
+        <main className="animation-on" id="main">
+          <article>{err} !</article>
+          <article>
+            <button onClick={handelClick}>ok</button>
+          </article>
+        </main>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 }

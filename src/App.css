@@ -14,33 +14,33 @@
   padding: 0;
   scroll-behavior: smooth;
 }
-.back-btn{
+.back-btn {
   background: none;
   border: none;
   color: #6c757d;
   font-size: 25px;
 }
-.back-btn  :hover {
+.back-btn :hover {
   color: var(--gray500);
 }
 .back-btn :focus {
   outline: none;
 }
-.title{
+.title {
   font-family: 'Rancho', sans-serif;
   font-size: 40px;
   font-weight: 500;
 }
-#reg-container{
+#reg-container {
   border-radius: 35px;
   background: #ffffff;
-  box-shadow:  -24px 24px 48px #787878,               24px -24px 48px #ffffff;
+  box-shadow: -24px 24px 48px #787878, 24px -24px 48px #ffffff;
   -webkit-border-radius: 35px;
   -moz-border-radius: 35px;
   -ms-border-radius: 35px;
   -o-border-radius: 35px;
 }
-.title:hover{
+.title:hover {
   cursor: pointer !important;
 }
 #contact-btn {
@@ -423,4 +423,8 @@ figure img {
   width: 200px;
   height: 200px;
   object-fit: cover;
+}
+
+.infinite-scroll-component {
+  overflow: hidden !important;
 }

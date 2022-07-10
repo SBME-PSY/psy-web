@@ -21,7 +21,6 @@ const Statistics = () => {
       url: '/psy/admins/stats',
     })
       .then((res) => {
-        console.log(res.data.data);
         setData(res.data.data);
         isLoading(false);
       })

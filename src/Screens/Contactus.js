@@ -27,7 +27,6 @@ const Contact = () => {
   const [email, setEmail] = useState('');
   const [subject, setsubject] = useState('');
   const [message, setMessage] = useState('');
-
   const [messageSent, setMessageSent] = useState(false);
   const sendEmail = (e) => {
     e.preventDefault();
@@ -63,7 +62,7 @@ const Contact = () => {
         </Alert>
       )}
       <h1 className="my-5 text-center text-dark">
-        Send Us what you via an Email
+        Send Us what you need via an Email
       </h1>
       <Row className="my-5">
         <Col
@@ -72,7 +71,7 @@ const Contact = () => {
           md={6}
         >
           <img
-            className=" rounded-circle border border-2 border-warning"
+            className=" rounded-circle border-2 border-warning"
             width="320px"
             height="320px"
             alt="svg of a person"

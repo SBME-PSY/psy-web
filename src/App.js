@@ -27,7 +27,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Screens/Videoontact" element={<Contact />} />
+        <Route path="/Contact" element={<Contact />} />
         <Route path="/AdminLogin" element={<Adminsignin />} />
         <Route path="/Admin" element={<AdminPrivateRoute />}>
           <Route path="/Admin" element={<Administrator />}>
@@ -42,7 +42,6 @@ function App() {
             <Route path=":id" element={<Video />} />
           </Route>
           <Route path="/articles" element={<Article />} />
-          <Route path="/video" element={<Video />} />
         </Route>
         <Route path="/Register" element={<Register />} />
         <Route path="*" element={<NotFound />} />

@@ -11,28 +11,31 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function Test() {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
   const err = useSelector((state) => state.err);
+  const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
+  const [searchString, setSearchString] = useState('');
   const [page, setPage] = useState(1);
   const getData = () => {
-    setPage(page + 1);
     axios({
       method: 'GET',
-      url: `/psy/articles?limit=3&page=${page}`,
+      url: `/psy/articles?searchString=${searchString}&limit=3&page=${page}`,
     })
       .then((res) => {
         if (res.data.data.length === 0) {
           setHasMore(false);
         }
-        const newPosts = posts.concat(res.data.data);
-        setPosts(newPosts);
+        setPosts((oldPosts) => {
+          if (searchString) {
+            return res.data.data;
+          }
+          return [...oldPosts, ...res.data.data];
+        });
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           dispatch({
             type: 'UPDATE_ERR',
@@ -47,7 +50,17 @@ export default function Test() {
         setLoading(false);
       });
   };
+  const next = () => {
+    setPage(page + 1);
+    getData();
+  };
+  const handelChange = (e) => {
+    setSearchString(e.target.value);
+    setPage(1);
+  };
+
   useEffect(() => {
+    setPage(page + 1);
     getData();
   }, []);
 
@@ -97,6 +110,8 @@ export default function Test() {
                 style={{ display: 'inline', width: 'auto', maxWidth: '228px' }}
                 className="search-box"
                 placeholder="search"
+                value={searchString}
+                onChange={handelChange}
               />
               <AiOutlineSearch
                 style={{
@@ -104,13 +119,14 @@ export default function Test() {
                   cursor: 'pointer',
                   marginLeft: '10px',
                 }}
+                onClick={getData}
               />
             </Col>
           </Row>
           {/* here posts */}
           <InfiniteScroll
             dataLength={posts.length}
-            next={getData}
+            next={next}
             hasMore={hasMore}
             loader={
               <div style={{ textAlign: 'center' }}>

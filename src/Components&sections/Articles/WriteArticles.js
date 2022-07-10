@@ -11,10 +11,8 @@ import {
 } from 'reactstrap';
 import Editor from './Editor';
 import axios from 'axios';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { uploadPlugin } from '../../assets/uploadAdapter';
 import { useSelector, useDispatch } from 'react-redux';
+import ErrorPage from '../HomeSections/ErrorPage';
 
 function WriteArticles(props) {
   const { isOpen, setIsOpen } = props;
@@ -42,6 +40,7 @@ function WriteArticles(props) {
   };
   return (
     <div>
+      <ErrorPage />
       <Modal
         size="lg"
         scrollable
@@ -84,7 +83,13 @@ function WriteArticles(props) {
           <Editor setText={setText} />
         </ModalBody>
         <ModalFooter>
-          <Button color="success" onClick={handleclick}>
+          <Button
+            className={
+              text === '<p><br></p>' || !text || !title ? 'disabled' : ''
+            }
+            color="success"
+            onClick={handleclick}
+          >
             Post
           </Button>
           <Button

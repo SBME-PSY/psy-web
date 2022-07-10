@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,27 +22,47 @@ function GroupTherpy(props) {
     socket.emit('join-room', roomId, peer.id);
     navigate(`${roomId}`);
   };
-
+  const stream = useSelector((state) => state.stream);
+  const streamRef = useRef(stream);
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({
-        audio: true,
-        video: true,
-      })
-      .then((stream) => {
-        dispatch({ type: 'UPDATE_STREAM', pyload: stream });
-      });
+    if (peer.id && socket.id) {
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: true,
+          video: true,
+        })
+        .then((stream) => {
+          dispatch({ type: 'UPDATE_STREAM', pyload: stream });
+          streamRef.current = stream;
+        });
+    }
+    return () => {
+      if (peer.id && socket.id) {
+        streamRef.current.getTracks().forEach((track) => {
+          track.stop();
+        });
+      }
+    };
   }, []);
   //connect to socket
   return (
     <Wrapper>
       <Navigation />
+      {!peer.id || !socket.id ? (
+        <h1 className="err">
+          sorry! internal server error please try again later
+        </h1>
+      ) : (
+        ''
+      )}
       <section className="header-video">
         <article className="video-container">
           <h2>psy awareness Group therapy</h2>
           <h5>video chating for eavery one</h5>
           <form onSubmit={handelJoinRoom} className="form">
-            <button> join room </button>
+            <button disabled={!peer.id || !socket.id ? true : false}>
+              join room
+            </button>
             <input
               placeholder="put your room id"
               type="text"
@@ -50,7 +70,11 @@ function GroupTherpy(props) {
               onChange={handelChange}
             ></input>
           </form>
-          <button onClick={handelCreateRoom} className="create-room">
+          <button
+            onClick={handelCreateRoom}
+            className="create-room"
+            disabled={!peer.id || !socket.id ? true : false}
+          >
             create Room
           </button>
         </article>
@@ -70,6 +94,11 @@ const Wrapper = styled.div`
   top: 70px;
   @media screen and (min-width: 992px) {
     top: 40px;
+  }
+  .err {
+    text-align: center;
+    color: #a8a29e;
+    margin-top: 30px;
   }
   .header-video {
     text-align: center;
@@ -106,6 +135,9 @@ const Wrapper = styled.div`
         :hover {
           background-color: var(--green600);
         }
+        :disabled {
+          background: var(--green500);
+        }
       }
     }
     .create-room {
@@ -118,6 +150,9 @@ const Wrapper = styled.div`
       :hover {
         background-color: var(--green600);
       }
+      :disabled {
+        background: var(--green500);
+      }
     }
     .join-img {
       img {
@@ -128,7 +163,7 @@ const Wrapper = styled.div`
     @media screen and (min-width: 992px) {
       display: flex;
       justify-content: space-evenly;
-      margin-top: 100px;
+      margin-top: 70px;
       align-items: center;
       .video-container {
         order: 2;

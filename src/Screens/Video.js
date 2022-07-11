@@ -6,11 +6,12 @@ import { BsChatDots, BsMicMute } from 'react-icons/bs';
 import { TbPhoneX } from 'react-icons/tb';
 import Chat from '../Components&sections/Chats/Chat';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
 function Video(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id: roomId } = useParams();
   const [micState, setMicState] = useState(true);
   const [videoState, setVideoState] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -65,6 +66,10 @@ function Video(props) {
     stream.getVideoTracks()[0].enabled = !videoState;
     setVideoState(!videoState);
   };
+  const endGroupTherapy = (peerId) => {
+    socket.disconnect();
+    navigate('/');
+  };
   return (
     <Wrapper>
       <Chat />
@@ -83,7 +88,7 @@ function Video(props) {
             {micState ? <AiOutlineAudio /> : <BsMicMute />}
             <p>mic</p>
           </article>
-          <article>
+          <article onClick={() => endGroupTherapy(peer.id)}>
             <TbPhoneX />
             <p>end</p>
           </article>

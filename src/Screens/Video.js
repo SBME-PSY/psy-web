@@ -7,16 +7,19 @@ import { TbPhoneX } from 'react-icons/tb';
 import Chat from '../Components&sections/Chats/Chat';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'reactstrap';
 function Video(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [micState, setMicState] = useState(true);
   const [videoState, setVideoState] = useState(true);
+  const [loading, setLoading] = useState(true);
   let { stream, peer, socket } = useSelector((store) => store);
   const streamRef = useRef(stream);
 
   useEffect(() => {
     if (peer.id && socket.id) {
+      setLoading(true);
       navigator.mediaDevices
         .getUserMedia({
           audio: true,
@@ -31,18 +34,25 @@ function Video(props) {
             localVideo.addEventListener('loadedmetadata', () => {
               localVideo.play();
             });
-            document.getElementById('video-grid').appendChild(localVideo);
+
             dispatch({ type: 'UPDATE_STREAM', pyload: stream });
             streamRef.current = stream;
+            setLoading(false);
+            document.getElementById('video-grid').appendChild(localVideo);
           }
         });
+    } else {
+      setLoading(false);
+      navigate('/err');
     }
-
     return () => {
-      console.log('iam here');
-      streamRef.current.getTracks().forEach((track) => {
-        track.stop();
-      });
+      if (streamRef.current.id) {
+        streamRef.current.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } else {
+        navigate('/err');
+      }
     };
   }, []);
   const handelMic = () => {
@@ -61,6 +71,7 @@ function Video(props) {
       <main>
         <section>
           <h1>psy awareness</h1>
+          {loading ? <Spinner> </Spinner> : ' '}
         </section>
         <section id="video-grid"></section>
         <section className="footer">

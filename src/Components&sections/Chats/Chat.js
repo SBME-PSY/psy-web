@@ -4,8 +4,10 @@ import { AiOutlineSend } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 function Chat() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id: roomId } = useParams();
   const store = useSelector((state) => state);
   const { socket, user, messages } = store;
@@ -21,9 +23,13 @@ function Chat() {
     dispatch({ type: 'UPDATE_MESSAGES', pyload: messageData });
   };
   useEffect(() => {
-    socket.on('messageCame', (mess) => {
-      dispatch({ type: 'UPDATE_MESSAGES', pyload: mess });
-    });
+    if (!socket.id) {
+      navigate('/errr');
+    } else {
+      socket.on('messageCame', (mess) => {
+        dispatch({ type: 'UPDATE_MESSAGES', pyload: mess });
+      });
+    }
   }, []);
   return (
     <Wrapper>

@@ -1,24 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { FiVideo, FiVideoOff } from 'react-icons/fi';
-import { AiOutlineAudio, AiOutlineAudioMuted } from 'react-icons/ai';
+import { AiOutlineAudio } from 'react-icons/ai';
 import { BsChatDots, BsMicMute } from 'react-icons/bs';
 import { TbPhoneX } from 'react-icons/tb';
 import Chat from '../Components&sections/Chats/Chat';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 function Video(props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [micState, setMicState] = useState(true);
   const [videoState, setVideoState] = useState(true);
-  const { id: roomId } = useParams();
-  let { stream } = useSelector((store) => store);
+  let { stream, peer, socket } = useSelector((store) => store);
+  const streamRef = useRef(stream);
+
   useEffect(() => {
-    const localVideo = document.createElement('video');
-    localVideo.srcObject = stream;
-    localVideo.addEventListener('loadedmetadata', () => {
-      localVideo.play();
-    });
-    document.getElementById('video-grid').appendChild(localVideo);
+    if (peer.id && socket.id) {
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: true,
+          video: true,
+        })
+        .then((stream) => {
+          if (!stream.id) {
+            navigate('/err');
+          } else {
+            const localVideo = document.createElement('video');
+            localVideo.srcObject = stream;
+            localVideo.addEventListener('loadedmetadata', () => {
+              localVideo.play();
+            });
+            document.getElementById('video-grid').appendChild(localVideo);
+            dispatch({ type: 'UPDATE_STREAM', pyload: stream });
+            streamRef.current = stream;
+          }
+        });
+    }
+
+    return () => {
+      console.log('iam here');
+      streamRef.current.getTracks().forEach((track) => {
+        track.stop();
+      });
+    };
   }, []);
   const handelMic = () => {
     const micState = stream.getAudioTracks()[0].enabled;

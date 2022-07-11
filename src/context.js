@@ -68,6 +68,7 @@ export function AppProvider({ children }) {
       store.dispatch({ type: 'UPDATE_SOCKET', pyload: socket });
     });
     socket.on('user-disconnect', (peerId) => {
+      console.log('user disconneted');
       const { peers } = store.getState();
       if (peers[peerId]) {
         peers[peerId].close();

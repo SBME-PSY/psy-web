@@ -73,7 +73,7 @@ function SignUp(props) {
             <Input
               id="exampleEmail"
               name="name"
-              placeholder="with a placeholder"
+              placeholder="Name"
               type="text"
             />
           </FormGroup>
@@ -84,7 +84,7 @@ function SignUp(props) {
             <Input
               id="examplePassword"
               name="email"
-              placeholder="password placeholder"
+              placeholder="Email"
               type="email"
             />
           </FormGroup>
@@ -97,7 +97,7 @@ function SignUp(props) {
             <Input
               id="exampleEmail"
               name="password"
-              placeholder="with a placeholder"
+              placeholder="Password"
               type="password"
             />
           </FormGroup>
@@ -108,8 +108,8 @@ function SignUp(props) {
             <Input
               id="examplePassword"
               name="confirmPassword"
-              placeholder="password placeholder"
-              type="Confirm Password"
+              placeholder="Confirm Password"
+              type="password"
             />
           </FormGroup>
         </Col>
@@ -132,7 +132,7 @@ function SignUp(props) {
             <Input
               id="examplePassword"
               name="age"
-              placeholder="age"
+              placeholder="Age"
               type="text"
             />
           </FormGroup>
@@ -200,7 +200,7 @@ function SignUp(props) {
           ''
         )}
       </Row>
-      <Row>
+      <Row className="align-items-center">
         {Role === 'doctor' ? (
           <>
             <Col md={6}>
@@ -217,18 +217,16 @@ function SignUp(props) {
             </Col>
             <Col md={6}>
               <FormGroup>
-                <Row>
-                  <Col md={2}>
-                    <Label for="role-login">CV</Label>
-                  </Col>
-                  <Col md={10}>
-                    <FileBase64
-                      type="file"
-                      multiple={false}
-                      onDone={({ base64 }) => setCV(base64)}
-                    />
-                  </Col>
-                </Row>
+                <Label for="for-cv" sm={2}>
+                  Cv
+                </Label>{' '}
+                <Col md={10}>
+                  <FileBase64
+                    type="file"
+                    multiple={false}
+                    onDone={({ base64 }) => setCV(base64)}
+                  />
+                </Col>
               </FormGroup>
             </Col>
           </>

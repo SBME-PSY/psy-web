@@ -428,3 +428,10 @@ figure img {
 .infinite-scroll-component {
   overflow: hidden !important;
 }
+.ql-align-right {
+  text-align: right;
+}
+
+.ql-align-center {
+  text-align: center;
+}

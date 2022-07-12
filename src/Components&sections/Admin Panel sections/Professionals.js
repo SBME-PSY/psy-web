@@ -48,6 +48,7 @@ const Professionals = () => {
     setPatchResult('Application has been approved');
     isPatchDone(true);
     getProfessionalsApplications();
+    setModal(false);
   };
 
   const rejectApplication = (id) => {
@@ -55,6 +56,7 @@ const Professionals = () => {
     setPatchResult('Application has been refused');
     isPatchDone(true);
     getProfessionalsApplications();
+    setModal(false);
   };
 
   const getProfessionalsApplications = () => {
@@ -86,7 +88,10 @@ const Professionals = () => {
         Professionals Applications
       </h1>
       {loading && (
-        <div className="d-flex flex-row align-content-center justify-content-center mt-5">
+        <div
+          className="d-flex flex-row align-content-center justify-content-center mt-5"
+          style={{ minHeight: '100vh' }}
+        >
           <Spinner></Spinner>
         </div>
       )}

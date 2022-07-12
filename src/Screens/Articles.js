@@ -19,6 +19,7 @@ export default function Test() {
   const [searchString, setSearchString] = useState('');
   const [page, setPage] = useState(1);
   const getData = () => {
+    setLoading(true);
     axios({
       method: 'GET',
       url: `/psy/articles?searchString=${searchString}&limit=3&page=${page}`,

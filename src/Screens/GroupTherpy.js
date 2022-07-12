@@ -24,26 +24,7 @@ function GroupTherpy(props) {
   };
   const stream = useSelector((state) => state.stream);
   const streamRef = useRef(stream);
-  useEffect(() => {
-    // if (peer.id && socket.id) {
-    //   navigator.mediaDevices
-    //     .getUserMedia({
-    //       audio: true,
-    //       video: true,
-    //     })
-    //     .then((stream) => {
-    //       dispatch({ type: 'UPDATE_STREAM', pyload: stream });
-    //       streamRef.current = stream;
-    //     });
-    // }
-    // // return () => {
-    // //   if (peer.id && socket.id) {
-    // //     streamRef.current.getTracks().forEach((track) => {
-    // //       track.stop();
-    // //     });
-    // //   }
-    // // };
-  }, []);
+  useEffect(() => {}, []);
   //connect to socket
   return (
     <Wrapper>

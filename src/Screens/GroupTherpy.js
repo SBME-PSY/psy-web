@@ -3,39 +3,69 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { BiCopy } from 'react-icons/bi';
+import groupTherapyImage from '../assets/Img/googal_meet.svg';
 import Navigation from '../Components&sections/HomeSections/Navbar';
 function GroupTherpy(props) {
   const dispatch = useDispatch();
   const { socket, peer } = useSelector((store) => store);
   const [roomId, setRoomId] = useState('');
+  const [rooms, setRooms] = useState([]);
+  const [err, setErr] = useState('');
   const navigate = useNavigate();
   const handelChange = (e) => {
     setRoomId(e.target.value);
+  };
+
+  const copyText = (text) => {
+    navigator.clipboard.writeText(text);
   };
   const handelCreateRoom = () => {
     const roomId = uuidv4();
     socket.emit('create-room', roomId, peer.id);
     navigate(`${roomId}`);
   };
-  const handelJoinRoom = (e) => {
-    e.preventDefault();
+  const join = (roomId) => {
+    console.log(roomId);
     socket.emit('join-room', roomId, peer.id);
     navigate(`${roomId}`);
   };
-  const stream = useSelector((state) => state.stream);
-  const streamRef = useRef(stream);
-  useEffect(() => {}, []);
+  const roomExists = (id) => {
+    return rooms.includes(id);
+  };
+  const handelJoinRoom = (e) => {
+    e.preventDefault();
+    if (!roomId) {
+      setErr('empty filed please enter valid id');
+    } else if (!roomExists(roomId)) {
+      setErr('Room isnt exist please try again later');
+    } else {
+      join(roomId);
+    }
+  };
+
+  const handelJoinRoomAuto = (roomId) => {
+    if (!roomExists(roomId)) {
+      setErr('Room isnt exist please try again later');
+    } else {
+      join(roomId);
+    }
+  };
+
+  useEffect(() => {
+    if (!peer.id || !socket.id) {
+      setErr('sorry! internal server error please try again later');
+    } else {
+      socket.emit('getRooms', '_', (response) => {
+        setRooms(response);
+      });
+    }
+  }, []);
   //connect to socket
   return (
     <Wrapper>
       <Navigation />
-      {!peer.id || !socket.id ? (
-        <h1 className="err">
-          sorry! internal server error please try again later
-        </h1>
-      ) : (
-        ''
-      )}
+      {err ? <h1 className="err">{err}</h1> : ''}
       <section className="header-video">
         <article className="video-container">
           <h2>psy awareness Group therapy</h2>
@@ -60,12 +90,24 @@ function GroupTherpy(props) {
           </button>
         </article>
         <article className="join-img">
-          <img
-            src="https://www.gstatic.com/meet/user_edu_get_a_link_light_90698cd7b4ca04d3005c962a3756c42d.svg"
-            alt="d"
-          />
+          <img src={groupTherapyImage} alt="d" />
           <h6>put your room id to join room</h6>
         </article>
+      </section>
+      <section className="roomsId">
+        {rooms.map((roomId, index) => {
+          return (
+            <article key={index}>
+              <span>{roomId}</span>
+              <BiCopy onClick={() => copyText(roomId)} />
+              <div>
+                <button onClick={() => handelJoinRoomAuto(roomId)}>
+                  join room
+                </button>
+              </div>
+            </article>
+          );
+        })}
       </section>
     </Wrapper>
   );
@@ -141,6 +183,7 @@ const Wrapper = styled.div`
         margin-bottom: 20px;
       }
     }
+
     @media screen and (min-width: 992px) {
       display: flex;
       justify-content: space-evenly;
@@ -149,6 +192,57 @@ const Wrapper = styled.div`
       .video-container {
         order: 2;
       }
+    }
+  }
+  .roomsId {
+    display: grid;
+    grid-gap: 5px;
+    justify-content: space-between;
+    margin: 20px 40px 70px 40px;
+    flex-wrap: wrap;
+    article {
+      background-color: #2c83fc;
+      color: white;
+      width: 100%;
+      padding: 10px;
+      margin: 10px;
+      flex: 40%;
+      border-radius: 5px;
+      svg {
+        transition: 0.1s;
+        float: right;
+        font-size: 25px;
+        cursor: pointer;
+        :hover {
+          color: #eee;
+        }
+      }
+      button {
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        transition: 0.1s;
+        margin-top: 10px;
+        background: white;
+        :hover {
+          background-color: #eee;
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 450px) {
+    .roomsId {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media screen and (min-width: 776px) {
+    .roomsId {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media screen and (min-width: 992px) {
+    .roomsId {
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 `;

@@ -8,7 +8,7 @@ import groupTherapyImage from '../assets/Img/googal_meet.svg';
 import Navigation from '../Components&sections/HomeSections/Navbar';
 function GroupTherpy(props) {
   const dispatch = useDispatch();
-  const { socket, peer } = useSelector((store) => store);
+  const { socket, peer, user } = useSelector((store) => store);
   const [roomId, setRoomId] = useState('');
   const [rooms, setRooms] = useState([]);
   const [err, setErr] = useState('');
@@ -81,13 +81,17 @@ function GroupTherpy(props) {
               onChange={handelChange}
             ></input>
           </form>
-          <button
-            onClick={handelCreateRoom}
-            className="create-room"
-            disabled={!peer.id || !socket.id ? true : false}
-          >
-            create Room
-          </button>
+          {user.role !== 'doctor' ? (
+            ' '
+          ) : (
+            <button
+              onClick={handelCreateRoom}
+              className="create-room"
+              disabled={!peer.id || !socket.id ? true : false}
+            >
+              create Room
+            </button>
+          )}
         </article>
         <article className="join-img">
           <img src={groupTherapyImage} alt="d" />

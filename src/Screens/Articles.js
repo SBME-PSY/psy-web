@@ -11,7 +11,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function Test() {
   const dispatch = useDispatch();
-  const err = useSelector((state) => state.err);
+  const { err, user } = useSelector((state) => state);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
@@ -100,13 +100,18 @@ export default function Test() {
         <Container className="container-article">
           <Row className="header align-items-center justify-content-center">
             <Col xs="auto">
-              <Button
-                onClick={() => setIsOpen(true)}
-                color="success"
-                style={{ marginRight: '10px' }}
-              >
-                Write Article
-              </Button>
+              {user.role === 'user' ? (
+                ' '
+              ) : (
+                <Button
+                  onClick={() => setIsOpen(true)}
+                  color="success"
+                  style={{ marginRight: '10px' }}
+                >
+                  Write Article
+                </Button>
+              )}
+
               <Input
                 style={{ display: 'inline', width: 'auto', maxWidth: '228px' }}
                 className="search-box"

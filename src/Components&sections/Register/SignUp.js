@@ -183,22 +183,18 @@ function SignUp(props) {
             </Input>
           </FormGroup>
         </Col>
-        {Role === 'doctor' ? (
-          <Col md={6}>
-            <FormGroup>
-              <Label for="role-login" sm={2}>
-                Governorate
-              </Label>
-              <Input id="role-login" name="governorate" type="select">
-                {governorate.map((city) => {
-                  return <option>{city}</option>;
-                })}
-              </Input>
-            </FormGroup>
-          </Col>
-        ) : (
-          ''
-        )}
+        <Col md={6}>
+          <FormGroup>
+            <Label for="role-login" sm={2}>
+              Governorate
+            </Label>
+            <Input id="role-login" name="governorate" type="select">
+              {governorate.map((city) => {
+                return <option>{city}</option>;
+              })}
+            </Input>
+          </FormGroup>
+        </Col>
       </Row>
       <Row className="align-items-center">
         {Role === 'doctor' ? (

@@ -36,11 +36,13 @@ function App() {
             <Route path="professionals" element={<Professionals />} />
           </Route>
         </Route>
-        <Route element={<UserPrivateRoute />}>
+        <Route path="/VdieoChat" element={<UserPrivateRoute />}>
           <Route path="/VdieoChat" element={<Outlet />}>
             <Route index element={<GroupTherpy />} />
             <Route path=":id" element={<Video />} />
           </Route>
+        </Route>
+        <Route path="/articles" element={<UserPrivateRoute />}>
           <Route path="/articles" element={<Article />} />
         </Route>
         <Route path="/Register" element={<Register />} />

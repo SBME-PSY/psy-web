@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'reactstrap';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { Spinner } from 'reactstrap';
 import styled from 'styled-components';

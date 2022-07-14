@@ -37,9 +37,12 @@ function Chat() {
           {messages.length === 0 ? (
             <div>No message yet</div>
           ) : (
-            messages.map((chatMessage) => {
+            messages.map((chatMessage, index) => {
               return (
-                <article className={chatMessage.myMessage ? '' : 'message1'}>
+                <article
+                  key={index}
+                  className={chatMessage.myMessage ? '' : 'message1'}
+                >
                   <img src={chatMessage.picture} alt="k" cl />
                   <div>{chatMessage.message}</div>
                 </article>

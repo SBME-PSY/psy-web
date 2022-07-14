@@ -145,8 +145,8 @@ function SignUp(props) {
               Sex
             </Label>
             <Input id="role-login" name="sex" type="select">
-              {sex.map((el) => {
-                return <option>{el}</option>;
+              {sex.map((el, index) => {
+                return <option key={index}>{el}</option>;
               })}
             </Input>
           </FormGroup>
@@ -157,8 +157,8 @@ function SignUp(props) {
               Maritalstatus
             </Label>
             <Input id="role-login" name="maritalStatus" type="select">
-              {maritalStatus.map((el) => {
-                return <option>{el}</option>;
+              {maritalStatus.map((el, index) => {
+                return <option key={index}>{el}</option>;
               })}
             </Input>
           </FormGroup>
@@ -177,8 +177,8 @@ function SignUp(props) {
               value={Role}
               onChange={handleChange}
             >
-              {role.map((el) => {
-                return <option>{el}</option>;
+              {role.map((el, index) => {
+                return <option key={index}>{el}</option>;
               })}
             </Input>
           </FormGroup>
@@ -189,8 +189,8 @@ function SignUp(props) {
               Governorate
             </Label>
             <Input id="role-login" name="governorate" type="select">
-              {governorate.map((city) => {
-                return <option>{city}</option>;
+              {governorate.map((city, index) => {
+                return <option key={index}>{city}</option>;
               })}
             </Input>
           </FormGroup>
@@ -205,8 +205,8 @@ function SignUp(props) {
                   Specialization
                 </Label>
                 <Input id="role-login" name="specialization" type="select">
-                  {specialization.map((el) => {
-                    return <option>{el}</option>;
+                  {specialization.map((el, index) => {
+                    return <option key={index}>{el}</option>;
                   })}
                 </Input>
               </FormGroup>

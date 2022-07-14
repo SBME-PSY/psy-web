@@ -33,13 +33,16 @@ export function AppProvider({ children }) {
     videoGrid.appendChild(remoteVideo);
   };
   useEffect(() => {
-    const socket = io('ws://localhost:3001');
     const peer = new Peer(undefined, {
-      host: '/',
-      port: '9000',
-      path: '/myapp',
+      secure: true,
+      host: process.env.REACT_APP_REMOTE_PEER_DOMAIN,
+      port: process.env.REACT_APP_REMOTE_PEER_PORT,
+      path: process.env.REACT_APP_REMOTE_PEER_PATH,
     });
+    const socket = io(process.env.REACT_APP_REMOTE_SOCKET_DOMAIN);
+
     peer.on('open', function (id) {
+      console.log('peer conneted');
       store.dispatch({ type: 'UPDATE_PEER', pyload: peer });
     });
     peer.on('call', (call) => {
@@ -64,6 +67,8 @@ export function AppProvider({ children }) {
       });
     });
     socket.on('connect', () => {
+      console.log('socket conneted');
+
       store.dispatch({ type: 'UPDATE_SOCKET', pyload: socket });
     });
     socket.on('user-disconnect', (peerId) => {

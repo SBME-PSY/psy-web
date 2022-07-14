@@ -101,8 +101,8 @@ function LogIn(props) {
               value={Role}
               onChange={handleChange}
             >
-              {role.map((el) => {
-                return <option>{el}</option>;
+              {role.map((el, index) => {
+                return <option key={index}>{el}</option>;
               })}
             </Input>
           </Col>

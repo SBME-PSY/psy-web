@@ -145,9 +145,9 @@ const Professionals = () => {
                     {Professional.maritalStatus}
                   </h5>
                 </div>
-                {Professional.clinics.map((clinic) => {
+                {Professional.clinics.map((clinic, index) => {
                   return (
-                    <>
+                    <div key={index}>
                       <div className=" my-3 d-flex flex-row justify-content-center">
                         <h5 className="d-inline-block">
                           Clinic Address: {clinic.address}{' '}
@@ -164,7 +164,7 @@ const Professionals = () => {
                           Clinic Phone:{clinic.PhoneNumber}
                         </h5>
                       </div>
-                    </>
+                    </div>
                   );
                 })}
 

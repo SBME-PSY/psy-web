@@ -29,6 +29,7 @@ function Chat() {
         dispatch({ type: 'UPDATE_MESSAGES', pyload: mess });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Wrapper>

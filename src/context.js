@@ -114,6 +114,7 @@ export function AppProvider({ children }) {
         pyload: JSON.parse(getCookie('user')),
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return <Provider store={store}>{children}</Provider>;
 }

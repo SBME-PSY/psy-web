@@ -63,6 +63,7 @@ export default function Test() {
   useEffect(() => {
     setPage(page + 1);
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {

@@ -58,6 +58,7 @@ function GroupTherpy(props) {
         setRooms(response);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //connect to socket
   return (

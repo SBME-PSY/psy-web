@@ -6,12 +6,11 @@ import { BsChatDots, BsMicMute } from 'react-icons/bs';
 import { TbPhoneX } from 'react-icons/tb';
 import Chat from '../Components&sections/Chats/Chat';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
 function Video(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id: roomId } = useParams();
   const [micState, setMicState] = useState(true);
   const [videoState, setVideoState] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -55,6 +54,7 @@ function Video(props) {
         navigate('/err');
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handelMic = () => {
     const micState = stream.getAudioTracks()[0].enabled;

@@ -114,7 +114,7 @@ const Professionals = () => {
             <Row>
               <div className="d-flex flex-row justify-content-center">
                 <img
-                  className="border border-2 rounded-circle border-dark"
+                  className="border-2 rounded-circle border-dark"
                   width="20%"
                   src={Professional.picture}
                   alt="profile pic"
@@ -242,7 +242,7 @@ const Professionals = () => {
               <Col xs={1}>
                 <img
                   width="100%"
-                  className="border border-2 rounded-circle border-dark"
+                  className="border-2 rounded-circle border-dark"
                   src={Professional.picture}
                   alt="doctor profile pic"
                 />

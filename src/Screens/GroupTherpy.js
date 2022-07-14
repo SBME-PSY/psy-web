@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { BiCopy } from 'react-icons/bi';
 import groupTherapyImage from '../assets/Img/googal_meet.svg';
 import Navigation from '../Components&sections/HomeSections/Navbar';
 function GroupTherpy(props) {
-  const dispatch = useDispatch();
   const { socket, peer, user } = useSelector((store) => store);
   const [roomId, setRoomId] = useState('');
   const [rooms, setRooms] = useState([]);

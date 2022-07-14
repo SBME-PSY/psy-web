@@ -60,7 +60,6 @@ export function AppProvider({ children }) {
     });
     peer.on('connection', function (conn) {
       conn.on('data', function (data) {
-        console.log('irecievd ' + data);
         conn.send('you send me' + data);
       });
     });
@@ -68,7 +67,6 @@ export function AppProvider({ children }) {
       store.dispatch({ type: 'UPDATE_SOCKET', pyload: socket });
     });
     socket.on('user-disconnect', (peerId) => {
-      console.log('user disconneted');
       const { peers } = store.getState();
       if (peers[peerId]) {
         peers[peerId].close();
@@ -95,13 +93,6 @@ export function AppProvider({ children }) {
       });
       conn.on('data', function (data) {});
     });
-    // // socket.on('no-room', (roomId) => {
-    //   console.log('no room id = ' + roomId);
-    //   store.dispatch({
-    //     type: 'UPDATE_ALERT',
-    //     pyload: { isNew: true, message: `not valid Id ${roomId}` },
-    //   });
-    // });
     return () => {
       socket.close();
     };

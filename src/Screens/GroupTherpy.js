@@ -26,7 +26,6 @@ function GroupTherpy(props) {
     navigate(`${roomId}`);
   };
   const join = (roomId) => {
-    console.log(roomId);
     socket.emit('join-room', roomId, peer.id);
     navigate(`${roomId}`);
   };

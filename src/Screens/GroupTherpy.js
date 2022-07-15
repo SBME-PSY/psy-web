@@ -127,6 +127,7 @@ function GroupTherpy(props) {
         remoteVideo.remove();
       });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //connect to socket
   return (

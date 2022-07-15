@@ -22,6 +22,7 @@ function Chat() {
   };
   useEffect(() => {
     return dispatch({ type: 'ClEARE_MESSAGES', pyload: '' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Wrapper>

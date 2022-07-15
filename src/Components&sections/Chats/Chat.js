@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineSend } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 function Chat() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id: roomId } = useParams();
   const { socket, user, messages } = useSelector((store) => store);
   const [message, setMessage] = useState('');
@@ -19,17 +18,11 @@ function Chat() {
     socket.emit('sentMessage', messageData, roomId);
     messageData['myMessage'] = true;
     dispatch({ type: 'UPDATE_MESSAGES', pyload: messageData });
+    setMessage('');
   };
-  // useEffect(() => {
-  //   if (!socket.id) {
-  //     navigate('/errr');
-  //   } else {
-  //     socket.on('messageCame', (mess) => {
-  //       dispatch({ type: 'UPDATE_MESSAGES', pyload: mess });
-  //     });
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    return dispatch({ type: 'ClEARE_MESSAGES', pyload: '' });
+  }, []);
   return (
     <Wrapper>
       <main>

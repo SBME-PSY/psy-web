@@ -1,21 +1,19 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FiVideo, FiVideoOff } from 'react-icons/fi';
 import { AiOutlineAudio } from 'react-icons/ai';
 import { BsChatDots, BsMicMute } from 'react-icons/bs';
 import { TbPhoneX } from 'react-icons/tb';
 import Chat from '../Components&sections/Chats/Chat';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
 function Video(props) {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [micState, setMicState] = useState(true);
   const [videoState, setVideoState] = useState(true);
   const [loading, setLoading] = useState(true);
   let { stream, peer, socket } = useSelector((store) => store);
-  const streamRef = useRef(stream);
 
   useEffect(() => {
     const localVideo = document.createElement('video');
@@ -25,6 +23,15 @@ function Video(props) {
       localVideo.play();
     });
     document.getElementById('video-grid').appendChild(localVideo);
+    setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      socket.disconnect();
+      navigate('/');
+      stream.getTracks().forEach((track) => {
+        track.stop();
+      });
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handelMic = () => {
@@ -37,7 +44,7 @@ function Video(props) {
     stream.getVideoTracks()[0].enabled = !videoState;
     setVideoState(!videoState);
   };
-  const endGroupTherapy = (peerId) => {
+  const endGroupTherapy = () => {
     socket.disconnect();
     navigate('/');
   };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, userRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,10 +8,10 @@ import groupTherapyImage from '../assets/Img/googal_meet.svg';
 import Navigation from '../Components&sections/HomeSections/Navbar';
 import { Peer } from 'peerjs';
 import { io } from 'socket.io-client';
-import { useRef } from 'react';
+import { Spinner } from 'reactstrap';
 function GroupTherpy(props) {
   const dispatch = useDispatch();
-  const { socket, peer, user, stream } = useSelector((store) => store);
+  const { socket, peer, user } = useSelector((store) => store);
   const [roomId, setRoomId] = useState('');
   const [rooms, setRooms] = useState([]);
   const [err, setErr] = useState('');
@@ -28,7 +28,6 @@ function GroupTherpy(props) {
   };
 
   const addvideoStream = (remoteStream, remoteVideo) => {
-    remoteVideo.muted = true;
     remoteVideo.srcObject = remoteStream;
     remoteVideo.addEventListener('loadedmetadata', () => {
       remoteVideo.play();
@@ -57,13 +56,13 @@ function GroupTherpy(props) {
   };
   const handelJoinRoom = async (e) => {
     e.preventDefault();
-    // if (!roomId) {
-    //   setErr('empty filed please enter valid id');
-    // } else if (!roomExists(roomId)) {
-    //   setErr('Room isnt exist please try again later');
-    // } else {
-    // }
-    await join(roomId);
+    if (!roomId) {
+      setErr('empty filed please enter valid id');
+    } else if (!roomExists(roomId)) {
+      setErr('Room isnt exist please try again later');
+    } else {
+      await join(roomId);
+    }
   };
 
   const handelJoinRoomAuto = (roomId) => {
@@ -84,8 +83,10 @@ function GroupTherpy(props) {
     });
     const socket = io(process.env.REACT_APP_REMOTE_SOCKET_DOMAIN);
     socket.on('connect', () => {
-      console.log('socket conneted');
       dispatch({ type: 'UPDATE_SOCKET', pyload: socket });
+      socket.emit('getRooms', '_', (response) => {
+        setRooms(response);
+      });
     });
     peer.on('open', function (id) {
       console.log('peer conneted');
@@ -94,15 +95,10 @@ function GroupTherpy(props) {
     peer.on('call', async (call) => {
       const stream = await getMediaStream();
       const remoteVideo = document.createElement('video');
-      remoteVideo.muted = true;
       call.on('stream', function (remoteStream) {
         addvideoStream(remoteStream, remoteVideo);
       });
       call.answer(stream);
-      // dispatch({
-      //   type: 'UPDATE_PEERS',
-      //   pyload: { peerId: call.peer, call },
-      // });
       peers[call.peer] = call;
       console.log(peers);
       call.on('close', () => {
@@ -126,34 +122,24 @@ function GroupTherpy(props) {
       call.on('stream', function (remoteStream) {
         addvideoStream(remoteStream, remoteVideo);
       });
-      // dispatch({
-      //   type: 'UPDATE_PEERS',
-      //   pyload: { peerId: call.peer, call },
-      // });
       peers[call.peer] = call;
       call.on('close', () => {
         remoteVideo.remove();
       });
     });
-    // return () => {
-    //   socket.close();
-    // };
   }, []);
-
-  // useEffect(() => {
-  //   if (!peer.id || !socket.id) {
-  //     setErr('sorry! internal server error please try again later');
-  //   } else {
-  //     socket.emit('getRooms', '_', (response) => {
-  //       setRooms(response);
-  //     });
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
   //connect to socket
   return (
     <Wrapper>
       <Navigation />
+      {!peer.id || !socket.id ? (
+        <div className=" pt-5 bg-white text-center">
+          <Spinner> </Spinner>
+          <div>conneting to server...</div>
+        </div>
+      ) : (
+        ''
+      )}
       {err ? <h1 className="err">{err}</h1> : ''}
       <section className="header-video">
         <article className="video-container">

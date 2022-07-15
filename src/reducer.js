@@ -20,7 +20,8 @@ const reducer = (state, action) => {
       return { ...state, err: action.pyload };
     case 'UPDATE_MESSAGES':
       return { ...state, messages: [...state.messages, action.pyload] };
-
+    case 'ClEARE_MESSAGES':
+      return { ...state, messages: [] };
     default:
       return state;
   }

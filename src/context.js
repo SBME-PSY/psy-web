@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducer';
-import { Peer } from 'peerjs';
-import { io } from 'socket.io-client';
 import axios from 'axios';
 import { getCookie } from './assets/cookie';
 export function AppProvider({ children }) {

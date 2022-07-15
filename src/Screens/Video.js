@@ -18,42 +18,13 @@ function Video(props) {
   const streamRef = useRef(stream);
 
   useEffect(() => {
-    if (peer.id && socket.id) {
-      setLoading(true);
-      navigator.mediaDevices
-        .getUserMedia({
-          audio: true,
-          video: true,
-        })
-        .then((stream) => {
-          if (!stream.id) {
-            navigate('/err');
-          } else {
-            const localVideo = document.createElement('video');
-            localVideo.srcObject = stream;
-            localVideo.addEventListener('loadedmetadata', () => {
-              localVideo.play();
-            });
-
-            dispatch({ type: 'UPDATE_STREAM', pyload: stream });
-            streamRef.current = stream;
-            setLoading(false);
-            document.getElementById('video-grid').appendChild(localVideo);
-          }
-        });
-    } else {
-      setLoading(false);
-      navigate('/err');
-    }
-    return () => {
-      if (streamRef.current.id) {
-        streamRef.current.getTracks().forEach((track) => {
-          track.stop();
-        });
-      } else {
-        navigate('/err');
-      }
-    };
+    const localVideo = document.createElement('video');
+    localVideo.srcObject = stream;
+    localVideo.muted = true;
+    localVideo.addEventListener('loadedmetadata', () => {
+      localVideo.play();
+    });
+    document.getElementById('video-grid').appendChild(localVideo);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handelMic = () => {

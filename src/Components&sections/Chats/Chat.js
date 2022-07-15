@@ -8,8 +8,7 @@ function Chat() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id: roomId } = useParams();
-  const store = useSelector((state) => state);
-  const { socket, user, messages } = store;
+  const { socket, user, messages } = useSelector((store) => store);
   const [message, setMessage] = useState('');
   const handelClick = () => {
     const messageData = {
@@ -21,16 +20,16 @@ function Chat() {
     messageData['myMessage'] = true;
     dispatch({ type: 'UPDATE_MESSAGES', pyload: messageData });
   };
-  useEffect(() => {
-    if (!socket.id) {
-      navigate('/errr');
-    } else {
-      socket.on('messageCame', (mess) => {
-        dispatch({ type: 'UPDATE_MESSAGES', pyload: mess });
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (!socket.id) {
+  //     navigate('/errr');
+  //   } else {
+  //     socket.on('messageCame', (mess) => {
+  //       dispatch({ type: 'UPDATE_MESSAGES', pyload: mess });
+  //     });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   return (
     <Wrapper>
       <main>

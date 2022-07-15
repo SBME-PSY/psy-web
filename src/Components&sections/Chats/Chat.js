@@ -1,20 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { AiOutlineSend } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-function Chat() {
+function Chat({ chatActive }) {
+  const textarea = useRef();
   const dispatch = useDispatch();
   const { id: roomId } = useParams();
   const { socket, user, messages } = useSelector((store) => store);
   const [message, setMessage] = useState('');
+  useEffect(() => {
+    if (chatActive) {
+      textarea.current.focus();
+    }
+  }, [chatActive]);
   const handelClick = () => {
     const messageData = {
       message,
       picture: user.picture,
       sentBy: user.name,
     };
+
     socket.emit('sentMessage', messageData, roomId);
     messageData['myMessage'] = true;
     dispatch({ type: 'UPDATE_MESSAGES', pyload: messageData });
@@ -46,11 +53,12 @@ function Chat() {
 
           <div className="footer-send">
             <textarea
+              ref={textarea}
               placeholder="write a message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button onClick={handelClick}>
+            <button disabled={!message ? true : false} onClick={handelClick}>
               <AiOutlineSend />
             </button>
           </div>

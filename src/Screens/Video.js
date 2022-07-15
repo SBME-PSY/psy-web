@@ -13,6 +13,7 @@ function Video(props) {
   const [micState, setMicState] = useState(true);
   const [videoState, setVideoState] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [chatActive, setchatActive] = useState(true);
   let { stream, peer, socket } = useSelector((store) => store);
 
   useEffect(() => {
@@ -26,11 +27,7 @@ function Video(props) {
     setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
-      socket.disconnect();
-      navigate('/');
-      stream.getTracks().forEach((track) => {
-        track.stop();
-      });
+      endGroupTherapy();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -47,10 +44,13 @@ function Video(props) {
   const endGroupTherapy = () => {
     socket.disconnect();
     navigate('/');
+    stream.getTracks().forEach((track) => {
+      track.stop();
+    });
   };
   return (
     <Wrapper>
-      <Chat />
+      <Chat chatActive={chatActive} />
       <main>
         <section>
           <h1>psy awareness</h1>
@@ -70,7 +70,7 @@ function Video(props) {
             <TbPhoneX />
             <p>end</p>
           </article>
-          <article>
+          <article onClick={() => setchatActive(!chatActive)}>
             <BsChatDots />
             <p>chat</p>
           </article>

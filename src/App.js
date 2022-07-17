@@ -22,6 +22,8 @@ import UserPrivateRoute from './Components&sections/PrivateRoute/UserPrivateRout
 import NotFound from './Screens/NotFound';
 import Article from './Screens/Articles';
 import Video from './Screens/Video';
+import AddTest from './Components&sections/HomeSections/AddTest';
+
 function App() {
   return (
     <Router>
@@ -44,6 +46,9 @@ function App() {
         </Route>
         <Route path="/articles" element={<UserPrivateRoute />}>
           <Route path="/articles" element={<Article />} />
+        </Route>
+        <Route path="/Addtest" element={<UserPrivateRoute />}>
+          <Route path="/Addtest" element={<AddTest />} />
         </Route>
         <Route path="/Register" element={<Register />} />
         <Route path="*" element={<NotFound />} />

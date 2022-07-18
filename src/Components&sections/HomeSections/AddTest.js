@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormGroup, Label, Input, Form, Button, Row, Col } from 'reactstrap';
 import { FaPaperPlane, FaPlus, FaTrash } from 'react-icons/fa';
-
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import ErrorPage from './ErrorPage';
+import axios from 'axios';
+import { useEffect } from 'react';
 function AddTest() {
+  const err = useSelector((state) => state.err);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [cateogries, setCtegories] = useState([]);
   const [scores, setScores] = useState([
     {
       min: '',
@@ -178,165 +186,214 @@ function AddTest() {
     let test = { ...inputFields };
     test.scores = scores;
     console.log(test);
+    axios({
+      url: '/psy/questionnaires',
+      method: 'POST',
+      data: test,
+    })
+      .then((res) => {
+        navigate('/');
+      })
+      .catch((err) => {
+        if (err.response) {
+          dispatch({
+            type: 'UPDATE_ERR',
+            pyload: err.response.data.message,
+          });
+        } else {
+          dispatch({
+            type: 'UPDATE_ERR',
+            pyload: 'sorry there are problem in server try again later',
+          });
+        }
+      });
   };
-
+  useEffect(() => {
+    axios({
+      url: '/psy/questionnaires/categories',
+      method: 'GET',
+    })
+      .then((res) => {
+        setCtegories(res.data.data);
+      })
+      .catch((err) => {
+        if (err.response) {
+          dispatch({
+            type: 'UPDATE_ERR',
+            pyload: err.response.data.message,
+          });
+        } else {
+          dispatch({
+            type: 'UPDATE_ERR',
+            pyload: 'sorry there are problem in server try again later',
+          });
+        }
+      });
+  }, []);
   return (
-    <Form id="testForm" className="px-4 my-3">
-      <h3>Fill the form to add your test</h3>
-      <>
-        <FormGroup>
-          <Row className="my-2">
-            <Col sm={12} md={1}>
-              <Label className="mt-2">Title in Arabic</Label>
-            </Col>
-            <Col sm={12} md={11}>
-              <Input
-                required
-                onChange={(e) => {
-                  handleInputFieldChange(e);
-                }}
-                placeholder="title-ar"
-                type="text"
-                name="title-ar"
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={12} md={1}>
-              <Label className="mt-2">Title in English</Label>
-            </Col>
-            <Col sm={12} md={11}>
-              <Input
-                required
-                onChange={(e) => {
-                  handleInputFieldChange(e);
-                }}
-                placeholder="title-en"
-                type="text"
-                name="title-en"
-              />
-            </Col>
-          </Row>
-          <Row className="my-2">
-            <Col sm={12} md={1}>
-              <Label className="mt-2">Description in Arabic</Label>
-            </Col>
-            <Col sm={12} md={11}>
-              <Input
-                required
-                onChange={(e) => {
-                  handleInputFieldChange(e);
-                }}
-                placeholder="description-ar"
-                type="text"
-                name="description-ar"
-              />
-            </Col>
-          </Row>
-          <Row className="my-2">
-            <Col sm={12} md={1}>
-              <Label className="mt-2">Description in English</Label>
-            </Col>
-            <Col sm={12} md={11}>
-              <Input
-                required
-                onChange={(e) => {
-                  handleInputFieldChange(e);
-                }}
-                placeholder="description-en"
-                type="text"
-                name="description-en"
-              />
-            </Col>
-          </Row>
-          <Row className="my-2">
-            <Col sm={12} md={1}>
-              <Label className="mt-2">Category</Label>
-            </Col>
-            <Col sm={12} md={11}>
-              <Input
-                required
-                onChange={(e) => {
-                  handleInputFieldChange(e);
-                }}
-                placeholder="category"
-                type="text"
-                name="category"
-              />
-            </Col>
-          </Row>
-          <Row className="my-2">
-            <Col sm={12} md={1}>
-              <Label className="mt-2">Rules in Arabic</Label>
-            </Col>
-            <Col sm={12} md={11}>
-              <Input
-                required
-                onChange={(e) => {
-                  handleInputFieldChange(e);
-                }}
-                type="textarea"
-                name="rules-ar"
-                placeholder="rules-ar"
-              />
-            </Col>
-          </Row>
-          <Row className="my-2">
-            <Col sm={12} md={1}>
-              <Label className="mt-2">Rules in English</Label>
-            </Col>
-            <Col sm={12} md={11}>
-              <Input
-                required
-                onChange={(e) => {
-                  handleInputFieldChange(e);
-                }}
-                type="textarea"
-                name="rules-en"
-                placeholder="rules-en"
-              />
-            </Col>
-          </Row>
-          {inputFields.questions.map((question, i) => (
-            <div
-              key={i}
-              className="border p-4 rounded border-2 border-dark my-3"
-            >
-              <Row className="my-2">
-                <Col sm={12} md={1}>
-                  <Label className="mt-2">Body in Arabic</Label>
-                </Col>
-                <Col sm={12} md={11}>
-                  <Input
-                    required
-                    onChange={(e) => {
-                      handleChangeQuestion(i, e);
-                    }}
-                    placeholder="body-ar"
-                    type="text"
-                    name="body-ar"
-                  />
-                </Col>
-              </Row>
-              <Row className="my-2">
-                <Col sm={12} md={1}>
-                  <Label className="mt-2">Body in English</Label>
-                </Col>
-                <Col sm={12} md={11}>
-                  <Input
-                    required
-                    onChange={(e) => {
-                      handleChangeQuestion(i, e);
-                    }}
-                    placeholder="body-en"
-                    type="text"
-                    name="body-en"
-                  />
-                </Col>
-              </Row>
-              <h5>Answer(s) for question no {i + 1}</h5>
-              {question.answers.map((answer, j) => (
-                <>
+    <div>
+      {err ? <ErrorPage /> : ''}
+      <Form id="testForm" className="px-4 my-3">
+        <h3>Fill the form to add your test</h3>
+        <>
+          <FormGroup>
+            <Row className="my-2">
+              <Col sm={12} md={1}>
+                <Label className="mt-2">Title in Arabic</Label>
+              </Col>
+              <Col sm={12} md={11}>
+                <Input
+                  required
+                  onChange={(e) => {
+                    handleInputFieldChange(e);
+                  }}
+                  placeholder="title-ar"
+                  type="text"
+                  name="title-ar"
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={12} md={1}>
+                <Label className="mt-2">Title in English</Label>
+              </Col>
+              <Col sm={12} md={11}>
+                <Input
+                  required
+                  onChange={(e) => {
+                    handleInputFieldChange(e);
+                  }}
+                  placeholder="title-en"
+                  type="text"
+                  name="title-en"
+                />
+              </Col>
+            </Row>
+            <Row className="my-2">
+              <Col sm={12} md={1}>
+                <Label className="mt-2">Description in Arabic</Label>
+              </Col>
+              <Col sm={12} md={11}>
+                <Input
+                  required
+                  onChange={(e) => {
+                    handleInputFieldChange(e);
+                  }}
+                  placeholder="description-ar"
+                  type="text"
+                  name="description-ar"
+                />
+              </Col>
+            </Row>
+            <Row className="my-2">
+              <Col sm={12} md={1}>
+                <Label className="mt-2">Description in English</Label>
+              </Col>
+              <Col sm={12} md={11}>
+                <Input
+                  required
+                  onChange={(e) => {
+                    handleInputFieldChange(e);
+                  }}
+                  placeholder="description-en"
+                  type="text"
+                  name="description-en"
+                />
+              </Col>
+            </Row>
+            <Row className="my-2">
+              <Col sm={12} md={1}>
+                <Label className="mt-2">Category</Label>
+              </Col>
+              <Col sm={12} md={11}>
+                <Input
+                  name="category"
+                  type="select"
+                  onChange={(e) => {
+                    handleInputFieldChange(e);
+                  }}
+                >
+                  {cateogries.map((el, index) => {
+                    return (
+                      <option value={el._id} key={index}>
+                        {el.name.en}
+                      </option>
+                    );
+                  })}
+                </Input>
+              </Col>
+            </Row>
+            <Row className="my-2">
+              <Col sm={12} md={1}>
+                <Label className="mt-2">Rules in Arabic</Label>
+              </Col>
+              <Col sm={12} md={11}>
+                <Input
+                  required
+                  onChange={(e) => {
+                    handleInputFieldChange(e);
+                  }}
+                  type="textarea"
+                  name="rules-ar"
+                  placeholder="rules-ar"
+                />
+              </Col>
+            </Row>
+            <Row className="my-2">
+              <Col sm={12} md={1}>
+                <Label className="mt-2">Rules in English</Label>
+              </Col>
+              <Col sm={12} md={11}>
+                <Input
+                  required
+                  onChange={(e) => {
+                    handleInputFieldChange(e);
+                  }}
+                  type="textarea"
+                  name="rules-en"
+                  placeholder="rules-en"
+                />
+              </Col>
+            </Row>
+            {inputFields.questions.map((question, i) => (
+              <div
+                key={i}
+                className="border p-4 rounded border-2 border-dark my-3"
+              >
+                <Row className="my-2">
+                  <Col sm={12} md={1}>
+                    <Label className="mt-2">Body in Arabic</Label>
+                  </Col>
+                  <Col sm={12} md={11}>
+                    <Input
+                      required
+                      onChange={(e) => {
+                        handleChangeQuestion(i, e);
+                      }}
+                      placeholder="body-ar"
+                      type="text"
+                      name="body-ar"
+                    />
+                  </Col>
+                </Row>
+                <Row className="my-2">
+                  <Col sm={12} md={1}>
+                    <Label className="mt-2">Body in English</Label>
+                  </Col>
+                  <Col sm={12} md={11}>
+                    <Input
+                      required
+                      onChange={(e) => {
+                        handleChangeQuestion(i, e);
+                      }}
+                      placeholder="body-en"
+                      type="text"
+                      name="body-en"
+                    />
+                  </Col>
+                </Row>
+                <h5>Answer(s) for question no {i + 1}</h5>
+                {question.answers.map((answer, j) => (
                   <div
                     key={j}
                     className="border p-4 rounded border-2 border-dark my-3"
@@ -401,152 +458,152 @@ function AddTest() {
                       Delete Answer <FaTrash />
                     </Button>
                   </div>
-                </>
-              ))}
-              <Button
-                className="mt-3 mx-2 btn-success"
-                onClick={() => {
-                  addQuestion();
-                }}
+                ))}
+                <Button
+                  className="mt-3 mx-2 btn-success"
+                  onClick={() => {
+                    addQuestion();
+                  }}
+                >
+                  Add new question
+                  <FaPlus />
+                </Button>
+                <Button
+                  className="mt-3 mx-2 btn-danger"
+                  onClick={() => {
+                    removeQuestion(i);
+                  }}
+                >
+                  Delete question
+                  <FaTrash />
+                </Button>
+              </div>
+            ))}
+          </FormGroup>
+          <h3>Please enter the test scores</h3>
+          <FormGroup>
+            {scores.map((score, index) => (
+              <div
+                key={index}
+                className="p-4 rounded border-2 border-dark my-3"
               >
-                Add new question
-                <FaPlus />
-              </Button>
-              <Button
-                className="mt-3 mx-2 btn-danger"
-                onClick={() => {
-                  removeQuestion(i);
-                }}
-              >
-                Delete question
-                <FaTrash />
-              </Button>
-            </div>
-          ))}
-        </FormGroup>
-        <h3>Please enter the test scores</h3>
-        <FormGroup>
-          {scores.map((score, index) => (
-            <div
-              key={index}
-              className="border p-4 rounded border-2 border-dark my-3"
-            >
-              <Row className="my-2">
-                <Col sm={12} md={2}>
-                  <Label className="mt-2">Minimum Score</Label>
-                </Col>
-                <Col sm={12} md={4}>
-                  <Input
-                    required
-                    onChange={(e) => {
-                      handleScoreChange(index, e);
-                    }}
-                    placeholder="min score"
-                    type="number"
-                    name="min"
-                  />
-                </Col>
-                <Col sm={12} md={2}>
-                  <Label className="mt-2">Maximum Score</Label>
-                </Col>
-                <Col sm={12} md={4}>
-                  <Input
-                    required
-                    onChange={(e) => {
-                      handleScoreChange(index, e);
-                    }}
-                    placeholder="max score"
-                    type="number"
-                    name="max"
-                  />
-                </Col>
-              </Row>
-              <Row className="my-2">
-                <Col sm={12} md={1}>
-                  <Label className="mt-2">Result in Arabic</Label>
-                </Col>
-                <Col sm={12} md={5}>
-                  <Input
-                    required
-                    onChange={(e) => {
-                      handleScoreChange(index, e);
-                    }}
-                    placeholder="result-ar"
-                    type="text"
-                    name="result-ar"
-                  />
-                </Col>
-                <Col sm={12} md={1}>
-                  <Label className="mt-2">Result in English</Label>
-                </Col>
-                <Col sm={12} md={5}>
-                  <Input
-                    required
-                    onChange={(e) => {
-                      handleScoreChange(index, e);
-                    }}
-                    placeholder="result-en"
-                    type="text"
-                    name="result-en"
-                  />
-                </Col>
-              </Row>
-              <Row className="my-2">
-                <Col sm={12} md={1}>
-                  <Label className="mt-2">Description in Arabic</Label>
-                </Col>
-                <Col sm={12} md={5}>
-                  <Input
-                    required
-                    onChange={(e) => {
-                      handleScoreChange(index, e);
-                    }}
-                    placeholder="description-ar"
-                    type="text"
-                    name="description-ar"
-                  />
-                </Col>
-                <Col sm={12} md={1}>
-                  <Label className="mt-2">Description in English</Label>
-                </Col>
-                <Col sm={12} md={5}>
-                  <Input
-                    required
-                    onChange={(e) => {
-                      handleScoreChange(index, e);
-                    }}
-                    placeholder="description-en"
-                    type="text"
-                    name="description-en"
-                  />
-                </Col>
-              </Row>
-              <Button
-                className="mt-3 mx-2 btn-success"
-                onClick={() => {
-                  addScore();
-                }}
-              >
-                Add new score
-                <FaPlus />
-              </Button>
-              <Button
-                className="mt-3 mx-2 btn-danger"
-                onClick={() => {
-                  removeScore(index);
-                }}
-              >
-                Delete score
-                <FaTrash />
-              </Button>
-            </div>
-          ))}
-        </FormGroup>
-      </>
-      <Button type="submit" onClick={handleSubmit}>
-        Submit <FaPaperPlane />
-      </Button>
-    </Form>
+                <Row className="my-2">
+                  <Col sm={12} md={2}>
+                    <Label className="mt-2">Minimum Score</Label>
+                  </Col>
+                  <Col sm={12} md={4}>
+                    <Input
+                      required
+                      onChange={(e) => {
+                        handleScoreChange(index, e);
+                      }}
+                      placeholder="min score"
+                      type="number"
+                      name="min"
+                    />
+                  </Col>
+                  <Col sm={12} md={2}>
+                    <Label className="mt-2">Maximum Score</Label>
+                  </Col>
+                  <Col sm={12} md={4}>
+                    <Input
+                      required
+                      onChange={(e) => {
+                        handleScoreChange(index, e);
+                      }}
+                      placeholder="max score"
+                      type="number"
+                      name="max"
+                    />
+                  </Col>
+                </Row>
+                <Row className="my-2">
+                  <Col sm={12} md={1}>
+                    <Label className="mt-2">Result in Arabic</Label>
+                  </Col>
+                  <Col sm={12} md={5}>
+                    <Input
+                      required
+                      onChange={(e) => {
+                        handleScoreChange(index, e);
+                      }}
+                      placeholder="result-ar"
+                      type="text"
+                      name="result-ar"
+                    />
+                  </Col>
+                  <Col sm={12} md={1}>
+                    <Label className="mt-2">Result in English</Label>
+                  </Col>
+                  <Col sm={12} md={5}>
+                    <Input
+                      required
+                      onChange={(e) => {
+                        handleScoreChange(index, e);
+                      }}
+                      placeholder="result-en"
+                      type="text"
+                      name="result-en"
+                    />
+                  </Col>
+                </Row>
+                <Row className="my-2">
+                  <Col sm={12} md={1}>
+                    <Label className="mt-2">Description in Arabic</Label>
+                  </Col>
+                  <Col sm={12} md={5}>
+                    <Input
+                      required
+                      onChange={(e) => {
+                        handleScoreChange(index, e);
+                      }}
+                      placeholder="description-ar"
+                      type="text"
+                      name="description-ar"
+                    />
+                  </Col>
+                  <Col sm={12} md={1}>
+                    <Label className="mt-2">Description in English</Label>
+                  </Col>
+                  <Col sm={12} md={5}>
+                    <Input
+                      required
+                      onChange={(e) => {
+                        handleScoreChange(index, e);
+                      }}
+                      placeholder="description-en"
+                      type="text"
+                      name="description-en"
+                    />
+                  </Col>
+                </Row>
+                <Button
+                  className="mt-3 mx-2 btn-success"
+                  onClick={() => {
+                    addScore();
+                  }}
+                >
+                  Add new score
+                  <FaPlus />
+                </Button>
+                <Button
+                  className="mt-3 mx-2 btn-danger"
+                  onClick={() => {
+                    removeScore(index);
+                  }}
+                >
+                  Delete score
+                  <FaTrash />
+                </Button>
+              </div>
+            ))}
+          </FormGroup>
+        </>
+        <Button type="submit" onClick={handleSubmit}>
+          Submit <FaPaperPlane />
+        </Button>
+      </Form>
+    </div>
   );
 }
 

@@ -52,8 +52,8 @@ const Statistics = () => {
               <NumerStat
                 numUsers={data.userStatsGender[0].numUsers}
                 numDoctors={data.doctorStatsGender[0].numDoctors}
-                numTestToken={data.resultsStats[0].numResults}
-                numTestTokenUnique={data.resultsUniqueStats[0].numUniqueResults}
+                numTestTaken={data.resultsStats[0].numResults}
+                numTestTakenUnique={data.resultsUniqueStats[0].numUniqueResults}
               />
             </Col>
             <Col xs={12} md={6} className="mt-5">

@@ -5,7 +5,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { GiBookmarklet } from 'react-icons/gi';
 import { RiPsychotherapyFill } from 'react-icons/ri';
 
-function NumerStat({ numUsers, numDoctors, numTestToken, numTestTokenUnique }) {
+function NumerStat({ numUsers, numDoctors, numTestTaken, numTestTakenUnique }) {
   return (
     <Wrapper>
       <h4> Numerical Statistics</h4>
@@ -35,8 +35,8 @@ function NumerStat({ numUsers, numDoctors, numTestToken, numTestTokenUnique }) {
               <RiPsychotherapyFill />
             </div>
             <div className="stat-num">
-              <span>{numTestToken}</span>
-              <p>test token</p>
+              <span>{numTestTaken}</span>
+              <p># Tests taken</p>
             </div>
           </Col>
           <Col className="numstat  mx-1" md="3">
@@ -44,8 +44,8 @@ function NumerStat({ numUsers, numDoctors, numTestToken, numTestTokenUnique }) {
               <RiPsychotherapyFill />
             </div>
             <div className="stat-num">
-              <span>{numTestTokenUnique}</span>
-              <p> unique test token</p>
+              <span>{numTestTakenUnique}</span>
+              <p># Unique tests taken</p>
             </div>
           </Col>
         </Row>

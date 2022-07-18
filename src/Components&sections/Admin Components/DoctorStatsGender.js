@@ -27,7 +27,7 @@ function DoctorStatsGender(props) {
   };
   return (
     <div>
-      <h4>Doctors Gender</h4>
+      <h4>Doctors' Gender</h4>
       <ReactEcharts option={option} theme={'light'} />
     </div>
   );

@@ -43,7 +43,7 @@ function ResultsGovernateStats({ data }) {
   };
   return (
     <div>
-      <h4>Tests Token per governrate</h4>
+      <h4>Tests Taken per governrate</h4>
       <ReactEcharts option={option} />
     </div>
   );

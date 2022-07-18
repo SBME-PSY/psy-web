@@ -18,7 +18,7 @@ function NumerStat({ numUsers, numDoctors, numTestTaken, numTestTakenUnique }) {
             </div>
             <div className="stat-num">
               <span>{numUsers}</span>
-              <p>users</p>
+              <p>Users</p>
             </div>
           </Col>
           <Col className="numstat  mx-1" md="3">
@@ -27,7 +27,7 @@ function NumerStat({ numUsers, numDoctors, numTestTaken, numTestTakenUnique }) {
             </div>
             <div className="stat-num">
               <span>{numDoctors}</span>
-              <p>doctors</p>
+              <p>Doctors</p>
             </div>
           </Col>
           <Col className="numstat  mx-1" md="3">
@@ -36,7 +36,7 @@ function NumerStat({ numUsers, numDoctors, numTestTaken, numTestTakenUnique }) {
             </div>
             <div className="stat-num">
               <span>{numTestTaken}</span>
-              <p># Tests taken</p>
+              <p>Tests taken</p>
             </div>
           </Col>
           <Col className="numstat  mx-1" md="3">
@@ -45,7 +45,7 @@ function NumerStat({ numUsers, numDoctors, numTestTaken, numTestTakenUnique }) {
             </div>
             <div className="stat-num">
               <span>{numTestTakenUnique}</span>
-              <p># Unique tests taken</p>
+              <p>Unique tests taken</p>
             </div>
           </Col>
         </Row>

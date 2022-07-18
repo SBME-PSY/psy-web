@@ -185,7 +185,6 @@ function AddTest() {
     e.preventDefault();
     let test = { ...inputFields };
     test.scores = scores;
-    console.log(test);
     axios({
       url: '/psy/questionnaires',
       method: 'POST',
@@ -229,7 +228,7 @@ function AddTest() {
           });
         }
       });
-  }, []);
+  }, [dispatch]);
   return (
     <div>
       {err ? <ErrorPage /> : ''}

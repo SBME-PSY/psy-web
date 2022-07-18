@@ -6,7 +6,7 @@ import { BsChatDots, BsMicMute } from 'react-icons/bs';
 import { TbPhoneX } from 'react-icons/tb';
 import Chat from '../Components&sections/Chats/Chat';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
 function Video(props) {
   const navigate = useNavigate();
@@ -17,14 +17,20 @@ function Video(props) {
   let { stream, peer, socket } = useSelector((store) => store);
 
   useEffect(() => {
-    const localVideo = document.createElement('video');
-    localVideo.srcObject = stream;
-    localVideo.muted = true;
-    localVideo.addEventListener('loadedmetadata', () => {
-      localVideo.play();
-    });
-    document.getElementById('video-grid').appendChild(localVideo);
-    setLoading(false);
+    if (stream.id && socket.id) {
+      const localVideo = document.createElement('video');
+      localVideo.srcObject = stream;
+      localVideo.muted = true;
+      localVideo.addEventListener('loadedmetadata', () => {
+        localVideo.play();
+      });
+      document.getElementById('video-grid').appendChild(localVideo);
+      setLoading(false);
+      socket.on('admin-disconnect', (peerId) => {
+        endGroupTherapy();
+      });
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
       endGroupTherapy();
@@ -42,14 +48,17 @@ function Video(props) {
     setVideoState(!videoState);
   };
   const endGroupTherapy = () => {
-    socket.disconnect();
-    navigate('/');
-    stream.getTracks().forEach((track) => {
-      track.stop();
-    });
+    if ((socket.id, stream.id)) {
+      socket.disconnect();
+      navigate('/');
+      stream.getTracks().forEach((track) => {
+        track.stop();
+      });
+    }
   };
   return (
     <Wrapper>
+      {!stream.id || !socket.id ? <Navigate to="/err" /> : ''}
       <Chat chatActive={chatActive} />
       <main>
         <section>

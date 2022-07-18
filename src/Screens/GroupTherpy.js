@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,6 +10,7 @@ import { Peer } from 'peerjs';
 import { io } from 'socket.io-client';
 import { Spinner } from 'reactstrap';
 function GroupTherpy(props) {
+  const localStream = useRef();
   const dispatch = useDispatch();
   const { socket, peer, user } = useSelector((store) => store);
   const [roomId, setRoomId] = useState('');
@@ -42,14 +43,16 @@ function GroupTherpy(props) {
     const roomId = uuidv4();
     socket.emit('create-room', roomId, peer.id);
     const stream = await getMediaStream();
+    localStream.current = stream;
     dispatch({ type: 'UPDATE_STREAM', pyload: stream });
     navigate(`${roomId}`);
   };
   const join = async (roomId) => {
-    socket.emit('join-room', roomId, peer.id);
     const stream = await getMediaStream();
+    localStream.current = stream;
     dispatch({ type: 'UPDATE_STREAM', pyload: stream });
     navigate(`${roomId}`);
+    socket.emit('join-room', roomId, peer.id);
   };
   const roomExists = (id) => {
     return rooms.includes(id);
@@ -93,30 +96,25 @@ function GroupTherpy(props) {
       dispatch({ type: 'UPDATE_PEER', pyload: peer });
     });
     peer.on('call', async (call) => {
-      const stream = await getMediaStream();
+      const stream = localStream.current;
       const remoteVideo = document.createElement('video');
       call.on('stream', function (remoteStream) {
         addvideoStream(remoteStream, remoteVideo);
       });
       call.answer(stream);
       peers[call.peer] = call;
-      console.log(peers);
       call.on('close', () => {
         remoteVideo.remove();
       });
     });
     socket.on('user-disconnect', (peerId) => {
-      console.log('user-disconned');
-      console.log(peers);
-      console.log(peerId);
       if (peers[peerId]) {
         peers[peerId].close();
       }
     });
 
     socket.on('user-connected', async (userId) => {
-      console.log('user conected');
-      const stream = await getMediaStream();
+      const stream = localStream.current;
       let call = peer.call(userId, stream);
       const remoteVideo = document.createElement('video');
       call.on('stream', function (remoteStream) {

@@ -15,7 +15,7 @@ function Chat({ chatActive }) {
       textarea.current.focus();
     }
   }, [chatActive]);
-  const handelClick = () => {
+  const sendMessage = () => {
     const messageData = {
       message,
       picture: user.picture,
@@ -31,6 +31,11 @@ function Chat({ chatActive }) {
     return dispatch({ type: 'ClEARE_MESSAGES', pyload: '' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && message !== '') {
+      sendMessage();
+    }
+  };
   return (
     <Wrapper>
       <main>
@@ -57,8 +62,9 @@ function Chat({ chatActive }) {
               placeholder="write a message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
-            <button disabled={!message ? true : false} onClick={handelClick}>
+            <button disabled={!message ? true : false} onClick={sendMessage}>
               <AiOutlineSend />
             </button>
           </div>

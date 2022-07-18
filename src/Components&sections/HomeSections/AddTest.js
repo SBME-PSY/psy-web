@@ -355,10 +355,7 @@ function AddTest() {
               </Col>
             </Row>
             {inputFields.questions.map((question, i) => (
-              <div
-                key={i}
-                className="border p-4 rounded border-2 border-dark my-3"
-              >
+              <div key={i} className="p-4 rounded border-2 border-dark my-3">
                 <Row className="my-2">
                   <Col sm={12} md={1}>
                     <Label className="mt-2">Body in Arabic</Label>
@@ -395,7 +392,7 @@ function AddTest() {
                 {question.answers.map((answer, j) => (
                   <div
                     key={j}
-                    className="border p-4 rounded border-2 border-dark my-3"
+                    className="p-4 rounded border-2 border-dark my-3"
                   >
                     <Row className="my-2">
                       <Col sm={12} md={1}>

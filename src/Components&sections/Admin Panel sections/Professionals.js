@@ -203,9 +203,6 @@ const Professionals = () => {
                   elements={cv}
                 >
                   <img
-                    style={{
-                      width: '200px',
-                    }}
                     // src={
                     //   process.env.REACT_APP_REMOTE_SERVER_DOMAIN +
                     //   Professional.cv

@@ -13,6 +13,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SRLWrapper } from 'simple-react-lightbox';
 import axios from 'axios';
+import cv from '../../assets/Img/doctorCV--1656866426180-756467720.jpeg';
 const Professionals = () => {
   const [loading, isLoading] = useState(true);
   const [error, loadError] = useState(false);
@@ -196,15 +197,20 @@ const Professionals = () => {
               </Row>
               <div className="d-flex flex-row justify-content-center">
                 <SRLWrapper
-                  elements={
-                    process.env.REACT_APP_REMOTE_SERVER_DOMAIN + Professional.cv
-                  }
+                  // elements={
+                  //   process.env.REACT_APP_REMOTE_SERVER_DOMAIN + Professional.cv
+                  // }
+                  elements={cv}
                 >
                   <img
-                    src={
-                      process.env.REACT_APP_REMOTE_SERVER_DOMAIN +
-                      Professional.cv
-                    }
+                    style={{
+                      width: '200px',
+                    }}
+                    // src={
+                    //   process.env.REACT_APP_REMOTE_SERVER_DOMAIN +
+                    //   Professional.cv
+                    // }
+                    src={cv}
                     alt="college certificate"
                   />
                 </SRLWrapper>

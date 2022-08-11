@@ -44,7 +44,6 @@ const Adminsignin = () => {
           navigate('/Admin');
         })
         .catch((err) => {
-          console.log(err);
           setWrongCredintials(true);
         });
     },

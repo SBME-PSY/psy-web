@@ -24,7 +24,6 @@ const Statistics = () => {
         isLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         isLoading(false);
         loadError(true);
       });

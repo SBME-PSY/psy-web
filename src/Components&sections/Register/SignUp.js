@@ -50,7 +50,6 @@ function SignUp(props) {
         navigate('/');
       })
       .catch((err) => {
-        console.log(err);
         if (err.response) {
           dispatch({
             type: 'UPDATE_ERR',

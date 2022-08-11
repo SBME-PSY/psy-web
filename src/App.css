@@ -435,3 +435,9 @@ figure img {
 .ql-align-center {
   text-align: center;
 }
+
+@media screen and (max-width: 1024px) {
+  .hvr-grow {
+    transition: 2000s !important;
+  }
+}

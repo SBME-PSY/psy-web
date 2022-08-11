@@ -92,7 +92,6 @@ function GroupTherpy(props) {
       });
     });
     peer.on('open', function (id) {
-      console.log('peer conneted');
       dispatch({ type: 'UPDATE_PEER', pyload: peer });
     });
     peer.on('call', async (call) => {

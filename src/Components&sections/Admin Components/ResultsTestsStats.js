@@ -6,7 +6,6 @@ function ResultsTestsStats({ data: tests }) {
   let values = [];
   tests.forEach((test) => {
     keys.push(test._id.en);
-    console.log(test._id.en);
     values.push(test.numPatients);
   });
   const option = {

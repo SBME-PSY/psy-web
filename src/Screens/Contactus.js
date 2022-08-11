@@ -48,9 +48,7 @@ const Contact = () => {
           setMessage('');
         }, 2500);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   return (
     <Container>

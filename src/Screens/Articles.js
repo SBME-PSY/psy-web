@@ -13,16 +13,16 @@ export default function Test() {
   const dispatch = useDispatch();
   const { err, user } = useSelector((state) => state);
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [searchString, setSearchString] = useState('');
   const [page, setPage] = useState(1);
   const getData = () => {
-    setLoading(true);
+    // setLoading(true);
     axios({
       method: 'GET',
-      url: `/psy/articles?searchString=${searchString}&limit=3&page=${page}`,
+      url: `/psy/articles?searchString=${searchString}&limit=1&page=${page}`,
     })
       .then((res) => {
         if (res.data.data.length === 0) {
@@ -34,7 +34,7 @@ export default function Test() {
           }
           return [...oldPosts, ...res.data.data];
         });
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((err) => {
         if (err.response) {
@@ -142,7 +142,7 @@ export default function Test() {
             }
             endMessage={
               <p style={{ textAlign: 'center' }}>
-                <b>Yay! You have seen it all</b>
+                <b> Yay! You have seen it all </b>
               </p>
             }
           >

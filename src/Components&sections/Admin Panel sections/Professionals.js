@@ -38,9 +38,7 @@ const Professionals = () => {
         }
       )
       .then((res) => {})
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const ApproveApplication = (id) => {
@@ -70,7 +68,6 @@ const Professionals = () => {
         isLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         isLoading(false);
         loadError(true);
       });
